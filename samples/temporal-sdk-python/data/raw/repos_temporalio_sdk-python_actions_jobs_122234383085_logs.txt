@@ -1,0 +1,1219 @@
+2026-10-27T14:02:27.8673163Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-27T14:02:31.2797968Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-27T14:02:31.3226204Z ##[group]Run : parse toolchain version
+2026-10-27T14:02:31.4206916Z ##[group]Run : construct rustup command line
+2026-10-27T14:02:31.4700156Z ##[group]Run : set $CARGO_HOME
+2026-10-27T14:02:31.5573013Z ##[group]Run : install rustup if needed
+2026-10-27T14:02:31.6294088Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-10-27T14:02:39.8131494Z ##[group]Run rustup default stable
+2026-10-27T14:02:40.2650564Z ##[group]Run : create cachekey
+2026-10-27T14:02:40.2974668Z ##[group]Run : disable incremental compilation
+2026-10-27T14:02:40.3098289Z ##[group]Run : enable colors in Cargo output
+2026-10-27T14:02:40.3237171Z ##[group]Run : enable Cargo sparse registry
+2026-10-27T14:02:40.3547133Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-27T14:02:40.3757566Z ##[group]Run rustc +stable --version --verbose
+2026-10-27T14:02:40.4070269Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-27T14:02:40.5476065Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-27T14:02:41.2723341Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.10.22/arm64-build-lint-test-Linux-arm64-e99c569a-d9a07ed7
+2026-10-27T14:02:55.0910849Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.10.22/arm64-build-lint-test-Linux-arm64-e99c569a-d9a07ed7" full match: true.
+2026-10-27T14:02:56.3000452Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-27T14:03:02.3965416Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-27T14:03:05.0521630Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-27T14:03:05.3001047Z Cache hit for: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-27T14:03:07.2565015Z cache restored from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-27T14:03:07.3182558Z ##[group]Run uv tool install poethepoet
+2026-10-27T14:03:07.5493879Z Installed 3 packages in 6ms
+2026-10-27T14:03:07.5565834Z ##[group]Run uv sync --all-extras
+2026-10-27T14:03:15.2696128Z Installed 218 packages in 4.10s
+2026-10-27T14:03:15.2849572Z ##[group]Run poe build-develop
+2026-10-27T14:03:18.7574248Z Installed 1 package in 39ms
+2026-10-27T14:04:58.8698707Z ##[group]Run poe lint
+2026-10-27T14:06:36.5482344Z ##[group]Run mkdir junit-xml
+2026-10-27T14:06:36.5641068Z ##[group]Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s --junit-xml=junit-xml/3.10--ubuntu-arm.xml
+2026-10-27T14:09:12.5554274Z ======================================================== ERRORS ========================================================
+2026-10-27T14:09:12.5555061Z __________________________________ ERROR at setup of test_load_client_connect_config ___________________________________
+2026-10-27T14:09:12.5590911Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5592155Z ________________________ ERROR at setup of test_e2e_basic_development_profile_client_connection ________________________
+2026-10-27T14:09:12.5638002Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5639057Z _________________________ ERROR at setup of test_e2e_production_tls_api_key_client_connection __________________________
+2026-10-27T14:09:12.5681341Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5682545Z __________________________ ERROR at setup of test_e2e_environment_overrides_client_connection __________________________
+2026-10-27T14:09:12.5706386Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5707682Z ________________________ ERROR at setup of test_e2e_multi_profile_different_client_connections _________________________
+2026-10-27T14:09:12.5731323Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5733128Z _________________________________________ ERROR at setup of test_client_plugin _________________________________________
+2026-10-27T14:09:12.5756361Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5757399Z __________________________________ ERROR at setup of test_worker_plugin_basic_config ___________________________________
+2026-10-27T14:09:12.5781933Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5783145Z ___________________________________ ERROR at setup of test_worker_duplicated_plugin ____________________________________
+2026-10-27T14:09:12.5833265Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5834476Z __________________________________ ERROR at setup of test_worker_sandbox_restrictions __________________________________
+2026-10-27T14:09:12.5858067Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5859123Z ____________________________________________ ERROR at setup of test_replay _____________________________________________
+2026-10-27T14:09:12.5899166Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5900195Z ________________________________________ ERROR at setup of test_simple_plugins _________________________________________
+2026-10-27T14:09:12.5924209Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5925239Z ___________________________________ ERROR at setup of test_simple_plugins_callables ____________________________________
+2026-10-27T14:09:12.5949482Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5950505Z _________________________________________ ERROR at setup of test_medium_plugin _________________________________________
+2026-10-27T14:09:12.5974097Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.5975160Z _____________________ ERROR at setup of test_simple_plugin_worker_interceptor_only_used_on_worker ______________________
+2026-10-27T14:09:12.6009060Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6010167Z _____________ ERROR at setup of test_simple_plugin_interceptor_duplication_when_used_on_client_and_worker ______________
+2026-10-27T14:09:12.6078132Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6079324Z ________ ERROR at setup of test_simple_plugin_no_duplication_when_interceptor_in_both_client_and_worker_params _________
+2026-10-27T14:09:12.6121306Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6123629Z _______________________ ERROR at setup of test_simple_plugin_no_duplication_in_interceptor_chain _______________________
+2026-10-27T14:09:12.6171572Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6171964Z ______________________________________ ERROR at setup of test_different_runtimes _______________________________________
+2026-10-27T14:09:12.6180662Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6181075Z __________________________ ERROR at setup of test_runtime_log_forwarding_after_client_dropped __________________________
+2026-10-27T14:09:12.6205327Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6205723Z _______________________________ ERROR at setup of test_runtime_task_fail_log_forwarding ________________________________
+2026-10-27T14:09:12.6230491Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6230902Z _____________________________ ERROR at setup of test_prometheus_histogram_bucket_overrides _____________________________
+2026-10-27T14:09:12.6239634Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6240050Z ___________________________ ERROR at setup of test_opentelemetry_histogram_bucket_overrides ____________________________
+2026-10-27T14:09:12.6263979Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6264412Z ________________ ERROR at setup of test_payload_conversion_calls_follow_expected_sequence_and_contexts _________________
+2026-10-27T14:09:12.6289252Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6289680Z _____________________________ ERROR at setup of test_heartbeat_details_payload_conversion ______________________________
+2026-10-27T14:09:12.6298390Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6298799Z _______________________________ ERROR at setup of test_local_activity_payload_conversion _______________________________
+2026-10-27T14:09:12.6322736Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6323170Z _________________________ ERROR at setup of test_async_activity_completion_payload_conversion __________________________
+2026-10-27T14:09:12.6331996Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6335594Z _______________________________ ERROR at setup of test_subclassed_async_activity_handle ________________________________
+2026-10-27T14:09:12.6357095Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6357489Z ___________________________________ ERROR at setup of test_signal_payload_conversion ___________________________________
+2026-10-27T14:09:12.6381891Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6382293Z ___________________________________ ERROR at setup of test_query_payload_conversion ____________________________________
+2026-10-27T14:09:12.6391254Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6391752Z ________________________________ ERROR at setup of test_update_payload_conversion[True] ________________________________
+2026-10-27T14:09:12.6416127Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6416530Z _______________________________ ERROR at setup of test_update_payload_conversion[False] ________________________________
+2026-10-27T14:09:12.6440998Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6441432Z ____________________ ERROR at setup of test_external_workflow_signal_and_cancel_payload_conversion _____________________
+2026-10-27T14:09:12.6450254Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6450666Z ________________________________ ERROR at setup of test_failure_converter_with_context _________________________________
+2026-10-27T14:09:12.6475360Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6475786Z ______________________________________ ERROR at setup of test_codec_with_context _______________________________________
+2026-10-27T14:09:12.6500069Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6500476Z _______________________________ ERROR at setup of test_local_activity_codec_with_context _______________________________
+2026-10-27T14:09:12.6509351Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6509757Z _______________________________ ERROR at setup of test_child_workflow_codec_with_context _______________________________
+2026-10-27T14:09:12.6533960Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6534620Z _____________________________ ERROR at setup of test_decode_context_matches_encode_context _____________________________
+2026-10-27T14:09:12.6559319Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6559732Z _________________________ ERROR at setup of test_workflow_nexus_payload_codec_receives_context _________________________
+2026-10-27T14:09:12.6568613Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6569037Z _____________________ ERROR at setup of test_standalone_nexus_handle_obtained_by_id_has_no_context _____________________
+2026-10-27T14:09:12.6593239Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6593660Z ________________________ ERROR at setup of test_standalone_nexus_payload_codec_receives_context ________________________
+2026-10-27T14:09:12.6613845Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6618998Z _________________________ ERROR at setup of test_workflow_nexus_failure_converter_has_context __________________________
+2026-10-27T14:09:12.6627948Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6628371Z _____________________ ERROR at setup of test_standalone_nexus_describe_reads_metadata_with_context _____________________
+2026-10-27T14:09:12.6652326Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6652950Z ________________________ ERROR at setup of test_standalone_nexus_failure_converter_has_context _________________________
+2026-10-27T14:09:12.6661575Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6662161Z ________________________________ ERROR at setup of test_pydantic_converter_with_context ________________________________
+2026-10-27T14:09:12.6687178Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6687606Z ________________________ ERROR at setup of test_user_customization_of_default_payload_converter ________________________
+2026-10-27T14:09:12.6711774Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6712178Z ____________________________________ ERROR at setup of test_all_grpc_calls_present _____________________________________
+2026-10-27T14:09:12.6721088Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6721481Z _________________________________________ ERROR at setup of test_check_health __________________________________________
+2026-10-27T14:09:12.6746624Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6747141Z __________________________________________ ERROR at setup of test_grpc_status __________________________________________
+2026-10-27T14:09:12.6771709Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6772110Z ___________________________________ ERROR at setup of test_rpc_execution_not_unknown ___________________________________
+2026-10-27T14:09:12.6781061Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6781470Z ___________________________ ERROR at setup of test_connect_timeout_allows_healthy_connection ___________________________
+2026-10-27T14:09:12.6805871Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6806260Z ______________________________________ ERROR at setup of test_workflow_env_assert ______________________________________
+2026-10-27T14:09:12.6831017Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6831422Z ________________________________ ERROR at setup of test_search_attributes_on_dev_server ________________________________
+2026-10-27T14:09:12.6840237Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6840648Z ________________________ ERROR at setup of test_get_time_skipping_info_raises_on_non_ts_v2_env _________________________
+2026-10-27T14:09:12.6865137Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6865530Z ________________________________________ ERROR at setup of test_activity_hello _________________________________________
+2026-10-27T14:09:12.6890123Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6890627Z __________________________________ ERROR at setup of test_activity_without_decorator ___________________________________
+2026-10-27T14:09:12.6899753Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6900153Z _____________________________________ ERROR at setup of test_activity_custom_name ______________________________________
+2026-10-27T14:09:12.6925073Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6925480Z _____________________________ ERROR at setup of test_client_available_in_async_activities ______________________________
+2026-10-27T14:09:12.6949407Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6949816Z ____________________________ ERROR at setup of test_client_not_available_in_sync_activities ____________________________
+2026-10-27T14:09:12.6958995Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6959387Z _________________________________________ ERROR at setup of test_activity_info _________________________________________
+2026-10-27T14:09:12.6978642Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.6979042Z _____________________________________ ERROR at setup of test_sync_activity_thread ______________________________________
+2026-10-27T14:09:12.7003062Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7003455Z _____________________________________ ERROR at setup of test_sync_activity_process _____________________________________
+2026-10-27T14:09:12.7012640Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7013059Z ______________________________ ERROR at setup of test_sync_activity_process_non_picklable ______________________________
+2026-10-27T14:09:12.7022006Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7036791Z _______________________________________ ERROR at setup of test_activity_failure ________________________________________
+2026-10-27T14:09:12.7065351Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7065759Z _________________________________ ERROR at setup of test_sync_activity_process_failure _________________________________
+2026-10-27T14:09:12.7092145Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7092660Z ______________________________________ ERROR at setup of test_activity_bad_params ______________________________________
+2026-10-27T14:09:12.7101810Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7102205Z _____________________________________ ERROR at setup of test_activity_cancel_catch _____________________________________
+2026-10-27T14:09:12.7111231Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7111628Z _____________________________________ ERROR at setup of test_activity_cancel_throw _____________________________________
+2026-10-27T14:09:12.7144953Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7145365Z ______________________________ ERROR at setup of test_sync_activity_thread_cancel_caught _______________________________
+2026-10-27T14:09:12.7171192Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7171600Z _____________________________ ERROR at setup of test_sync_activity_thread_cancel_uncaught ______________________________
+2026-10-27T14:09:12.7180760Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7181181Z ________________________ ERROR at setup of test_sync_activity_thread_cancel_exception_disabled _________________________
+2026-10-27T14:09:12.7204718Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7205136Z ________________________ ERROR at setup of test_sync_activity_thread_cancel_exception_shielded _________________________
+2026-10-27T14:09:12.7230446Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7230860Z ________________________ ERROR at setup of test_sync_activity_thread_cancel_on_worker_shutdown _________________________
+2026-10-27T14:09:12.7240014Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7240424Z _________________________________ ERROR at setup of test_sync_activity_process_cancel __________________________________
+2026-10-27T14:09:12.7264235Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7264639Z _____________________________ ERROR at setup of test_sync_activity_process_cancel_uncaught _____________________________
+2026-10-27T14:09:12.7290419Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7290828Z ____________________________________ ERROR at setup of test_activity_does_not_exist ____________________________________
+2026-10-27T14:09:12.7299775Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7300397Z ___________________________________ ERROR at setup of test_max_concurrent_activities ___________________________________
+2026-10-27T14:09:12.7359065Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7359460Z ______________________________________ ERROR at setup of test_activity_type_hints ______________________________________
+2026-10-27T14:09:12.7383266Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7383667Z __________________________________ ERROR at setup of test_activity_heartbeat_details ___________________________________
+2026-10-27T14:09:12.7392341Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7409437Z ___________________________ ERROR at setup of test_activity_heartbeat_details_converter_fail ___________________________
+2026-10-27T14:09:12.7418748Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7419166Z ______________________________ ERROR at setup of test_activity_heartbeat_details_timeout _______________________________
+2026-10-27T14:09:12.7442631Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7443074Z _____________________ ERROR at setup of test_activity_heartbeat_details_keep_order_with_slow_codec _____________________
+2026-10-27T14:09:12.7451683Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7452093Z ____________________________ ERROR at setup of test_sync_activity_thread_heartbeat_details _____________________________
+2026-10-27T14:09:12.7477843Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7478486Z ____________________________ ERROR at setup of test_sync_activity_process_heartbeat_details ____________________________
+2026-10-27T14:09:12.7501759Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7502187Z _____________________ ERROR at setup of test_sync_activity_process_non_picklable_heartbeat_details _____________________
+2026-10-27T14:09:12.7511033Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7511433Z _________________________________ ERROR at setup of test_activity_error_non_retryable __________________________________
+2026-10-27T14:09:12.7537617Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7538032Z _______________________________ ERROR at setup of test_activity_error_non_retryable_type _______________________________
+2026-10-27T14:09:12.7560749Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7561272Z _______________________________________ ERROR at setup of test_activity_logging ________________________________________
+2026-10-27T14:09:12.7570226Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7570624Z ___________________________________ ERROR at setup of test_activity_worker_shutdown ____________________________________
+2026-10-27T14:09:12.7597276Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7597684Z _______________________________ ERROR at setup of test_activity_worker_shutdown_graceful _______________________________
+2026-10-27T14:09:12.7606630Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7607259Z _____________________ ERROR at setup of test_activity_cancel_during_result_encode_still_completes ______________________
+2026-10-27T14:09:12.7640419Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7640842Z ________________________ ERROR at setup of test_sync_activity_process_worker_shutdown_graceful _________________________
+2026-10-27T14:09:12.7656311Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7656714Z _____________________________ ERROR at setup of test_sync_activity_process_executor_crash ______________________________
+2026-10-27T14:09:12.7680539Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7680935Z _________________________________ ERROR at setup of test_activity_async_success[True] __________________________________
+2026-10-27T14:09:12.7690047Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7690529Z _________________________________ ERROR at setup of test_activity_async_success[False] _________________________________
+2026-10-27T14:09:12.7715631Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7716036Z ____________________________ ERROR at setup of test_activity_async_heartbeat_and_fail[True] ____________________________
+2026-10-27T14:09:12.7739884Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7740290Z ___________________________ ERROR at setup of test_activity_async_heartbeat_and_fail[False] ____________________________
+2026-10-27T14:09:12.7749202Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7749599Z __________________________________ ERROR at setup of test_activity_async_cancel[True] __________________________________
+2026-10-27T14:09:12.7775165Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7775563Z _________________________________ ERROR at setup of test_activity_async_cancel[False] __________________________________
+2026-10-27T14:09:12.7799259Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7799666Z ___________________________________ ERROR at setup of test_sync_activity_contextvars ___________________________________
+2026-10-27T14:09:12.7808606Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7809036Z ______________ ERROR at setup of test_sync_activity_cancel_after_return_does_not_kill_thread_pool_worker _______________
+2026-10-27T14:09:12.7834407Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7834924Z ___________________________ ERROR at setup of test_activity_local_without_schedule_to_close ____________________________
+2026-10-27T14:09:12.7858961Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7859359Z _______________________________________ ERROR at setup of test_activity_dynamic ________________________________________
+2026-10-27T14:09:12.7868236Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7868636Z _________________________________ ERROR at setup of test_sync_activity_dynamic_thread __________________________________
+2026-10-27T14:09:12.7893725Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7894127Z _________________________________ ERROR at setup of test_sync_activity_dynamic_process _________________________________
+2026-10-27T14:09:12.7918026Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7918432Z __________________________________ ERROR at setup of test_activity_dynamic_duplicate ___________________________________
+2026-10-27T14:09:12.7927374Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7927779Z _______________________________ ERROR at setup of test_activity_failure_trace_identifier _______________________________
+2026-10-27T14:09:12.7953127Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7953532Z __________________________________ ERROR at setup of test_activity_heartbeat_context ___________________________________
+2026-10-27T14:09:12.7966193Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7977638Z _____________________________________ ERROR at setup of test_activity_reset_catch ______________________________________
+2026-10-27T14:09:12.7986846Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.7987243Z ____________________________________ ERROR at setup of test_activity_reset_history _____________________________________
+2026-10-27T14:09:12.8012217Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8012778Z _______________________ ERROR at setup of test_local_activities_with_no_remote_activities_option _______________________
+2026-10-27T14:09:12.8021500Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8021915Z ________________________ ERROR at setup of test_workflow_runs_on_pool_thread_without_debug_mode ________________________
+2026-10-27T14:09:12.8046237Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8046645Z __________________________ ERROR at setup of test_workflow_runs_on_main_thread_in_debug_mode ___________________________
+2026-10-27T14:09:12.8071757Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8072176Z _____________________ ERROR at setup of test_breakpoint_works_in_sandboxed_workflow_in_debug_mode ______________________
+2026-10-27T14:09:12.8080978Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8081401Z _______________________ ERROR at setup of test_breakpoint_quit_continues_workflow_in_debug_mode ________________________
+2026-10-27T14:09:12.8105325Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8105947Z ___________________________ ERROR at setup of test_sandboxed_breakpoint_points_at_debug_mode ___________________________
+2026-10-27T14:09:12.8131174Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8131574Z ____________________________________ ERROR at setup of test_user_provided_label_ids ____________________________________
+2026-10-27T14:09:12.8140410Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8140808Z __________________________________ ERROR at setup of test_label_payload_is_json_plain __________________________________
+2026-10-27T14:09:12.8164710Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8165138Z ___________________ ERROR at setup of test_label_payload_uses_default_converter_not_worker_converter ___________________
+2026-10-27T14:09:12.8190812Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8191228Z ________________________ ERROR at setup of test_label_payload_is_codec_encoded_but_ids_are_not _________________________
+2026-10-27T14:09:12.8200123Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8200523Z _____________________________ ERROR at setup of test_commands_in_a_scope_carry_its_marker ______________________________
+2026-10-27T14:09:12.8224122Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8224519Z ____________________________________ ERROR at setup of test_nesting_scopes_composes ____________________________________
+2026-10-27T14:09:12.8250197Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8250873Z ______________________________ ERROR at setup of test_reentering_a_group_nests_correctly _______________________________
+2026-10-27T14:09:12.8259851Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8260265Z ______________________ ERROR at setup of test_a_group_can_be_scoped_from_two_concurrent_branches _______________________
+2026-10-27T14:09:12.8283919Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8284336Z _______________________ ERROR at setup of test_a_task_started_inside_a_scope_keeps_it_after_exit _______________________
+2026-10-27T14:09:12.8310187Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8310619Z ______________________ ERROR at setup of test_a_task_created_outside_a_scope_does_not_inherit_it _______________________
+2026-10-27T14:09:12.8319792Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8320307Z _________________________ ERROR at setup of test_a_scope_unwinds_cleanly_when_its_body_throws __________________________
+2026-10-27T14:09:12.8343578Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8343989Z _____________________________ ERROR at setup of test_static_signal_handler_implicit_group ______________________________
+2026-10-27T14:09:12.8365928Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8370073Z _____________________________ ERROR at setup of test_runtime_signal_handler_implicit_group _____________________________
+2026-10-27T14:09:12.8378964Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8379585Z ______________________ ERROR at setup of test_buffered_signal_keeps_its_original_implicit_marker _______________________
+2026-10-27T14:09:12.8403046Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8403462Z ____________________________ ERROR at setup of test_catch_all_signal_handler_implicit_group ____________________________
+2026-10-27T14:09:12.8412167Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8425066Z _____________________________ ERROR at setup of test_static_update_handler_implicit_group ______________________________
+2026-10-27T14:09:12.8438407Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8438815Z _____________________________ ERROR at setup of test_runtime_update_handler_implicit_group _____________________________
+2026-10-27T14:09:12.8462006Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8462735Z ____________________________ ERROR at setup of test_catch_all_update_handler_implicit_group ____________________________
+2026-10-27T14:09:12.8471426Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8471814Z _____________________________________ ERROR at setup of test_markers_dedupe_by_id ______________________________________
+2026-10-27T14:09:12.8497972Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8498389Z _________________________________ ERROR at setup of test_timer_commands_carry_markers __________________________________
+2026-10-27T14:09:12.8521292Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8521707Z ______________________ ERROR at setup of test_asyncio_sleep_and_call_later_carry_ambient_markers _______________________
+2026-10-27T14:09:12.8530940Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8531349Z ________________________________ ERROR at setup of test_activity_commands_carry_markers ________________________________
+2026-10-27T14:09:12.8557501Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8557916Z _____________________________ ERROR at setup of test_local_activity_commands_carry_markers _____________________________
+2026-10-27T14:09:12.8580623Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8581033Z _____________________________ ERROR at setup of test_child_workflow_commands_carry_markers _____________________________
+2026-10-27T14:09:12.8590134Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8590625Z ____________________________ ERROR at setup of test_nexus_operation_commands_carry_markers _____________________________
+2026-10-27T14:09:12.8617585Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8618094Z ___________________________ ERROR at setup of test_external_workflow_commands_carry_markers ____________________________
+2026-10-27T14:09:12.8627033Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8627448Z _________________________ ERROR at setup of test_child_workflow_signal_commands_carry_markers __________________________
+2026-10-27T14:09:12.8660210Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8660614Z ________________________________ ERROR at setup of test_metadata_commands_carry_markers ________________________________
+2026-10-27T14:09:12.8669761Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8670156Z ________________________________ ERROR at setup of test_continue_as_new_carries_markers ________________________________
+2026-10-27T14:09:12.8697338Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8697747Z ____________________________ ERROR at setup of test_event_group_rejects_empty_id_and_label _____________________________
+2026-10-27T14:09:12.8706596Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8707007Z ______________________________ ERROR at setup of test_extstore_activity_input_no_retrieve ______________________________
+2026-10-27T14:09:12.8739507Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8739917Z _______________________________ ERROR at setup of test_extstore_activity_result_no_store _______________________________
+2026-10-27T14:09:12.8749004Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8749412Z ________________________________ ERROR at setup of test_extstore_worker_missing_driver _________________________________
+2026-10-27T14:09:12.8776326Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8776743Z ___________________________ ERROR at setup of test_extstore_payload_not_found_fails_workflow ___________________________
+2026-10-27T14:09:12.8785687Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8786104Z ________________________ ERROR at setup of test_replay_extstore_history_fails_without_extstore _________________________
+2026-10-27T14:09:12.8818894Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8819322Z ____________________ ERROR at setup of test_replay_extstore_history_succeeds_with_correct_extstore _____________________
+2026-10-27T14:09:12.8828151Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8828569Z ________________________ ERROR at setup of test_replay_extstore_history_fails_with_empty_driver ________________________
+2026-10-27T14:09:12.8854918Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8855346Z ____________________ ERROR at setup of test_replay_extstore_activity_result_fails_without_extstore _____________________
+2026-10-27T14:09:12.8864227Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8864860Z __________________________________ ERROR at setup of test_extstore_chained_activities __________________________________
+2026-10-27T14:09:12.8906914Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8907332Z _________________________ ERROR at setup of test_worker_storage_drivers_populated_from_client __________________________
+2026-10-27T14:09:12.8932709Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8933150Z _____________________ ERROR at setup of test_worker_storage_drivers_empty_without_external_storage _____________________
+2026-10-27T14:09:12.8941801Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8942196Z _____________________________________ ERROR at setup of test_tmprl1104_no_extstore _____________________________________
+2026-10-27T14:09:12.8965908Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8966327Z _______________________________ ERROR at setup of test_tmprl1104_with_extstore_download ________________________________
+2026-10-27T14:09:12.8992037Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.8992622Z ________________________________ ERROR at setup of test_tmprl1104_with_extstore_upload _________________________________
+2026-10-27T14:09:12.9001291Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9001704Z __________________________ ERROR at setup of test_tmprl1104_with_extstore_download_and_upload __________________________
+2026-10-27T14:09:12.9025293Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9025881Z _________________________________ ERROR at setup of test_store_metadata_start_workflow _________________________________
+2026-10-27T14:09:12.9051610Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9052012Z _______________________________ ERROR at setup of test_store_metadata_signal_with_start ________________________________
+2026-10-27T14:09:12.9060798Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9061192Z ________________________________ ERROR at setup of test_store_metadata_signal_workflow _________________________________
+2026-10-27T14:09:12.9495303Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9496100Z ________________________________ ERROR at setup of test_store_metadata_schedule_action _________________________________
+2026-10-27T14:09:12.9538915Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9539347Z _________________________________ ERROR at setup of test_store_metadata_child_workflow _________________________________
+2026-10-27T14:09:12.9559502Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9560976Z ______________________________ ERROR at setup of test_store_metadata_activity_scheduling _______________________________
+2026-10-27T14:09:12.9579711Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9580176Z ____________________________ ERROR at setup of test_store_metadata_signal_external_workflow ____________________________
+2026-10-27T14:09:12.9609524Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9610158Z ______________________________ ERROR at setup of test_store_metadata_standalone_activity _______________________________
+2026-10-27T14:09:12.9632748Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9633185Z ___________________ ERROR at setup of test_extstore_continue_as_new_result_stored_under_current_run ____________________
+2026-10-27T14:09:12.9661774Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9662960Z ______________________________________ ERROR at setup of test_worker_interceptor _______________________________________
+2026-10-27T14:09:12.9689682Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9691799Z ___________________________ ERROR at setup of test_workflow_instance_access_from_interceptor ___________________________
+2026-10-27T14:09:12.9720833Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9721491Z __________________________ ERROR at setup of test_oversized_payload_fails_task_with_error_log __________________________
+2026-10-27T14:09:12.9744018Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9744428Z __________________________ ERROR at setup of test_disable_payload_error_limit_sends_to_server __________________________
+2026-10-27T14:09:12.9766085Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9766522Z ________________________________ ERROR at setup of test_payload_size_warning_forwarded _________________________________
+2026-10-27T14:09:12.9790625Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9791239Z __________________________________ ERROR at setup of test_memo_size_warning_forwarded __________________________________
+2026-10-27T14:09:12.9806181Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9806841Z _________________________________ ERROR at setup of test_replayer_workflow_incomplete __________________________________
+2026-10-27T14:09:12.9820878Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9821494Z ___________________________________ ERROR at setup of test_replayer_workflow_failed ____________________________________
+2026-10-27T14:09:12.9835358Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9835978Z ______________________________ ERROR at setup of test_replayer_workflow_nondeterministic _______________________________
+2026-10-27T14:09:12.9849862Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9850635Z _______________________________ ERROR at setup of test_replayer_workflow_not_registered ________________________________
+2026-10-27T14:09:12.9864586Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9865198Z _________________________________ ERROR at setup of test_replayer_multiple_from_client _________________________________
+2026-10-27T14:09:12.9878720Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9879348Z ________________________ ERROR at setup of test_with_start_workflow_operation_cannot_be_reused _________________________
+2026-10-27T14:09:12.9893137Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9908263Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9922763Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9937341Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9951880Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9966619Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9981560Z _________________________ ERROR at setup of test_update_with_start_sets_first_execution_run_id _________________________
+2026-10-27T14:09:12.9995629Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:12.9996272Z _______________________ ERROR at setup of test_update_with_start_workflow_already_started_error ________________________
+2026-10-27T14:09:13.0010633Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0011271Z _________________________ ERROR at setup of test_update_with_start_client_outbound_interceptor _________________________
+2026-10-27T14:09:13.0025278Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0025907Z _______________ ERROR at setup of test_update_with_start_does_not_encode_shared_interceptor_header_twice _______________
+2026-10-27T14:09:13.0039785Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0040408Z ___________________________ ERROR at setup of test_workflow_and_update_can_return_dataclass ____________________________
+2026-10-27T14:09:13.0054302Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0054900Z __________________________________ ERROR at setup of test_update_with_start_no_param ___________________________________
+2026-10-27T14:09:13.0068689Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0069299Z __________________________________ ERROR at setup of test_update_with_start_one_param __________________________________
+2026-10-27T14:09:13.0083503Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0084127Z __________________________________ ERROR at setup of test_update_with_start_two_param __________________________________
+2026-10-27T14:09:13.0098403Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0098996Z _____________________________ ERROR at setup of test_start_update_with_start_empty_details _____________________________
+2026-10-27T14:09:13.0113505Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0128100Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0142125Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0142917Z _____ ERROR at setup of test_update_with_start_always_attaches_to_completed_update[ALLOW_DUPLICATE-FAIL-COMPLETES] _____
+2026-10-27T14:09:13.0156400Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0157072Z ______ ERROR at setup of test_update_with_start_always_attaches_to_completed_update[ALLOW_DUPLICATE-FAIL-BLOCKS] _______
+2026-10-27T14:09:13.0171094Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0185615Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0200356Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0201250Z ____ ERROR at setup of test_update_with_start_always_attaches_to_completed_update[REJECT_DUPLICATE-FAIL-COMPLETES] _____
+2026-10-27T14:09:13.0215488Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0216173Z ______ ERROR at setup of test_update_with_start_always_attaches_to_completed_update[REJECT_DUPLICATE-FAIL-BLOCKS] ______
+2026-10-27T14:09:13.0229844Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0244203Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0258987Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0273922Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0288282Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0303238Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0346880Z _____________________ ERROR at setup of test_update_with_start_rpc_metadata_and_timeout_forwarded ______________________
+2026-10-27T14:09:13.0360108Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0360953Z ____________________________________ ERROR at setup of test_worker_fatal_error_run _____________________________________
+2026-10-27T14:09:13.0388258Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0389513Z ____________________________________ ERROR at setup of test_worker_fatal_error_with ____________________________________
+2026-10-27T14:09:13.0415958Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0417197Z __________________________________ ERROR at setup of test_worker_fatal_error_callback __________________________________
+2026-10-27T14:09:13.0450539Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0451790Z _______________________________________ ERROR at setup of test_worker_cancel_run _______________________________________
+2026-10-27T14:09:13.0478398Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0479841Z _____________________________________ ERROR at setup of test_worker_validate_fail ______________________________________
+2026-10-27T14:09:13.0505875Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0507114Z _________________________________ ERROR at setup of test_can_run_resource_based_worker _________________________________
+2026-10-27T14:09:13.0540893Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0542132Z ________________________________ ERROR at setup of test_can_run_composite_tuner_worker _________________________________
+2026-10-27T14:09:13.0568442Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0569963Z _____________________________ ERROR at setup of test_cant_specify_max_concurrent_and_tuner _____________________________
+2026-10-27T14:09:13.0603305Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0604559Z __________________________________ ERROR at setup of test_warns_when_workers_too_low ___________________________________
+2026-10-27T14:09:13.0661017Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0662074Z _____________________________________ ERROR at setup of test_custom_slot_supplier ______________________________________
+2026-10-27T14:09:13.0676118Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0676734Z ____________________________________ ERROR at setup of test_throwing_slot_supplier _____________________________________
+2026-10-27T14:09:13.0752655Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0753212Z ____________________________________ ERROR at setup of test_blocking_slot_supplier _____________________________________
+2026-10-27T14:09:13.0977024Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0977446Z _______________________ ERROR at setup of test_custom_slot_supplier_with_heartbeating_activities _______________________
+2026-10-27T14:09:13.0986988Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0987394Z _____________________________ ERROR at setup of test_worker_with_worker_deployment_config ______________________________
+2026-10-27T14:09:13.0996562Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.0996953Z ____________________________________ ERROR at setup of test_worker_deployment_ramp _____________________________________
+2026-10-27T14:09:13.1012818Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1013254Z ___________________ ERROR at setup of test_worker_deployment_dynamic_workflow_with_pinned_versioning ___________________
+2026-10-27T14:09:13.1022543Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1022998Z ________________ ERROR at setup of test_worker_deployment_dynamic_workflow_with_auto_upgrade_versioning ________________
+2026-10-27T14:09:13.1032113Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1032644Z ________________ ERROR at setup of test_workflows_must_have_versioning_behavior_when_feature_turned_on _________________
+2026-10-27T14:09:13.1041872Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1042557Z _________________________ ERROR at setup of test_workflows_can_use_default_versioning_behavior _________________________
+2026-10-27T14:09:13.1051196Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1051615Z __________________________ ERROR at setup of test_worker_deployment_config_without_versioning __________________________
+2026-10-27T14:09:13.1070889Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1071322Z _______________ ERROR at setup of test_deployment_config_rejects_versioning_behavior_without_versioning ________________
+2026-10-27T14:09:13.1083970Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1084380Z _____________________________ ERROR at setup of test_workflows_can_use_versioning_override _____________________________
+2026-10-27T14:09:13.1093848Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1094273Z ___________________ ERROR at setup of test_child_workflows_can_use_versioning_override[pinned-start] ___________________
+2026-10-27T14:09:13.1103094Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1103540Z __________________ ERROR at setup of test_child_workflows_can_use_versioning_override[pinned-execute] __________________
+2026-10-27T14:09:13.1112105Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1113101Z ________________ ERROR at setup of test_child_workflows_can_use_versioning_override[auto-upgrade-start] ________________
+2026-10-27T14:09:13.1121979Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1122639Z _______________ ERROR at setup of test_child_workflows_can_use_versioning_override[auto-upgrade-execute] _______________
+2026-10-27T14:09:13.1131486Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1131941Z ___________ ERROR at setup of test_child_workflows_can_use_versioning_override[one-time-auto-upgrade-start] ____________
+2026-10-27T14:09:13.1145938Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1146384Z __________ ERROR at setup of test_child_workflows_can_use_versioning_override[one-time-auto-upgrade-execute] ___________
+2026-10-27T14:09:13.1158003Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1158432Z ______________ ERROR at setup of test_child_workflows_can_use_versioning_override[one-time-pinned-start] _______________
+2026-10-27T14:09:13.1170301Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1170736Z _____________ ERROR at setup of test_child_workflows_can_use_versioning_override[one-time-pinned-execute] ______________
+2026-10-27T14:09:13.1179611Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1180019Z ______________________________ ERROR at setup of test_can_run_autoscaling_polling_worker _______________________________
+2026-10-27T14:09:13.1188875Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1189305Z ____________________________ ERROR at setup of TestForkCreateWorker.test_fork_create_worker ____________________________
+2026-10-27T14:09:13.1201611Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1202280Z _______________________________ ERROR at setup of TestForkUseWorker.test_fork_use_worker _______________________________
+2026-10-27T14:09:13.1211418Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1212175Z ______________________ ERROR at setup of test_activity_client_updates_when_worker_client_changes _______________________
+2026-10-27T14:09:13.1220894Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1221306Z _____________________________ ERROR at setup of test_continue_as_new_with_version_upgrade ______________________________
+2026-10-27T14:09:13.1230138Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1230552Z _____________________________ ERROR at setup of test_continue_as_new_with_ramping_version ______________________________
+2026-10-27T14:09:13.1243048Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1243506Z ________________ ERROR at setup of test_worker_max_eager_activity_reservations_per_workflow_task_config ________________
+2026-10-27T14:09:13.1252042Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1252814Z ________________ ERROR at setup of test_worker_rejects_non_positive_max_eager_activity_reservations[0] _________________
+2026-10-27T14:09:13.1261963Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1262498Z ________________ ERROR at setup of test_worker_rejects_non_positive_max_eager_activity_reservations[-1] ________________
+2026-10-27T14:09:13.1271687Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1272228Z _______________________________________ ERROR at setup of test_worker_debug_mode _______________________________________
+2026-10-27T14:09:13.1281784Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1282190Z ____________________________ ERROR at setup of test_plugin_cleanup_awaits_after_worker_exit ____________________________
+2026-10-27T14:09:13.1319796Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1320222Z ___________________ ERROR at setup of test_plugin_cleanup_is_cancelled_after_plugin_shutdown_timeout ___________________
+2026-10-27T14:09:13.1329819Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1330228Z ________________________________________ ERROR at setup of test_workflow_hello _________________________________________
+2026-10-27T14:09:13.1339455Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1341087Z _____________________________________ ERROR at setup of test_workflow_hello_eager ______________________________________
+2026-10-27T14:09:13.1349895Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1350288Z _____________________________________ ERROR at setup of test_workflow_multi_param ______________________________________
+2026-10-27T14:09:13.1359119Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1359502Z _________________________________________ ERROR at setup of test_workflow_info _________________________________________
+2026-10-27T14:09:13.1369087Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1369734Z _____________________________________ ERROR at setup of test_workflow_history_info _____________________________________
+2026-10-27T14:09:13.1378731Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1379131Z ___________________________________ ERROR at setup of test_workflow_signal_and_query ___________________________________
+2026-10-27T14:09:13.1388219Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1388630Z ______________________________ ERROR at setup of test_workflow_signal_and_query_handlers _______________________________
+2026-10-27T14:09:13.1397442Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1397851Z _______________________________ ERROR at setup of test_workflow_signal_and_query_errors ________________________________
+2026-10-27T14:09:13.1408178Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1408709Z __________________________ ERROR at setup of test_workflow_signal_and_query_old_dynamic_style __________________________
+2026-10-27T14:09:13.1417465Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1417883Z _____________________ ERROR at setup of test_workflow_signal_qnd_query_handlers_old_dynamic_style ______________________
+2026-10-27T14:09:13.1426897Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1427291Z ___________________________________ ERROR at setup of test_workflow_bad_signal_param ___________________________________
+2026-10-27T14:09:13.1436067Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1436458Z _____________________________________ ERROR at setup of test_workflow_async_utils ______________________________________
+2026-10-27T14:09:13.1446379Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1446775Z ___________________________________ ERROR at setup of test_workflow_simple_activity ____________________________________
+2026-10-27T14:09:13.1455590Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1456004Z ________________________________ ERROR at setup of test_workflow_simple_local_activity _________________________________
+2026-10-27T14:09:13.1466157Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1466559Z ________________________________ ERROR at setup of test_workflow_cancel_activity[True] _________________________________
+2026-10-27T14:09:13.1475692Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1476188Z ________________________________ ERROR at setup of test_workflow_cancel_activity[False] ________________________________
+2026-10-27T14:09:13.1485221Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1485645Z _______________________ ERROR at setup of test_workflow_cancel_activity_while_workflow_cancelled _______________________
+2026-10-27T14:09:13.1494560Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1494991Z _________________ ERROR at setup of test_workflow_cancel_activity_then_evict[try-cancel-task-failure] __________________
+2026-10-27T14:09:13.1504559Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1504997Z ______________ ERROR at setup of test_workflow_cancel_activity_then_evict[local-try-cancel-task-failure] _______________
+2026-10-27T14:09:13.1515344Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1515766Z ______________________ ERROR at setup of test_workflow_cancel_activity_then_evict[wait-no-cache] _______________________
+2026-10-27T14:09:13.1525202Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1525599Z _____________________________________ ERROR at setup of test_workflow_simple_child _____________________________________
+2026-10-27T14:09:13.1534336Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1534729Z ____________________________________ ERROR at setup of test_workflow_simple_cancel _____________________________________
+2026-10-27T14:09:13.1544810Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1545233Z ______________________ ERROR at setup of test_workflow_cancellation_reason[user-supplied reason] _______________________
+2026-10-27T14:09:13.1555740Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1556145Z ________________________________ ERROR at setup of test_workflow_cancellation_reason[] _________________________________
+2026-10-27T14:09:13.1565932Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1566337Z _________________________________ ERROR at setup of test_workflow_child_cancel_reason __________________________________
+2026-10-27T14:09:13.1576356Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1576755Z ________________________________ ERROR at setup of test_workflow_external_cancel_reason ________________________________
+2026-10-27T14:09:13.1586518Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1586931Z ___________________________ ERROR at setup of test_workflow_logic_flag_enabled_after_replay ____________________________
+2026-10-27T14:09:13.1595717Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1596125Z _______________________________ ERROR at setup of test_workflow_cancel_before_run[False] _______________________________
+2026-10-27T14:09:13.1605813Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1606224Z _______________________________ ERROR at setup of test_workflow_cancel_before_run[True] ________________________________
+2026-10-27T14:09:13.1615284Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1615716Z _________________ ERROR at setup of test_workflow_cancel_and_condition_ready_in_same_activation[False] _________________
+2026-10-27T14:09:13.1624779Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1625204Z _________________ ERROR at setup of test_workflow_cancel_and_condition_ready_in_same_activation[True] __________________
+2026-10-27T14:09:13.1633995Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1634424Z ____________________ ERROR at setup of test_workflow_cancel_and_child_completion_in_same_activation ____________________
+2026-10-27T14:09:13.1643948Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1644352Z ________________________________ ERROR at setup of test_workflow_uncaught_cancel[True] _________________________________
+2026-10-27T14:09:13.1653499Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1653916Z ________________________________ ERROR at setup of test_workflow_uncaught_cancel[False] ________________________________
+2026-10-27T14:09:13.1662808Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1663228Z ______________________________ ERROR at setup of test_workflow_cancel_child_started[True] ______________________________
+2026-10-27T14:09:13.1671937Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1672345Z _____________________________ ERROR at setup of test_workflow_cancel_child_started[False] ______________________________
+2026-10-27T14:09:13.1682170Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1683291Z ________________________________ ERROR at setup of test_workflow_cancel_child_unstarted ________________________________
+2026-10-27T14:09:13.1694700Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1695124Z _____________________________________ ERROR at setup of test_workflow_signal_child _____________________________________
+2026-10-27T14:09:13.1706284Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1706737Z ___________________________________ ERROR at setup of test_workflow_cancel_external ____________________________________
+2026-10-27T14:09:13.1717802Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1718272Z _____________________________ ERROR at setup of test_workflow_cancel_external_stop_waiting _____________________________
+2026-10-27T14:09:13.1729743Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1730218Z _____________________ ERROR at setup of test_workflow_cancel_external_stop_waiting_target_missing ______________________
+2026-10-27T14:09:13.1763469Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1763879Z __________________________ ERROR at setup of test_workflow_cancel_external_workflow_cancelled __________________________
+2026-10-27T14:09:13.1772941Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1773360Z ___________________________________ ERROR at setup of test_workflow_signal_external ____________________________________
+2026-10-27T14:09:13.1781946Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1782706Z _____________________________________ ERROR at setup of test_workflow_cancel_multi _____________________________________
+2026-10-27T14:09:13.1791550Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1791941Z ____________________________________ ERROR at setup of test_workflow_cancel_unsent _____________________________________
+2026-10-27T14:09:13.1800812Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1801207Z ___________________________________ ERROR at setup of test_workflow_activity_timeout ___________________________________
+2026-10-27T14:09:13.1809973Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1810364Z ______________________________________ ERROR at setup of test_workflow_with_codec ______________________________________
+2026-10-27T14:09:13.1819334Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1819853Z ________________________________ ERROR at setup of test_workflow_with_passthrough_codec ________________________________
+2026-10-27T14:09:13.1828516Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1828925Z _________________________ ERROR at setup of test_workflow_memo_decoding_with_passthrough_codec _________________________
+2026-10-27T14:09:13.1837713Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1838107Z __________________________________ ERROR at setup of test_workflow_with_custom_runner __________________________________
+2026-10-27T14:09:13.1846742Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1847136Z ___________________________________ ERROR at setup of test_workflow_continue_as_new ____________________________________
+2026-10-27T14:09:13.1856308Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1856711Z __________________________________ ERROR at setup of test_workflow_search_attributes ___________________________________
+2026-10-27T14:09:13.1865448Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1865854Z _____________________________ ERROR at setup of test_workflow_no_initial_search_attributes _____________________________
+2026-10-27T14:09:13.1874786Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1875172Z ____________________________________ ERROR at setup of test_workflow_logging[True] _____________________________________
+2026-10-27T14:09:13.1884254Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1884757Z ____________________________________ ERROR at setup of test_workflow_logging[False] ____________________________________
+2026-10-27T14:09:13.1893547Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1893943Z __________________________________ ERROR at setup of test_workflow_logging_task_fail ___________________________________
+2026-10-27T14:09:13.1902815Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1903211Z _____________________________________ ERROR at setup of test_workflow_stack_trace ______________________________________
+2026-10-27T14:09:13.1911740Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1912137Z _________________________________ ERROR at setup of test_workflow_enhanced_stack_trace _________________________________
+2026-10-27T14:09:13.1921233Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1921649Z ____________________________ ERROR at setup of test_workflow_external_enhanced_stack_trace _____________________________
+2026-10-27T14:09:13.1930452Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1930851Z ___________________________________ ERROR at setup of test_workflow_dataclass_typed ____________________________________
+2026-10-27T14:09:13.1939720Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1941469Z __________________________________ ERROR at setup of test_workflow_separate_protocol ___________________________________
+2026-10-27T14:09:13.1950490Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1950888Z __________________________________ ERROR at setup of test_workflow_separate_abstract ___________________________________
+2026-10-27T14:09:13.1959890Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1960287Z ___________________________________ ERROR at setup of test_workflow_already_started ____________________________________
+2026-10-27T14:09:13.1969020Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1969426Z ________________________________ ERROR at setup of test_workflow_child_already_started _________________________________
+2026-10-27T14:09:13.1978269Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1978661Z _____________________________________ ERROR at setup of test_workflow_typed_config _____________________________________
+2026-10-27T14:09:13.1987838Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1988237Z ________________________________ ERROR at setup of test_workflow_local_activity_backoff ________________________________
+2026-10-27T14:09:13.1997108Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.1997524Z _____________________ ERROR at setup of test_workflow_local_activity_cancel_during_backoff[False] ______________________
+2026-10-27T14:09:13.2006190Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2006612Z ______________________ ERROR at setup of test_workflow_local_activity_cancel_during_backoff[True] ______________________
+2026-10-27T14:09:13.2015773Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2016158Z _______________________________________ ERROR at setup of test_workflow_deadlock _______________________________________
+2026-10-27T14:09:13.2025043Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2025445Z __________________________________ ERROR at setup of test_workflow_eviction_deadlock ___________________________________
+2026-10-27T14:09:13.2034259Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2034648Z ________________________________________ ERROR at setup of test_workflow_patch _________________________________________
+2026-10-27T14:09:13.2043476Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2043875Z ____________________________________ ERROR at setup of test_workflow_patch_memoized ____________________________________
+2026-10-27T14:09:13.2052987Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2053409Z ______________________________ ERROR at setup of test_workflow_patch_activation_callback _______________________________
+2026-10-27T14:09:13.2061941Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2062535Z ________________________ ERROR at setup of test_workflow_patch_activation_callback_can_decline _________________________
+2026-10-27T14:09:13.2071171Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2071586Z __________________________ ERROR at setup of test_workflow_patch_activation_default_activates __________________________
+2026-10-27T14:09:13.2080491Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2081080Z ___________________ ERROR at setup of test_workflow_patch_activation_callback_not_recalled_on_replay ___________________
+2026-10-27T14:09:13.2090094Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2090520Z ___________________ ERROR at setup of test_workflow_patch_activation_callback_bypassed_for_deprecate ___________________
+2026-10-27T14:09:13.2099405Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2099826Z ______________________ ERROR at setup of test_workflow_patch_activation_callback_must_return_bool ______________________
+2026-10-27T14:09:13.2108582Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2109001Z ________________________ ERROR at setup of test_workflow_patch_activation_callback_is_read_only ________________________
+2026-10-27T14:09:13.2118118Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2118554Z ________________________ ERROR at setup of test_workflow_declined_patch_rolls_out_to_old_worker ________________________
+2026-10-27T14:09:13.2127405Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2127820Z _______________________ ERROR at setup of test_workflow_activated_patch_ignores_declining_worker _______________________
+2026-10-27T14:09:13.2136604Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2136985Z _________________________________________ ERROR at setup of test_workflow_uuid _________________________________________
+2026-10-27T14:09:13.2145797Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2146358Z ________________________________________ ERROR at setup of test_workflow_uuid7 _________________________________________
+2026-10-27T14:09:13.2155329Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2155738Z _______________________________ ERROR at setup of test_workflow_activity_callable_class ________________________________
+2026-10-27T14:09:13.2164474Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2164890Z _________________________ ERROR at setup of test_workflow_activity_callable_class_bad_register _________________________
+2026-10-27T14:09:13.2173891Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2174293Z ___________________________________ ERROR at setup of test_workflow_activity_method ____________________________________
+2026-10-27T14:09:13.2183387Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2183947Z ___________________________ ERROR at setup of test_workflow_activity_method_unbound_register ___________________________
+2026-10-27T14:09:13.2192835Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2193257Z ________________________________ ERROR at setup of test_workflow_wait_condition_timeout ________________________________
+2026-10-27T14:09:13.2201815Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2202213Z __________________________________ ERROR at setup of test_workflow_query_rpc_timeout ___________________________________
+2026-10-27T14:09:13.2211016Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2211567Z _____________________________________ ERROR at setup of test_workflow_typed_handle _____________________________________
+2026-10-27T14:09:13.2220637Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2221023Z _________________________________________ ERROR at setup of test_workflow_memo _________________________________________
+2026-10-27T14:09:13.2229890Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2230296Z _________________________ ERROR at setup of test_workflow_query_does_not_run_condition[False] __________________________
+2026-10-27T14:09:13.2241787Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2242191Z __________________________ ERROR at setup of test_workflow_query_does_not_run_condition[True] __________________________
+2026-10-27T14:09:13.2251274Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2251780Z ___________________ ERROR at setup of test_workflow_cancel_signal_and_timer_fired_in_same_task_ts_v2 ___________________
+2026-10-27T14:09:13.2263580Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2264085Z _______________________________ ERROR at setup of test_workflow_sleep_task_cancellation ________________________________
+2026-10-27T14:09:13.2272965Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2273389Z _______________________________ ERROR at setup of test_workflow_custom_failure_converter _______________________________
+2026-10-27T14:09:13.2282085Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2282696Z ____________________________________ ERROR at setup of test_workflow_optional_param ____________________________________
+2026-10-27T14:09:13.2291534Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2291945Z _______________________________ ERROR at setup of test_exception_raising_converter_param _______________________________
+2026-10-27T14:09:13.2301027Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2301444Z _________________________ ERROR at setup of test_workflow_activity_outbound_conversion_failure _________________________
+2026-10-27T14:09:13.2310397Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2310787Z ______________________________________ ERROR at setup of test_manual_result_type _______________________________________
+2026-10-27T14:09:13.2320154Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2320550Z ___________________________________ ERROR at setup of test_cache_eviction_tear_down ____________________________________
+2026-10-27T14:09:13.2329482Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2329955Z __________________________________ ERROR at setup of test_workflow_eviction_exception __________________________________
+2026-10-27T14:09:13.2339255Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2339639Z _______________________________________ ERROR at setup of test_workflow_dynamic ________________________________________
+2026-10-27T14:09:13.2348556Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2348955Z _______________________________ ERROR at setup of test_workflow_queries_doing_bad_things _______________________________
+2026-10-27T14:09:13.2358292Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2358681Z ____________________________________ ERROR at setup of test_workflow_custom_metrics ____________________________________
+2026-10-27T14:09:13.2369397Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2369823Z ___________________________________ ERROR at setup of test_workflow_buffered_metrics ___________________________________
+2026-10-27T14:09:13.2379066Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2379485Z __________________________ ERROR at setup of test_workflow_buffered_metrics_worker_heartbeat ___________________________
+2026-10-27T14:09:13.2388350Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2388752Z _________________________________ ERROR at setup of test_workflow_metrics_other_types __________________________________
+2026-10-27T14:09:13.2397809Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2398270Z ________________________________ ERROR at setup of test_workflow_update_handlers_happy _________________________________
+2026-10-27T14:09:13.2406997Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2407405Z _______________________________ ERROR at setup of test_workflow_update_handlers_unhappy ________________________________
+2026-10-27T14:09:13.2416258Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2416677Z _____________________ ERROR at setup of test_workflow_update_rejected_does_not_evaluate_conditions _____________________
+2026-10-27T14:09:13.2425644Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2426040Z __________________________________ ERROR at setup of test_workflow_update_task_fails ___________________________________
+2026-10-27T14:09:13.2435081Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2435501Z _______________________ ERROR at setup of test_workflow_update_async_validator_dynamic_rejected ________________________
+2026-10-27T14:09:13.2444332Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2444743Z __________________________ ERROR at setup of test_workflow_update_continue_as_new_fails_task ___________________________
+2026-10-27T14:09:13.2453636Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2454187Z ________________________ ERROR at setup of test_workflow_update_respects_first_execution_run_id ________________________
+2026-10-27T14:09:13.2463034Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2463451Z ______________________________ ERROR at setup of test_workflow_update_before_worker_start ______________________________
+2026-10-27T14:09:13.2472116Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2472814Z ________________________________ ERROR at setup of test_workflow_update_separate_handle ________________________________
+2026-10-27T14:09:13.2481509Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2481916Z _______________________________ ERROR at setup of test_workflow_update_timeout_or_cancel _______________________________
+2026-10-27T14:09:13.2508237Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2508645Z _______________________________ ERROR at setup of test_workflow_timeout_support[timeout] _______________________________
+2026-10-27T14:09:13.2517866Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2518269Z _____________________________ ERROR at setup of test_workflow_timeout_support[timeout_at] ______________________________
+2026-10-27T14:09:13.2527121Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2527529Z ______________________________ ERROR at setup of test_workflow_timeout_support[wait_for] _______________________________
+2026-10-27T14:09:13.2536433Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2536987Z _____________________________ ERROR at setup of test_workflow_timeout_support[call_later] ______________________________
+2026-10-27T14:09:13.2545904Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2546324Z _______________________________ ERROR at setup of test_workflow_timeout_support[call_at] _______________________________
+2026-10-27T14:09:13.2555287Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2555696Z __________________________ ERROR at setup of test_workflow_current_build_id_appropriately_set __________________________
+2026-10-27T14:09:13.2564565Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2564969Z _______________________________ ERROR at setup of test_workflow_failure_types_configured _______________________________
+2026-10-27T14:09:13.2573998Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2574478Z ______________________________ ERROR at setup of test_workflow_fail_on_bad_pydantic_input ______________________________
+2026-10-27T14:09:13.2583439Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2583834Z __________________________________ ERROR at setup of test_workflow_fail_on_bad_input ___________________________________
+2026-10-27T14:09:13.2592319Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2593074Z ________________________________ ERROR at setup of test_workflow_replace_worker_client _________________________________
+2026-10-27T14:09:13.2601624Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2602140Z _______________________ ERROR at setup of test_workflow_replace_worker_client_diff_runtimes_fail _______________________
+2026-10-27T14:09:13.2610975Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2611449Z ____________________ ERROR at setup of test_workflow_replace_worker_client_implicit_default_runtime ____________________
+2026-10-27T14:09:13.2620433Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2620866Z _____________ ERROR at setup of test_workflow_replace_worker_client_implicit_default_runtime_mismatch_fail _____________
+2026-10-27T14:09:13.2629655Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2630052Z _________________________________ ERROR at setup of test_workflow_as_completed_utility _________________________________
+2026-10-27T14:09:13.2639080Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2639555Z _____________________________________ ERROR at setup of test_workflow_wait_utility _____________________________________
+2026-10-27T14:09:13.2648570Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2648962Z ____________________________________ ERROR at setup of test_workflow_current_update ____________________________________
+2026-10-27T14:09:13.2657965Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2658364Z ___________________________________ ERROR at setup of test_unfinished_update_handler ___________________________________
+2026-10-27T14:09:13.2667057Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2667446Z ___________________________________ ERROR at setup of test_unfinished_signal_handler ___________________________________
+2026-10-27T14:09:13.2676596Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2686099Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2695530Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2705123Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2714893Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.2724337Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3138268Z _____________________________________ ERROR at setup of test_workflow_id_conflict ______________________________________
+2026-10-27T14:09:13.3147309Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3147738Z ________________ ERROR at setup of test_workflow_id_conflict_use_existing_first_execution_run_id[False] ________________
+2026-10-27T14:09:13.3156671Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3157101Z ________________ ERROR at setup of test_workflow_id_conflict_use_existing_first_execution_run_id[True] _________________
+2026-10-27T14:09:13.3165891Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3166480Z ___________________ ERROR at setup of test_update_completion_is_honored_when_after_workflow_return_1 ___________________
+2026-10-27T14:09:13.3175771Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3176239Z ___________________ ERROR at setup of test_update_completion_is_honored_when_after_workflow_return_2 ___________________
+2026-10-27T14:09:13.3185149Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3185568Z ______________________ ERROR at setup of test_first_of_two_signal_completion_commands_is_honored _______________________
+2026-10-27T14:09:13.3194538Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3194979Z _____________ ERROR at setup of test_workflow_return_is_honored_when_it_precedes_signal_completion_command _____________
+2026-10-27T14:09:13.3225445Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3225862Z ____________________________ ERROR at setup of test_timer_started_after_workflow_completion ____________________________
+2026-10-27T14:09:13.3259994Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3260586Z _____________________________________ ERROR at setup of test_activity_retry_delay ______________________________________
+2026-10-27T14:09:13.3275023Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3275684Z ________ ERROR at setup of test_update_in_first_wft_sees_workflow_init[WorkflowWithoutInit-WorkflowWithoutInit] ________
+2026-10-27T14:09:13.3289417Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3304585Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3305282Z ___ ERROR at setup of test_update_in_first_wft_sees_workflow_init[WorkflowWithWorkflowInit-WorkflowWithWorkflowInit] ___
+2026-10-27T14:09:13.3327855Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3328487Z ________________________________ ERROR at setup of test_workflow_run_sees_workflow_init ________________________________
+2026-10-27T14:09:13.3342786Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3343418Z _____________________________________ ERROR at setup of test_user_metadata_is_set ______________________________________
+2026-10-27T14:09:13.3357510Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3358218Z ________________________________________ ERROR at setup of test_workflow_sleep _________________________________________
+2026-10-27T14:09:13.3372264Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3373090Z _____________________________ ERROR at setup of test_concurrent_sleeps_use_proper_options ______________________________
+2026-10-27T14:09:13.3387251Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3387885Z _____________________________________ ERROR at setup of test_bad_failure_converter _____________________________________
+2026-10-27T14:09:13.3402013Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3403377Z ______________________________________ ERROR at setup of test_async_loop_ordering ______________________________________
+2026-10-27T14:09:13.3417698Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3418412Z _________________________________ ERROR at setup of test_alternate_async_loop_ordering _________________________________
+2026-10-27T14:09:13.3432760Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3433878Z _______________________________ ERROR at setup of test_workflow_coroutines_can_use_lock ________________________________
+2026-10-27T14:09:13.3447305Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3447890Z __________________ ERROR at setup of test_update_handler_can_use_lock_to_serialize_handler_executions __________________
+2026-10-27T14:09:13.3461506Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3462557Z _____________________ ERROR at setup of test_workflow_coroutines_lock_acquisition_respects_timeout _____________________
+2026-10-27T14:09:13.3476972Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3477620Z _______________________ ERROR at setup of test_update_handler_lock_acquisition_respects_timeout ________________________
+2026-10-27T14:09:13.3491653Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3492275Z _____________________________ ERROR at setup of test_workflow_coroutines_can_use_semaphore _____________________________
+2026-10-27T14:09:13.3506243Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3506884Z ___________ ERROR at setup of test_update_handler_can_use_semaphore_to_control_handler_execution_concurrency ___________
+2026-10-27T14:09:13.3520782Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3521489Z ___________________ ERROR at setup of test_workflow_coroutine_semaphore_acquisition_respects_timeout ___________________
+2026-10-27T14:09:13.3535453Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3536079Z _____________________ ERROR at setup of test_update_handler_semaphore_acquisition_respects_timeout _____________________
+2026-10-27T14:09:13.3549520Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3550114Z ____________________________________ ERROR at setup of test_workflow_timeout_error _____________________________________
+2026-10-27T14:09:13.3564371Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3565034Z _______________________________________ ERROR at setup of test_in_workflow_util ________________________________________
+2026-10-27T14:09:13.3578753Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3579470Z ___________________________________ ERROR at setup of test_workflow_loop_is_running ____________________________________
+2026-10-27T14:09:13.3593743Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3594352Z ________________________________ ERROR at setup of test_workflow_deadlock_interruptible ________________________________
+2026-10-27T14:09:13.3608491Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3609119Z _______________________________ ERROR at setup of test_workflow_deadlock_uninterruptible _______________________________
+2026-10-27T14:09:13.3623560Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3624189Z ________________________________ ERROR at setup of test_workflow_deadlock_fill_up_slots ________________________________
+2026-10-27T14:09:13.3638860Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3639496Z ___________________________________ ERROR at setup of test_workflow_eviction_swallow ___________________________________
+2026-10-27T14:09:13.3653492Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3654109Z ______________________________________ ERROR at setup of test_workflow_priorities ______________________________________
+2026-10-27T14:09:13.3668459Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3669068Z _____________________________________ ERROR at setup of test_expose_root_execution _____________________________________
+2026-10-27T14:09:13.3683769Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3684510Z ________________________________ ERROR at setup of test_workflow_dynamic_config_failure ________________________________
+2026-10-27T14:09:13.3698877Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3699499Z _______________________________ ERROR at setup of test_activity_benign_error_not_logged ________________________________
+2026-10-27T14:09:13.3714201Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3714827Z ________________________________ ERROR at setup of test_workflow_missing_local_activity ________________________________
+2026-10-27T14:09:13.3729172Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3729798Z __________________________ ERROR at setup of test_workflow_missing_local_activity_but_dynamic __________________________
+2026-10-27T14:09:13.3744510Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3745163Z _________________________ ERROR at setup of test_workflow_missing_local_activity_no_activities _________________________
+2026-10-27T14:09:13.3759164Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3759800Z ______________________________ ERROR at setup of test_activity_pause_cancellation_details ______________________________
+2026-10-27T14:09:13.3773917Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3774652Z ____________________________________ ERROR at setup of test_activity_pause_unpause _____________________________________
+2026-10-27T14:09:13.3788694Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3789345Z ____________________________ ERROR at setup of test_external_activity_cancellation_details _____________________________
+2026-10-27T14:09:13.3803927Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3804565Z _____________________________ ERROR at setup of test_quick_activity_swallows_cancellation ______________________________
+2026-10-27T14:09:13.3818370Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3818993Z _______________________________ ERROR at setup of test_workflow_logging_trace_identifier _______________________________
+2026-10-27T14:09:13.3833169Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3833824Z _______________________________________ ERROR at setup of test_in_workflow_sync ________________________________________
+2026-10-27T14:09:13.3847743Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3848371Z _________________________________ ERROR at setup of test_signal_handler_in_interceptor _________________________________
+2026-10-27T14:09:13.3862034Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3862823Z ___________________ ERROR at setup of test_workflow_headers_with_codec[HeaderCodecBehavior.NO_CODEC] ___________________
+2026-10-27T14:09:13.3876516Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3877294Z ____________________ ERROR at setup of test_workflow_headers_with_codec[HeaderCodecBehavior.CODEC] _____________________
+2026-10-27T14:09:13.3891504Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3892180Z _____________ ERROR at setup of test_workflow_headers_with_codec[HeaderCodecBehavior.WORKFLOW_ONLY_CODEC] ______________
+2026-10-27T14:09:13.3906658Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3907281Z _____________________________________ ERROR at setup of test_previous_run_failure ______________________________________
+2026-10-27T14:09:13.3921239Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3921854Z ____________________________________ ERROR at setup of test_search_attribute_codec _____________________________________
+2026-10-27T14:09:13.3935943Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3936608Z _________________ ERROR at setup of test_activity_failure_with_encoded_payload_is_decoded_in_workflow __________________
+2026-10-27T14:09:13.3950665Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3951266Z ____________________________________ ERROR at setup of test_disable_logger_sandbox _____________________________________
+2026-10-27T14:09:13.3965288Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3965895Z ___________________________________ ERROR at setup of test_random_seed_functionality ___________________________________
+2026-10-27T14:09:13.3979940Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3980696Z _______________________________ ERROR at setup of test_workflow_uncancel_shield_activity _______________________________
+2026-10-27T14:09:13.3995109Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.3995846Z ____________________________ ERROR at setup of test_workflow_uncancel_shield_child_workflow ____________________________
+2026-10-27T14:09:13.4009815Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4010444Z ___________________________ ERROR at setup of test_workflow_uncancel_shield_signal_external ____________________________
+2026-10-27T14:09:13.4024498Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4025129Z ____________________________ ERROR at setup of test_workflow_cancel_no_shielded_future_log _____________________________
+2026-10-27T14:09:13.4039309Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4040036Z _________________ ERROR at setup of test_workflow_sandbox_global_state[sandboxed_passthrough_modules0] _________________
+2026-10-27T14:09:13.4054829Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4055499Z _________________ ERROR at setup of test_workflow_sandbox_global_state[sandboxed_passthrough_modules1] _________________
+2026-10-27T14:09:13.4069591Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4070199Z _________________________________ ERROR at setup of test_workflow_sandbox_restrictions _________________________________
+2026-10-27T14:09:13.4084276Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4084900Z ___________________________________ ERROR at setup of test_workflow_sandbox_operator ___________________________________
+2026-10-27T14:09:13.4099056Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4099777Z ____________________________________ ERROR at setup of test_workflow_sandbox_assert ____________________________________
+2026-10-27T14:09:13.4114166Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4114788Z _________________________________ ERROR at setup of test_workflow_sandbox_access_stack _________________________________
+2026-10-27T14:09:13.4128645Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4129264Z ________________________________ ERROR at setup of test_workflow_sandbox_instance_check ________________________________
+2026-10-27T14:09:13.4143651Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4144336Z __________________________________ ERROR at setup of test_workflow_sandbox_with_proto __________________________________
+2026-10-27T14:09:13.4158424Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4159298Z _________________________________ ERROR at setup of test_workflow_sandbox_known_issues _________________________________
+2026-10-27T14:09:13.4173132Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4173747Z _________________________________ ERROR at setup of test_workflow_sandbox_bad_asyncio __________________________________
+2026-10-27T14:09:13.4187686Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4188317Z ___________________________ ERROR at setup of test_workflow_sandbox_import_default_warnings ____________________________
+2026-10-27T14:09:13.4203337Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4204053Z _____________________________ ERROR at setup of test_workflow_sandbox_import_all_warnings ______________________________
+2026-10-27T14:09:13.4218064Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4218676Z ________________________________ ERROR at setup of test_workflow_sandbox_import_errors _________________________________
+2026-10-27T14:09:13.4232317Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4233151Z ___________________________ ERROR at setup of test_workflow_sandbox_import_suppress_warnings ___________________________
+2026-10-27T14:09:13.4247378Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4247987Z _______________________________________ ERROR at setup of test_manual_completion _______________________________________
+2026-10-27T14:09:13.4394714Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4395420Z ______________________________________ ERROR at setup of test_manual_cancellation ______________________________________
+2026-10-27T14:09:13.4409501Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4410110Z ________________________________________ ERROR at setup of test_manual_failure _________________________________________
+2026-10-27T14:09:13.4424692Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4425311Z _______________________________________ ERROR at setup of test_manual_heartbeat ________________________________________
+2026-10-27T14:09:13.4439850Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4440451Z ____________________________________ ERROR at setup of test_id_conflict_policy_fail ____________________________________
+2026-10-27T14:09:13.4454355Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4454984Z ________________________________ ERROR at setup of test_id_conflict_policy_use_existing ________________________________
+2026-10-27T14:09:13.4469060Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4469679Z _______________________________ ERROR at setup of test_id_reuse_policy_reject_duplicate ________________________________
+2026-10-27T14:09:13.4483846Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4484445Z ________________________________ ERROR at setup of test_id_reuse_policy_allow_duplicate ________________________________
+2026-10-27T14:09:13.4498140Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4498817Z _______________________________________ ERROR at setup of test_search_attributes _______________________________________
+2026-10-27T14:09:13.4513026Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4513716Z _________________________________________ ERROR at setup of test_retry_policy __________________________________________
+2026-10-27T14:09:13.4527396Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4527994Z ___________________________________________ ERROR at setup of test_terminate ___________________________________________
+2026-10-27T14:09:13.4542035Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4542871Z __________________________________ ERROR at setup of test_start_activity_class_async ___________________________________
+2026-10-27T14:09:13.4567696Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4568318Z _________________________________ ERROR at setup of test_execute_activity_class_async __________________________________
+2026-10-27T14:09:13.4582811Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4583460Z _________________________________ ERROR at setup of test_start_activity_class_no_param _________________________________
+2026-10-27T14:09:13.4597562Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4598337Z ___________________________________ ERROR at setup of test_start_activity_class_sync ___________________________________
+2026-10-27T14:09:13.4612224Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4613554Z __________________________________ ERROR at setup of test_start_activity_method_async __________________________________
+2026-10-27T14:09:13.4631828Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4632872Z _________________________________ ERROR at setup of test_execute_activity_method_async _________________________________
+2026-10-27T14:09:13.4650896Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4651693Z ________________________________ ERROR at setup of test_start_activity_method_no_param _________________________________
+2026-10-27T14:09:13.4669878Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4670666Z ________________________________________ ERROR at setup of test_unpause_resumes ________________________________________
+2026-10-27T14:09:13.4689232Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4690038Z ________________________ ERROR at setup of test_describe_paused_activity_reports_paused_status _________________________
+2026-10-27T14:09:13.4708010Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4709015Z _________________________________ ERROR at setup of test_update_options_respects_mask __________________________________
+2026-10-27T14:09:13.4727011Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4727992Z ___________________________________ ERROR at setup of test_update_options_all_fields ___________________________________
+2026-10-27T14:09:13.4746600Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4747532Z ________________________________ ERROR at setup of test_update_options_restore_original ________________________________
+2026-10-27T14:09:13.4766014Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4766806Z _______________________________ ERROR at setup of test_update_options_on_paused_activity _______________________________
+2026-10-27T14:09:13.4785085Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4785889Z ___________________________________ ERROR at setup of test_pause_preserves_heartbeat ___________________________________
+2026-10-27T14:09:13.4804071Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4805007Z __________________________________ ERROR at setup of test_unpause_preserves_heartbeat __________________________________
+2026-10-27T14:09:13.4823363Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4824193Z ______________________________ ERROR at setup of test_update_options_preserves_heartbeat _______________________________
+2026-10-27T14:09:13.4842697Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4843521Z ________________________________________ ERROR at setup of test_start_id_reuse _________________________________________
+2026-10-27T14:09:13.4861636Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4862554Z _______________________________________ ERROR at setup of test_start_with_signal _______________________________________
+2026-10-27T14:09:13.4880502Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4881364Z __________________________________________ ERROR at setup of test_start_delay __________________________________________
+2026-10-27T14:09:13.4900148Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4900933Z ____________________________________ ERROR at setup of test_signal_with_start_delay ____________________________________
+2026-10-27T14:09:13.4918718Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4919491Z _________________________________ ERROR at setup of test_result_follow_continue_as_new _________________________________
+2026-10-27T14:09:13.4937765Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4938636Z ________________________________________ ERROR at setup of test_workflow_failed ________________________________________
+2026-10-27T14:09:13.4956860Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4957763Z ____________________________________________ ERROR at setup of test_cancel _____________________________________________
+2026-10-27T14:09:13.4975769Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4976569Z ___________________________________________ ERROR at setup of test_terminate ___________________________________________
+2026-10-27T14:09:13.4994678Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.4995461Z ______________________________ ERROR at setup of test_rpc_already_exists_error_is_raised _______________________________
+2026-10-27T14:09:13.5018553Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5019399Z _______________________________________ ERROR at setup of test_cancel_not_found ________________________________________
+2026-10-27T14:09:13.5037369Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5038160Z ___________________________________________ ERROR at setup of test_describe ____________________________________________
+2026-10-27T14:09:13.5056068Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5056830Z _____________________________________________ ERROR at setup of test_query _____________________________________________
+2026-10-27T14:09:13.5074307Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5075087Z ________________________________________ ERROR at setup of test_query_rejected _________________________________________
+2026-10-27T14:09:13.5094764Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5095677Z ____________________________________________ ERROR at setup of test_signal _____________________________________________
+2026-10-27T14:09:13.5114128Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5114903Z _________________________________________ ERROR at setup of test_retry_policy __________________________________________
+2026-10-27T14:09:13.5132629Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5133442Z __________________________________ ERROR at setup of test_single_client_config_change __________________________________
+2026-10-27T14:09:13.5151336Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5152113Z __________________________________________ ERROR at setup of test_interceptor __________________________________________
+2026-10-27T14:09:13.5170594Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5171324Z __________________________________________ ERROR at setup of test_lazy_client __________________________________________
+2026-10-27T14:09:13.5189320Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5190127Z ______________________________ ERROR at setup of test_client_connected_skips_connect_lock ______________________________
+2026-10-27T14:09:13.5208135Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5209119Z ________________________________ ERROR at setup of test_client_reuse_across_event_loops ________________________________
+2026-10-27T14:09:13.5227441Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5228326Z _______________________________ ERROR at setup of test_list_workflows_and_fetch_history ________________________________
+2026-10-27T14:09:13.5246663Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5247462Z ________________________________________ ERROR at setup of test_count_workflows ________________________________________
+2026-10-27T14:09:13.5266376Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5267199Z ________________________________________ ERROR at setup of test_schedule_basics ________________________________________
+2026-10-27T14:09:13.5286610Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5287444Z ________________________________ ERROR at setup of test_schedule_calendar_spec_defaults ________________________________
+2026-10-27T14:09:13.5306494Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5307336Z _________________________________ ERROR at setup of test_schedule_trigger_immediately __________________________________
+2026-10-27T14:09:13.5326260Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5327032Z _______________________________________ ERROR at setup of test_schedule_backfill _______________________________________
+2026-10-27T14:09:13.5345066Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5346021Z __________________________ ERROR at setup of test_schedule_create_limited_actions_validation ___________________________
+2026-10-27T14:09:13.5363750Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5364576Z ___________________________ ERROR at setup of test_schedule_workflow_search_attribute_update ___________________________
+2026-10-27T14:09:13.5397243Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5398724Z ________________________ ERROR at setup of test_schedule_search_attribute_update[none-is-noop] _________________________
+2026-10-27T14:09:13.5430041Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5431538Z __________________ ERROR at setup of test_schedule_search_attribute_update[empty-but-non-none-clears] __________________
+2026-10-27T14:09:13.5463033Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5464607Z __________________ ERROR at setup of test_schedule_search_attribute_update[all-new-values-overwrites] __________________
+2026-10-27T14:09:13.5495816Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5497328Z ___________ ERROR at setup of test_schedule_search_attribute_update[partial-new-values-overwrites-and-drops] ___________
+2026-10-27T14:09:13.5528325Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5530196Z _____________________________________ ERROR at setup of test_build_id_interactions _____________________________________
+2026-10-27T14:09:13.5561464Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5563372Z ________________________________ ERROR at setup of test_schedule_last_completion_result ________________________________
+2026-10-27T14:09:13.5593545Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5595061Z ____________________________ ERROR at setup of TestForkCreateClient.test_fork_create_client ____________________________
+2026-10-27T14:09:13.5627859Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5629279Z _______________________________ ERROR at setup of TestForkUseClient.test_fork_use_client _______________________________
+2026-10-27T14:09:13.5658879Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5677741Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5678652Z __________________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.ABORTED] __________________________
+2026-10-27T14:09:13.5696663Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5697472Z ________________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.UNAVAILABLE] ________________________
+2026-10-27T14:09:13.5715545Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.5716356Z _________________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.CANCELLED] _________________________
+2026-10-27T14:09:13.6383326Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.6463292Z _________________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.DATA_LOSS] _________________________
+2026-10-27T14:09:13.7196191Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7197023Z _________________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.INTERNAL] __________________________
+2026-10-27T14:09:13.7213519Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7214243Z __________________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.UNKNOWN] __________________________
+2026-10-27T14:09:13.7230446Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7231178Z ______________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.UNAUTHENTICATED] ______________________
+2026-10-27T14:09:13.7247870Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7248721Z _____________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.PERMISSION_DENIED] _____________________
+2026-10-27T14:09:13.7264431Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7265168Z ____________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.RESOURCE_EXHAUSTED] _____________________
+2026-10-27T14:09:13.7278703Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7279324Z _____________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.DEADLINE_EXCEEDED] _____________________
+2026-10-27T14:09:13.7293613Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7294244Z ____________________________ ERROR at setup of test_rpc_error_is_retried[RPCStatusCode.OK] _____________________________
+2026-10-27T14:09:13.7308772Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7309530Z ________________________ ERROR at setup of test_nexus_operation_retried_on_codec_decode_failure ________________________
+2026-10-27T14:09:13.7324277Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7324944Z ___________________ ERROR at setup of test_nexus_operation_fails_without_retry_on_converter_failure ____________________
+2026-10-27T14:09:13.7351138Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7351801Z _____________ ERROR at setup of test_nexus_operation_fails_without_retry_on_codec_input_validation_failure _____________
+2026-10-27T14:09:13.7366228Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7366967Z ___________ ERROR at setup of test_nexus_operation_fails_without_retry_on_converter_input_validation_failure ___________
+2026-10-27T14:09:13.7381080Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7381815Z ________________________ ERROR at setup of test_nexus_caller_eviction[cache-eviction-starting] _________________________
+2026-10-27T14:09:13.7396084Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7396753Z _________________________ ERROR at setup of test_nexus_caller_eviction[cache-eviction-started] _________________________
+2026-10-27T14:09:13.7410428Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7411034Z ___________________________ ERROR at setup of test_nexus_caller_eviction[shutdown-starting] ____________________________
+2026-10-27T14:09:13.7425375Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7426005Z ____________________________ ERROR at setup of test_nexus_caller_eviction[shutdown-started] ____________________________
+2026-10-27T14:09:13.7439857Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7440487Z _________________________ ERROR at setup of test_workflow_run_operation[SubclassingHappyPath] __________________________
+2026-10-27T14:09:13.7454189Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7454916Z _____ ERROR at setup of test_workflow_run_operation[SubclassingNoInputOutputTypeAnnotationsWithServiceDefinition] ______
+2026-10-27T14:09:13.7468808Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7469445Z ___________________ ERROR at setup of test_request_deadline_is_accessible_in_workflow_run_operation ____________________
+2026-10-27T14:09:13.7483964Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7484665Z _______________________ ERROR at setup of test_workflow_run_operation_includes_token_in_callback _______________________
+2026-10-27T14:09:13.7498685Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7499293Z _____________________________________ ERROR at setup of TestDescribe.test_describe _____________________________________
+2026-10-27T14:09:13.7513069Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7513703Z ____________________ ERROR at setup of TestDescribe.test_describe_without_schedule_to_close_timeout ____________________
+2026-10-27T14:09:13.7527922Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7528541Z ________________________________ ERROR at setup of TestDescribe.test_describe_payloads _________________________________
+2026-10-27T14:09:13.7542669Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7543322Z _______________________________ ERROR at setup of test_start_activity_calls_interceptor ________________________________
+2026-10-27T14:09:13.7557563Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7558205Z ______________________________ ERROR at setup of test_describe_activity_calls_interceptor ______________________________
+2026-10-27T14:09:13.7572231Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7573341Z _______________________________ ERROR at setup of test_cancel_activity_calls_interceptor _______________________________
+2026-10-27T14:09:13.7586932Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7587576Z _____________________________ ERROR at setup of test_terminate_activity_calls_interceptor ______________________________
+2026-10-27T14:09:13.7601066Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7601642Z _______________________________ ERROR at setup of test_list_activities_calls_interceptor _______________________________
+2026-10-27T14:09:13.7615813Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7616429Z ______________________________ ERROR at setup of test_count_activities_calls_interceptor _______________________________
+2026-10-27T14:09:13.7630248Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7630879Z __________________________ ERROR at setup of test_start_activity_rejects_negative_start_delay __________________________
+2026-10-27T14:09:13.7645147Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7645746Z __________________________________________ ERROR at setup of test_get_result ___________________________________________
+2026-10-27T14:09:13.7659512Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7660192Z __________________________________ ERROR at setup of test_start_activity_start_delay ___________________________________
+2026-10-27T14:09:13.7674015Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7674784Z ______________________________________ ERROR at setup of test_get_activity_handle ______________________________________
+2026-10-27T14:09:13.7688471Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7689038Z ________________________________________ ERROR at setup of test_list_activities ________________________________________
+2026-10-27T14:09:13.7702230Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7703088Z _______________________________________ ERROR at setup of test_count_activities ________________________________________
+2026-10-27T14:09:13.7716842Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7717440Z ___________________________________ ERROR at setup of test_count_activities_group_by ___________________________________
+2026-10-27T14:09:13.7732168Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7733071Z _______________ ERROR at setup of test_errors_raised_by_nexus_operation[RaiseNexusHandlerErrorNotFound] ________________
+2026-10-27T14:09:13.7746791Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7747460Z ________ ERROR at setup of test_errors_raised_by_nexus_operation[RaiseNexusHandlerErrorNotFoundFromCustomError] ________
+2026-10-27T14:09:13.7760613Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7774929Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7790234Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7805749Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7806379Z _____________________ ERROR at setup of test_nexus_operation_is_retried[retried_due_to_exception] ______________________
+2026-10-27T14:09:13.7819862Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7820510Z ____________ ERROR at setup of test_nexus_operation_is_retried[retried_due_to_retryable_application_error] _____________
+2026-10-27T14:09:13.7834620Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7835389Z __________ ERROR at setup of test_nexus_operation_is_retried[retried_due_to_resource_exhausted_handler_error] __________
+2026-10-27T14:09:13.7849582Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7850224Z _______________ ERROR at setup of test_nexus_operation_is_retried[retried_due_to_internal_handler_error] _______________
+2026-10-27T14:09:13.7864325Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7878680Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7894010Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7908840Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.7909482Z _______________________ ERROR at setup of test_error_raised_by_timeout_of_nexus_start_operation ________________________
+2026-10-27T14:09:13.8094431Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8095067Z _________________ ERROR at setup of test_error_raised_by_schedule_to_start_timeout_of_nexus_operation __________________
+2026-10-27T14:09:13.8109086Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8109804Z ___________________ ERROR at setup of test_error_raised_by_start_to_close_timeout_of_nexus_operation ___________________
+2026-10-27T14:09:13.8123864Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8124498Z _______________________ ERROR at setup of test_error_raised_by_timeout_of_nexus_cancel_operation _______________________
+2026-10-27T14:09:13.8138032Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8151980Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8152944Z _____ ERROR at setup of test_rpc_error_fails_without_retry[RPCStatusCode.ALREADY_EXISTS-HandlerErrorType.INTERNAL] _____
+2026-10-27T14:09:13.8167002Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8181810Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8182624Z ______ ERROR at setup of test_rpc_error_fails_without_retry[RPCStatusCode.OUT_OF_RANGE-HandlerErrorType.INTERNAL] ______
+2026-10-27T14:09:13.8196719Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8197378Z _______ ERROR at setup of test_rpc_error_fails_without_retry[RPCStatusCode.NOT_FOUND-HandlerErrorType.NOT_FOUND] _______
+2026-10-27T14:09:13.8211147Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8211839Z _________________________________ ERROR at setup of test_cancellation_type[TRY_CANCEL] _________________________________
+2026-10-27T14:09:13.8225750Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8226468Z _______________________________ ERROR at setup of test_cancellation_type[WAIT_REQUESTED] _______________________________
+2026-10-27T14:09:13.8239968Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8240574Z _______________________________ ERROR at setup of test_cancellation_type[WAIT_COMPLETED] _______________________________
+2026-10-27T14:09:13.8254385Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8254998Z __________________________________ ERROR at setup of test_cancellation_type[ABANDON] ___________________________________
+2026-10-27T14:09:13.8269068Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8269752Z _________________________________ ERROR at setup of test_cancellation_type[TRY_CANCEL] _________________________________
+2026-10-27T14:09:13.8283627Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8284248Z _______________________________ ERROR at setup of test_cancellation_type[WAIT_REQUESTED] _______________________________
+2026-10-27T14:09:13.8297874Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8298494Z _______________________________ ERROR at setup of test_cancellation_type[WAIT_COMPLETED] _______________________________
+2026-10-27T14:09:13.8312866Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8313538Z ______________ ERROR at setup of test_errors_raised_by_nexus_operation[RaiseApplicationErrorNonRetryable] ______________
+2026-10-27T14:09:13.8327823Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8328601Z ______ ERROR at setup of test_errors_raised_by_nexus_operation[RaiseApplicationErrorNonRetryableFromCustomError] _______
+2026-10-27T14:09:13.8342529Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8343218Z ____________ ERROR at setup of TestAsyncAndNonAsyncCancel.test_task_executor_operation_cancel_method[True] _____________
+2026-10-27T14:09:13.8357096Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8357765Z ____________ ERROR at setup of TestAsyncAndNonAsyncCancel.test_task_executor_operation_cancel_method[False] ____________
+2026-10-27T14:09:13.8372002Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8372780Z __________________________ ERROR at setup of test_request_deadline_is_accessible_in_operation __________________________
+2026-10-27T14:09:13.8387043Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8387677Z __________________________________ ERROR at setup of test_cancellation_type[ABANDON] ___________________________________
+2026-10-27T14:09:13.8401446Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8402048Z ________________________________ ERROR at setup of test_workflow_caller_custom_metrics _________________________________
+2026-10-27T14:09:13.8416110Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-27T14:09:13.8428060Z Results (152.52s):
+2026-10-27T14:09:13.8428215Z        883 passed
+2026-10-27T14:09:13.8428751Z         11 skipped
+2026-10-27T14:09:13.8429106Z          6 warnings
+2026-10-27T14:09:13.8429433Z        651 errors
+2026-10-27T14:09:14.0875578Z ##[error]Process completed with exit code 1.
+2026-10-27T14:09:14.0952027Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

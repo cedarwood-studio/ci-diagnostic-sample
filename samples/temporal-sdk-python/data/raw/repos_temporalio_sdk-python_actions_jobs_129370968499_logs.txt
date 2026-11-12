@@ -1,0 +1,46 @@
+2026-11-09T19:04:29.0764593Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-09T19:04:31.9477150Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-09T19:04:31.9596054Z ##[group]Run : parse toolchain version
+2026-11-09T19:04:31.9844480Z ##[group]Run : construct rustup command line
+2026-11-09T19:04:32.0018068Z ##[group]Run : set $CARGO_HOME
+2026-11-09T19:04:32.0198174Z ##[group]Run : install rustup if needed
+2026-11-09T19:04:32.0393098Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-09T19:04:34.1532929Z ##[group]Run rustup default stable
+2026-11-09T19:04:34.1840909Z ##[group]Run : create cachekey
+2026-11-09T19:04:34.2616735Z ##[group]Run : disable incremental compilation
+2026-11-09T19:04:34.2767404Z ##[group]Run : enable colors in Cargo output
+2026-11-09T19:04:34.2919839Z ##[group]Run : enable Cargo sparse registry
+2026-11-09T19:04:34.3334515Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-09T19:04:34.3621405Z ##[group]Run rustc +stable --version --verbose
+2026-11-09T19:04:34.3986616Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-09T19:04:34.6469093Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-09T19:04:36.0377420Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.11.18/x64-build-lint-test-Linux-x64-51ccc61f-b8260d03
+2026-11-09T19:04:40.5727975Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.11.18/x64-build-lint-test-Linux-x64-51ccc61f-b8260d03" full match: true.
+2026-11-09T19:04:40.6555497Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-09T19:04:45.5108271Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-09T19:04:48.3605566Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.11.18-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-09T19:04:48.4166258Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.11.18-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-09T19:04:48.7883835Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.11.18-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-09T19:04:48.8553886Z ##[group]Run uv tool install poethepoet
+2026-11-09T19:04:49.0936211Z Installed 2 packages in 3ms
+2026-11-09T19:04:49.0994781Z ##[group]Run uv sync --all-extras
+2026-11-09T19:04:51.9093388Z Installed 222 packages in 526ms
+2026-11-09T19:04:51.9315297Z ##[group]Run poe build-develop
+2026-11-09T19:04:55.6464051Z Installed 2 packages in 28ms
+2026-11-09T19:06:19.2122202Z ##[group]Run poe lint
+2026-11-09T19:06:19.3271705Z Installed 1 package in 1ms
+2026-11-09T19:07:49.9461120Z ##[group]Run mkdir junit-xml
+2026-11-09T19:07:49.9651903Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.11--ubuntu-latest.xml
+2026-11-09T19:15:23.7494398Z Results (450.39s):
+2026-11-09T19:15:23.7494654Z       1829 passed
+2026-11-09T19:15:23.7494875Z          8 skipped
+2026-11-09T19:15:23.7495087Z         35 warnings
+2026-11-09T19:15:24.2929432Z ##[group]Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.11--ubuntu-latest--time-skipping-v2.xml
+2026-11-09T19:22:19.9588570Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-09T19:22:20.6493087Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-09T19:22:22.1557780Z Results (416.66s):
+2026-11-09T19:22:22.1558155Z       1799 passed
+2026-11-09T19:22:22.1558522Z         38 skipped
+2026-11-09T19:22:22.1558872Z         36 warnings
+2026-11-09T19:22:22.6728151Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-09T19:22:23.6013169Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020

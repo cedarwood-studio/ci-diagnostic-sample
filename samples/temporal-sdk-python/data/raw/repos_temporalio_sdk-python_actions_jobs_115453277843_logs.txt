@@ -1,0 +1,52 @@
+2026-10-13T17:57:04.1807220Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-13T17:57:09.9287240Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-13T17:57:09.9417110Z ##[group]Run : parse toolchain version
+2026-10-13T17:57:10.0070610Z ##[group]Run : construct rustup command line
+2026-10-13T17:57:10.0481300Z ##[group]Run : set $CARGO_HOME
+2026-10-13T17:57:10.0852550Z ##[group]Run : install rustup if needed
+2026-10-13T17:57:10.1260400Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-10-13T17:57:18.6801710Z ##[group]Run rustup default stable
+2026-10-13T17:57:18.8716990Z ##[group]Run : create cachekey
+2026-10-13T17:57:19.1226360Z ##[group]Run : disable incremental compilation
+2026-10-13T17:57:19.1958100Z ##[group]Run : enable colors in Cargo output
+2026-10-13T17:57:19.2875300Z ##[group]Run : enable Cargo sparse registry
+2026-10-13T17:57:19.4923170Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-13T17:57:19.6136010Z ##[group]Run rustc +stable --version --verbose
+2026-10-13T17:57:19.7728580Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-13T17:57:50.5565210Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-13T17:57:52.0474240Z Cache hit for: v0-rust-/Users/runner/hostedtoolcache/Python/3.10.11/arm64-build-lint-test-Darwin-arm64-cc9282ee-b0070ce1
+2026-10-13T17:58:11.0767620Z Restored from cache key "v0-rust-/Users/runner/hostedtoolcache/Python/3.10.11/arm64-build-lint-test-Darwin-arm64-cc9282ee-b0070ce1" full match: true.
+2026-10-13T17:58:11.1290920Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-13T17:58:17.4923820Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-13T17:58:19.2280120Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-apple-darwin-macos-16-3.10.11-pruned-fa91a6b6dfa12fc3687e4f0e96f5b7d2efcd627fa85d2a3118f81e9c2f483e53
+2026-10-13T17:58:19.5441560Z Cache hit for: setup-uv-2-aarch64-apple-darwin-macos-16-3.10.11-pruned-fa91a6b6dfa12fc3687e4f0e96f5b7d2efcd627fa85d2a3118f81e9c2f483e53
+2026-10-13T17:58:21.4037050Z cache restored from GitHub Actions cache with key: setup-uv-2-aarch64-apple-darwin-macos-16-3.10.11-pruned-fa91a6b6dfa12fc3687e4f0e96f5b7d2efcd627fa85d2a3118f81e9c2f483e53
+2026-10-13T17:58:21.4628430Z ##[group]Run uv tool install poethepoet
+2026-10-13T17:58:21.7611870Z Installed 4 packages in 20ms
+2026-10-13T17:58:21.7709300Z ##[group]Run uv sync --all-extras
+2026-10-13T17:58:32.4216280Z Installed 216 packages in 1.03s
+2026-10-13T17:58:32.4662760Z ##[group]Run poe build-develop
+2026-10-13T17:58:40.4373320Z Installed 1 package in 13ms
+2026-10-13T18:01:09.4580280Z ##[group]Run poe lint
+2026-10-13T18:03:10.2792860Z ##[group]Run mkdir junit-xml
+2026-10-13T18:03:10.4203940Z ##[group]Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s --junit-xml=junit-xml/3.10--macos-arm.xml
+2026-10-13T18:09:33.8192340Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-10-13T18:09:33.8916090Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-10-13T18:09:34.0267240Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-10-13T18:09:34.1065610Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-10-13T18:09:40.3431800Z ======================================================= FAILURES =======================================================
+2026-10-13T18:09:40.3433300Z __________________________________________ test_alternate_async_loop_ordering __________________________________________
+2026-10-13T18:09:40.3615550Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-10-13T18:09:40.4050480Z                                                  Summary of Failures                                                  
+2026-10-13T18:09:40.4052490Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+2026-10-13T18:09:40.4053330Z ┃  File                           ┃  Function                            ┃  Function Line  ┃  Error Line  ┃  Error   ┃
+2026-10-13T18:09:40.4062970Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+2026-10-13T18:09:40.4064210Z │  tests/worker/test_workflow.py  │  test_alternate_async_loop_ordering  │  8216           │  529         │  Failed  │
+2026-10-13T18:09:40.4067090Z └─────────────────────────────────┴──────────────────────────────────────┴─────────────────┴──────────────┴──────────┘
+2026-10-13T18:09:40.4069070Z Results (385.82s):
+2026-10-13T18:09:40.4070360Z          1 failed
+2026-10-13T18:09:40.4072330Z       1464 passed
+2026-10-13T18:09:40.4073310Z         17 skipped
+2026-10-13T18:09:40.4074580Z         34 warnings
+2026-10-13T18:09:41.2573190Z ##[error]Process completed with exit code 1.
+2026-10-13T18:09:41.3171700Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

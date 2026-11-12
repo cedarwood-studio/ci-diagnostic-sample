@@ -1,0 +1,499 @@
+2026-11-10T21:51:06.7409527Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-10T21:51:09.2422050Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-10T21:51:09.2520325Z ##[group]Run : parse toolchain version
+2026-11-10T21:51:09.2735279Z ##[group]Run : construct rustup command line
+2026-11-10T21:51:09.2869254Z ##[group]Run : set $CARGO_HOME
+2026-11-10T21:51:09.2996364Z ##[group]Run : install rustup if needed
+2026-11-10T21:51:09.3119503Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-10T21:51:11.3765141Z ##[group]Run rustup default stable
+2026-11-10T21:51:11.4012957Z ##[group]Run : create cachekey
+2026-11-10T21:51:11.4754634Z ##[group]Run : disable incremental compilation
+2026-11-10T21:51:11.4873558Z ##[group]Run : enable colors in Cargo output
+2026-11-10T21:51:11.4987760Z ##[group]Run : enable Cargo sparse registry
+2026-11-10T21:51:11.5338580Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-10T21:51:11.5567055Z ##[group]Run rustc +stable --version --verbose
+2026-11-10T21:51:11.5854689Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-10T21:51:11.7065865Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-10T21:51:13.2271284Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.13.18/x64-test-latest-deps-Linux-x64-51ccc61f-b8260d03
+2026-11-10T21:51:18.1288727Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.13.18/x64-test-latest-deps-Linux-x64-51ccc61f-b8260d03" full match: true.
+2026-11-10T21:51:18.1622550Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-10T21:51:24.1782046Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-10T21:51:26.1406920Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.13.18-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-10T21:51:26.2676083Z No GitHub Actions cache found for key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.13.18-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-10T21:51:26.3328919Z ##[group]Run uv tool install poethepoet
+2026-11-10T21:51:26.9808170Z Installed 2 packages in 59ms
+2026-11-10T21:51:27.0310929Z ##[group]Run uv lock --upgrade
+2026-11-10T21:51:29.6542788Z ##[group]Run uv sync --all-extras
+2026-11-10T21:51:32.6735244Z Installed 221 packages in 935ms
+2026-11-10T21:51:32.6905945Z ##[group]Run poe build-develop
+2026-11-10T21:51:37.6364548Z Installed 2 packages in 59ms
+2026-11-10T21:52:39.6547992Z ##[group]Run poe lint
+2026-11-10T21:52:39.7365182Z Installed 1 package in 1ms
+2026-11-10T21:53:41.4669424Z ##[group]Run mkdir junit-xml
+2026-11-10T21:53:41.4855242Z ##[group]Run poe test -s --junit-xml=junit-xml/latest-deps.xml
+2026-11-10T21:53:52.3978800Z ======================================================== ERRORS ========================================================
+2026-11-10T21:53:52.3979336Z _____________________________________ ERROR collecting tests/api/test_grpc_stub.py _____________________________________
+2026-11-10T21:53:52.3984097Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.3984768Z _____________________________________ ERROR collecting tests/api/test_protobuf.py ______________________________________
+2026-11-10T21:53:52.3989586Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.3990014Z _____________________________________ ERROR collecting tests/api/test_grpc_stub.py _____________________________________
+2026-11-10T21:53:52.3993399Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.3993828Z ____________________________________ ERROR collecting tests/bridge/test_runtime.py _____________________________________
+2026-11-10T21:53:52.3997540Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.3998249Z _____________________________________ ERROR collecting tests/api/test_protobuf.py ______________________________________
+2026-11-10T21:53:52.4003666Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4004213Z ____________________________________ ERROR collecting tests/bridge/test_runtime.py _____________________________________
+2026-11-10T21:53:52.4007213Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4007665Z ________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_lambda_worker.py ________________________
+2026-11-10T21:53:52.4010629Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4011048Z ________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_lambda_worker.py ________________________
+2026-11-10T21:53:52.4014958Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4015630Z ________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_lambda_worker.py ________________________
+2026-11-10T21:53:52.4019480Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4019894Z ________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_lambda_worker.py ________________________
+2026-11-10T21:53:52.4023391Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4023815Z ________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_lambda_worker.py ________________________
+2026-11-10T21:53:52.4027033Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4027453Z ________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_lambda_worker.py ________________________
+2026-11-10T21:53:52.4030822Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4031237Z ________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_lambda_worker.py ________________________
+2026-11-10T21:53:52.4034707Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4035123Z ________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_lambda_worker.py ________________________
+2026-11-10T21:53:52.4038478Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4038888Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4042543Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4043145Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4046474Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4046885Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4050193Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4050603Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4054155Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4054822Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4058144Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4058564Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4061878Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4062291Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4065891Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4066300Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4069725Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4070136Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4073168Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4073587Z ____________________________ ERROR collecting tests/contrib/aws/lambda_worker/test_otel.py _____________________________
+2026-11-10T21:53:52.4076581Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4077008Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4079925Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4080333Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4083358Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4083769Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4086604Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4087129Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4090042Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4090456Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4093437Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4093846Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4096673Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4097084Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4100094Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4100503Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4103531Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4103950Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4107092Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4107504Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4110437Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4110855Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4113954Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4114657Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4117496Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4117906Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4146515Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4146942Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4149938Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4150356Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4153442Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4153861Z _____________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver.py _____________________________
+2026-11-10T21:53:52.4156755Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4157299Z _________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver_worker.py __________________________
+2026-11-10T21:53:52.4160308Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4160728Z _________________________ ERROR collecting tests/contrib/aws/s3driver/test_s3driver_worker.py __________________________
+2026-11-10T21:53:52.4163881Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4164311Z _____________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_cloud_run_id_plugin.py ______________________
+2026-11-10T21:53:52.4167233Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4167655Z _____________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_cloud_run_id_plugin.py ______________________
+2026-11-10T21:53:52.4170856Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4171282Z _____________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_cloud_run_id_plugin.py ______________________
+2026-11-10T21:53:52.4174359Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4174781Z _____________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_cloud_run_id_plugin.py ______________________
+2026-11-10T21:53:52.4177693Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4178121Z ___________________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_metadata.py ___________________________
+2026-11-10T21:53:52.4181141Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4181559Z ___________________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_metadata.py ___________________________
+2026-11-10T21:53:52.4184713Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4185129Z ___________________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_metadata.py ___________________________
+2026-11-10T21:53:52.4188015Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4188441Z ___________________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_metadata.py ___________________________
+2026-11-10T21:53:52.4191416Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4191837Z ___________________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_metadata.py ___________________________
+2026-11-10T21:53:52.4194981Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4195398Z ___________________________ ERROR collecting tests/contrib/gcp/cloud_run/id/test_metadata.py ___________________________
+2026-11-10T21:53:52.4198267Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4198695Z ___________________ ERROR collecting tests/contrib/gcp/cloud_run/opentelemetry/test_opentelemetry.py ___________________
+2026-11-10T21:53:52.4201594Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4202124Z ___________________ ERROR collecting tests/contrib/gcp/cloud_run/opentelemetry/test_opentelemetry.py ___________________
+2026-11-10T21:53:52.4205253Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4205673Z ____________________________ ERROR collecting tests/contrib/gcp/gcsdriver/test_gcsdriver.py ____________________________
+2026-11-10T21:53:52.4208537Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4208952Z ____________________________ ERROR collecting tests/contrib/gcp/gcsdriver/test_gcsdriver.py ____________________________
+2026-11-10T21:53:52.4211834Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4212262Z ______________________ ERROR collecting tests/contrib/gcp/gcsdriver/test_gcsdriver_integration.py ______________________
+2026-11-10T21:53:52.4215670Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4216098Z ______________________ ERROR collecting tests/contrib/gcp/gcsdriver/test_gcsdriver_integration.py ______________________
+2026-11-10T21:53:52.4218979Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4219397Z _________________________ ERROR collecting tests/contrib/opentelemetry/test_logger_provider.py _________________________
+2026-11-10T21:53:52.4222354Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4222913Z _________________________ ERROR collecting tests/contrib/opentelemetry/test_logger_provider.py _________________________
+2026-11-10T21:53:52.4225903Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4226325Z _________________________ ERROR collecting tests/contrib/opentelemetry/test_meter_provider.py __________________________
+2026-11-10T21:53:52.4229287Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4229709Z _________________________ ERROR collecting tests/contrib/opentelemetry/test_meter_provider.py __________________________
+2026-11-10T21:53:52.4232686Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4233114Z ________________________ ERROR collecting tests/contrib/opentelemetry/test_metrics_exporter.py _________________________
+2026-11-10T21:53:52.4236075Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4236541Z ________________________ ERROR collecting tests/contrib/opentelemetry/test_metrics_exporter.py _________________________
+2026-11-10T21:53:52.4239493Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4239915Z __________________________ ERROR collecting tests/contrib/opentelemetry/test_opentelemetry.py __________________________
+2026-11-10T21:53:52.4242939Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4243357Z __________________________ ERROR collecting tests/contrib/opentelemetry/test_opentelemetry.py __________________________
+2026-11-10T21:53:52.4246326Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4246753Z ______________________ ERROR collecting tests/contrib/opentelemetry/test_opentelemetry_plugin.py _______________________
+2026-11-10T21:53:52.4249722Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4250151Z ______________________ ERROR collecting tests/contrib/opentelemetry/test_opentelemetry_plugin.py _______________________
+2026-11-10T21:53:52.4253110Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4253534Z ___________________________ ERROR collecting tests/contrib/opentelemetry/test_serverless.py ____________________________
+2026-11-10T21:53:52.4256417Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4256841Z ___________________________ ERROR collecting tests/contrib/opentelemetry/test_serverless.py ____________________________
+2026-11-10T21:53:52.4259956Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4260400Z ___________________________ ERROR collecting tests/contrib/opentelemetry/test_serverless.py ____________________________
+2026-11-10T21:53:52.4263439Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4263857Z ___________________________ ERROR collecting tests/contrib/opentelemetry/test_serverless.py ____________________________
+2026-11-10T21:53:52.4266717Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4267139Z ___________________________ ERROR collecting tests/contrib/opentelemetry/test_serverless.py ____________________________
+2026-11-10T21:53:52.4270107Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4270609Z ___________________________ ERROR collecting tests/contrib/opentelemetry/test_serverless.py ____________________________
+2026-11-10T21:53:52.4273585Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4274004Z ___________________________ ERROR collecting tests/contrib/opentelemetry/test_serverless.py ____________________________
+2026-11-10T21:53:52.4276892Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4277309Z ___________________________ ERROR collecting tests/contrib/opentelemetry/test_serverless.py ____________________________
+2026-11-10T21:53:52.4280290Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4280720Z _________________________ ERROR collecting tests/contrib/opentelemetry/test_tracer_provider.py _________________________
+2026-11-10T21:53:52.4283837Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4284264Z _________________________ ERROR collecting tests/contrib/opentelemetry/test_tracer_provider.py _________________________
+2026-11-10T21:53:52.4287153Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4287576Z ________________________ ERROR collecting tests/contrib/opentelemetry/test_wrapper_abc_drift.py ________________________
+2026-11-10T21:53:52.4290553Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4290976Z ________________________ ERROR collecting tests/contrib/opentelemetry/test_wrapper_abc_drift.py ________________________
+2026-11-10T21:53:52.4294044Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4294459Z _______________________________ ERROR collecting tests/contrib/pydantic/test_pydantic.py _______________________________
+2026-11-10T21:53:52.4297335Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4297753Z _______________________________ ERROR collecting tests/contrib/pydantic/test_pydantic.py _______________________________
+2026-11-10T21:53:52.4300630Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4301051Z ________________________ ERROR collecting tests/contrib/workflow_streams/test_closed_streams.py ________________________
+2026-11-10T21:53:52.4304269Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4304691Z ________________________ ERROR collecting tests/contrib/workflow_streams/test_closed_streams.py ________________________
+2026-11-10T21:53:52.4307556Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4307980Z ______________________ ERROR collecting tests/contrib/workflow_streams/test_payload_roundtrip.py _______________________
+2026-11-10T21:53:52.4309651Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4309837Z ______________________ ERROR collecting tests/contrib/workflow_streams/test_payload_roundtrip.py _______________________
+2026-11-10T21:53:52.4311214Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4311470Z _______________________ ERROR collecting tests/contrib/workflow_streams/test_workflow_streams.py _______________________
+2026-11-10T21:53:52.4312747Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4312931Z _______________________ ERROR collecting tests/contrib/workflow_streams/test_workflow_streams.py _______________________
+2026-11-10T21:53:52.4314123Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4314310Z ____________________ ERROR collecting tests/nexus/test_dynamic_creation_of_user_handler_classes.py _____________________
+2026-11-10T21:53:52.4315585Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4315768Z ____________________ ERROR collecting tests/nexus/test_dynamic_creation_of_user_handler_classes.py _____________________
+2026-11-10T21:53:52.4317033Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4317215Z ________________________ ERROR collecting tests/nexus/test_handler_interface_implementation.py _________________________
+2026-11-10T21:53:52.4318416Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4318596Z ________________________ ERROR collecting tests/nexus/test_handler_interface_implementation.py _________________________
+2026-11-10T21:53:52.4330591Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4330778Z __________________________ ERROR collecting tests/nexus/test_handler_operation_definitions.py __________________________
+2026-11-10T21:53:52.4332095Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4332278Z __________________________ ERROR collecting tests/nexus/test_handler_operation_definitions.py __________________________
+2026-11-10T21:53:52.4333586Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4333758Z _________________________________ ERROR collecting tests/nexus/test_link_conversion.py _________________________________
+2026-11-10T21:53:52.4334960Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4335287Z _________________________________ ERROR collecting tests/nexus/test_link_conversion.py _________________________________
+2026-11-10T21:53:52.4336560Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4336733Z ________________________________ ERROR collecting tests/nexus/test_link_propagation.py _________________________________
+2026-11-10T21:53:52.4337936Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4338106Z ________________________________ ERROR collecting tests/nexus/test_link_propagation.py _________________________________
+2026-11-10T21:53:52.4339322Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4339495Z ______________________________ ERROR collecting tests/nexus/test_nexus_client_updates.py _______________________________
+2026-11-10T21:53:52.4340837Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4341007Z ______________________________ ERROR collecting tests/nexus/test_nexus_client_updates.py _______________________________
+2026-11-10T21:53:52.4342206Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4342386Z _____________________________ ERROR collecting tests/nexus/test_nexus_handler_callbacks.py _____________________________
+2026-11-10T21:53:52.4343742Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4343917Z _____________________________ ERROR collecting tests/nexus/test_nexus_handler_callbacks.py _____________________________
+2026-11-10T21:53:52.4345205Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4345381Z ______________________________ ERROR collecting tests/nexus/test_nexus_worker_shutdown.py ______________________________
+2026-11-10T21:53:52.4346664Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4346840Z ______________________________ ERROR collecting tests/nexus/test_nexus_worker_shutdown.py ______________________________
+2026-11-10T21:53:52.4348046Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4348222Z __________________________________ ERROR collecting tests/nexus/test_notifications.py __________________________________
+2026-11-10T21:53:52.4349489Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4349655Z __________________________________ ERROR collecting tests/nexus/test_notifications.py __________________________________
+2026-11-10T21:53:52.4350921Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4351087Z _________________________________ ERROR collecting tests/nexus/test_operation_token.py _________________________________
+2026-11-10T21:53:52.4352294Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4352460Z _________________________________ ERROR collecting tests/nexus/test_operation_token.py _________________________________
+2026-11-10T21:53:52.4353747Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4354010Z ___________________________ ERROR collecting tests/nexus/test_signal_link_propagation_e2e.py ___________________________
+2026-11-10T21:53:52.4355287Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4355466Z ___________________________ ERROR collecting tests/nexus/test_signal_link_propagation_e2e.py ___________________________
+2026-11-10T21:53:52.4356662Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4356839Z ______________________________ ERROR collecting tests/nexus/test_standalone_operations.py ______________________________
+2026-11-10T21:53:52.4358044Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4358218Z ______________________________ ERROR collecting tests/nexus/test_standalone_operations.py ______________________________
+2026-11-10T21:53:52.4359550Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4359726Z ________________________________ ERROR collecting tests/nexus/test_temporal_extstore.py ________________________________
+2026-11-10T21:53:52.4360963Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4361131Z ________________________________ ERROR collecting tests/nexus/test_temporal_extstore.py ________________________________
+2026-11-10T21:53:52.4362340Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4362512Z _______________________________ ERROR collecting tests/nexus/test_temporal_operation.py ________________________________
+2026-11-10T21:53:52.4363968Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4364142Z _______________________________ ERROR collecting tests/nexus/test_temporal_operation.py ________________________________
+2026-11-10T21:53:52.4365414Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4365588Z ______________________________ ERROR collecting tests/nexus/test_temporal_system_nexus.py ______________________________
+2026-11-10T21:53:52.4366784Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4366960Z ______________________________ ERROR collecting tests/nexus/test_temporal_system_nexus.py ______________________________
+2026-11-10T21:53:52.4368214Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4368392Z __________________________ ERROR collecting tests/nexus/test_use_existing_conflict_policy.py ___________________________
+2026-11-10T21:53:52.4369659Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4369836Z __________________________ ERROR collecting tests/nexus/test_use_existing_conflict_policy.py ___________________________
+2026-11-10T21:53:52.4371031Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4371206Z _________________________________ ERROR collecting tests/nexus/test_workflow_caller.py _________________________________
+2026-11-10T21:53:52.4372400Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4372816Z _________________________________ ERROR collecting tests/nexus/test_workflow_caller.py _________________________________
+2026-11-10T21:53:52.4374097Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4374275Z _______________________ ERROR collecting tests/nexus/test_workflow_caller_cancellation_types.py ________________________
+2026-11-10T21:53:52.4375478Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4375657Z _______________________ ERROR collecting tests/nexus/test_workflow_caller_cancellation_types.py ________________________
+2026-11-10T21:53:52.4376859Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4377057Z __________ ERROR collecting tests/nexus/test_workflow_caller_cancellation_types_when_cancel_handler_fails.py ___________
+2026-11-10T21:53:52.4378381Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4378581Z __________ ERROR collecting tests/nexus/test_workflow_caller_cancellation_types_when_cancel_handler_fails.py ___________
+2026-11-10T21:53:52.4379781Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4379961Z __________________________ ERROR collecting tests/nexus/test_workflow_caller_error_chains.py ___________________________
+2026-11-10T21:53:52.4381159Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4381339Z __________________________ ERROR collecting tests/nexus/test_workflow_caller_error_chains.py ___________________________
+2026-11-10T21:53:52.4382718Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4382938Z _____________________________ ERROR collecting tests/nexus/test_workflow_caller_errors.py ______________________________
+2026-11-10T21:53:52.4384227Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4384408Z _____________________________ ERROR collecting tests/nexus/test_workflow_caller_errors.py ______________________________
+2026-11-10T21:53:52.4385608Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4385781Z ____________________________ ERROR collecting tests/nexus/test_workflow_caller_eviction.py _____________________________
+2026-11-10T21:53:52.4387063Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4387238Z ____________________________ ERROR collecting tests/nexus/test_workflow_caller_eviction.py _____________________________
+2026-11-10T21:53:52.4388583Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4388759Z _____________________________ ERROR collecting tests/nexus/test_workflow_run_operation.py ______________________________
+2026-11-10T21:53:52.4389954Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4390132Z _____________________________ ERROR collecting tests/nexus/test_workflow_run_operation.py ______________________________
+2026-11-10T21:53:52.4391522Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4391692Z _______________________________________ ERROR collecting tests/test_activity.py ________________________________________
+2026-11-10T21:53:52.4393030Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4393194Z _______________________________________ ERROR collecting tests/test_activity.py ________________________________________
+2026-11-10T21:53:52.4394385Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4394560Z ______________________________ ERROR collecting tests/test_activity_operator_commands.py _______________________________
+2026-11-10T21:53:52.4395750Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4395927Z ______________________________ ERROR collecting tests/test_activity_operator_commands.py _______________________________
+2026-11-10T21:53:52.4397307Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4397485Z ________________________ ERROR collecting tests/test_activity_operator_commands_interceptor.py _________________________
+2026-11-10T21:53:52.4398688Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4398865Z ________________________ ERROR collecting tests/test_activity_operator_commands_interceptor.py _________________________
+2026-11-10T21:53:52.4400066Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4400244Z __________________________ ERROR collecting tests/test_activity_operator_commands_requests.py __________________________
+2026-11-10T21:53:52.4401494Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4401734Z __________________________ ERROR collecting tests/test_activity_operator_commands_requests.py __________________________
+2026-11-10T21:53:52.4403093Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4403260Z ________________________________________ ERROR collecting tests/test_client.py _________________________________________
+2026-11-10T21:53:52.4404452Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4404616Z ________________________________________ ERROR collecting tests/test_client.py _________________________________________
+2026-11-10T21:53:52.4405907Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4406077Z ____________________________________ ERROR collecting tests/test_client_exports.py _____________________________________
+2026-11-10T21:53:52.4407429Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4407599Z ____________________________________ ERROR collecting tests/test_client_exports.py _____________________________________
+2026-11-10T21:53:52.4408797Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4408955Z _________________________________________ ERROR collecting tests/test_cloud.py _________________________________________
+2026-11-10T21:53:52.4410214Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4410372Z _________________________________________ ERROR collecting tests/test_cloud.py _________________________________________
+2026-11-10T21:53:52.4411635Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4411798Z ________________________________________ ERROR collecting tests/test_common.py _________________________________________
+2026-11-10T21:53:52.4413078Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4413242Z ________________________________________ ERROR collecting tests/test_common.py _________________________________________
+2026-11-10T21:53:52.4414437Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4414599Z ________________________________________ ERROR collecting tests/test_contrib.py ________________________________________
+2026-11-10T21:53:52.4415999Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4416161Z ________________________________________ ERROR collecting tests/test_contrib.py ________________________________________
+2026-11-10T21:53:52.4417361Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4417527Z _______________________________________ ERROR collecting tests/test_converter.py _______________________________________
+2026-11-10T21:53:52.4418721Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4418887Z _______________________________________ ERROR collecting tests/test_converter.py _______________________________________
+2026-11-10T21:53:52.4420138Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4420365Z _______________________________________ ERROR collecting tests/test_envconfig.py _______________________________________
+2026-11-10T21:53:52.4421559Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4421724Z _______________________________________ ERROR collecting tests/test_envconfig.py _______________________________________
+2026-11-10T21:53:52.4423082Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4423254Z _________________________________ ERROR collecting tests/test_envconfig_extensions.py __________________________________
+2026-11-10T21:53:52.4424543Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4424714Z _________________________________ ERROR collecting tests/test_envconfig_extensions.py __________________________________
+2026-11-10T21:53:52.4425992Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4426159Z _______________________________________ ERROR collecting tests/test_extstore.py ________________________________________
+2026-11-10T21:53:52.4427353Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4427517Z _______________________________________ ERROR collecting tests/test_extstore.py ________________________________________
+2026-11-10T21:53:52.4429139Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4429307Z ____________________________________ ERROR collecting tests/test_extstore_client.py ____________________________________
+2026-11-10T21:53:52.4430552Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4430721Z ____________________________________ ERROR collecting tests/test_extstore_client.py ____________________________________
+2026-11-10T21:53:52.4431911Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4432071Z _______________________________________ ERROR collecting tests/test_gen_docs.py ________________________________________
+2026-11-10T21:53:52.4433344Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4433586Z _______________________________________ ERROR collecting tests/test_gen_docs.py ________________________________________
+2026-11-10T21:53:52.4434858Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4435025Z ________________________________________ ERROR collecting tests/test_plugins.py ________________________________________
+2026-11-10T21:53:52.4436216Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4436380Z ________________________________________ ERROR collecting tests/test_plugins.py ________________________________________
+2026-11-10T21:53:52.4437572Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4437741Z ____________________________________ ERROR collecting tests/test_prepare_release.py ____________________________________
+2026-11-10T21:53:52.4439045Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4439214Z ____________________________________ ERROR collecting tests/test_prepare_release.py ____________________________________
+2026-11-10T21:53:52.4440405Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4440567Z ________________________________________ ERROR collecting tests/test_runtime.py ________________________________________
+2026-11-10T21:53:52.4441771Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4441932Z ________________________________________ ERROR collecting tests/test_runtime.py ________________________________________
+2026-11-10T21:53:52.4443351Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4443519Z _________________________________ ERROR collecting tests/test_serialization_context.py _________________________________
+2026-11-10T21:53:52.4444882Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4445050Z _________________________________ ERROR collecting tests/test_serialization_context.py _________________________________
+2026-11-10T21:53:52.4446235Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4446400Z ________________________________________ ERROR collecting tests/test_service.py ________________________________________
+2026-11-10T21:53:52.4447668Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4447830Z ________________________________________ ERROR collecting tests/test_service.py ________________________________________
+2026-11-10T21:53:52.4449089Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4449249Z __________________________________________ ERROR collecting tests/test_tls.py __________________________________________
+2026-11-10T21:53:52.4450424Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4450588Z __________________________________________ ERROR collecting tests/test_tls.py __________________________________________
+2026-11-10T21:53:52.4451775Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4451999Z ______________________________________ ERROR collecting tests/test_type_errors.py ______________________________________
+2026-11-10T21:53:52.4453355Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4453516Z ______________________________________ ERROR collecting tests/test_type_errors.py ______________________________________
+2026-11-10T21:53:52.4454715Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4454875Z ______________________________________ ERROR collecting tests/test_update_core.py ______________________________________
+2026-11-10T21:53:52.4456081Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4456244Z ______________________________________ ERROR collecting tests/test_update_core.py ______________________________________
+2026-11-10T21:53:52.4457576Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4457742Z _______________________________________ ERROR collecting tests/test_workflow.py ________________________________________
+2026-11-10T21:53:52.4458926Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4459090Z _______________________________________ ERROR collecting tests/test_workflow.py ________________________________________
+2026-11-10T21:53:52.4460305Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4460475Z ___________________________________ ERROR collecting tests/test_workflow_exports.py ____________________________________
+2026-11-10T21:53:52.4461828Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4461995Z ___________________________________ ERROR collecting tests/test_workflow_exports.py ____________________________________
+2026-11-10T21:53:52.4463407Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4463576Z ___________________________________ ERROR collecting tests/testing/test_activity.py ____________________________________
+2026-11-10T21:53:52.4464774Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4464938Z ___________________________________ ERROR collecting tests/testing/test_activity.py ____________________________________
+2026-11-10T21:53:52.4466221Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4466392Z ________________________________ ERROR collecting tests/testing/test_timeskipping_v2.py ________________________________
+2026-11-10T21:53:52.4467682Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4467850Z ________________________________ ERROR collecting tests/testing/test_timeskipping_v2.py ________________________________
+2026-11-10T21:53:52.4469032Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4469206Z ___________________________________ ERROR collecting tests/testing/test_workflow.py ____________________________________
+2026-11-10T21:53:52.4470399Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4470624Z ___________________________________ ERROR collecting tests/testing/test_workflow.py ____________________________________
+2026-11-10T21:53:52.4471883Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4472053Z ________________________________ ERROR collecting tests/testing/test_workflow_ts_v2.py _________________________________
+2026-11-10T21:53:52.4473325Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4473496Z ________________________________ ERROR collecting tests/testing/test_workflow_ts_v2.py _________________________________
+2026-11-10T21:53:52.4474682Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4474852Z ____________________________________ ERROR collecting tests/worker/test_activity.py ____________________________________
+2026-11-10T21:53:52.4476207Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4476371Z ____________________________________ ERROR collecting tests/worker/test_activity.py ____________________________________
+2026-11-10T21:53:52.4477570Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4477744Z __________________________ ERROR collecting tests/worker/test_activity_method_annotations.py ___________________________
+2026-11-10T21:53:52.4485063Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4485246Z __________________________ ERROR collecting tests/worker/test_activity_method_annotations.py ___________________________
+2026-11-10T21:53:52.4486643Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4486819Z ________________________________ ERROR collecting tests/worker/test_breakpoint_hang.py _________________________________
+2026-11-10T21:53:52.4488117Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4488294Z ________________________________ ERROR collecting tests/worker/test_breakpoint_hang.py _________________________________
+2026-11-10T21:53:52.4489501Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4489678Z ___________________________ ERROR collecting tests/worker/test_child_workflow_versioning.py ____________________________
+2026-11-10T21:53:52.4490946Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4491124Z ___________________________ ERROR collecting tests/worker/test_child_workflow_versioning.py ____________________________
+2026-11-10T21:53:52.4492398Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4492570Z _____________________________ ERROR collecting tests/worker/test_command_aware_visitor.py ______________________________
+2026-11-10T21:53:52.4493890Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4494060Z _____________________________ ERROR collecting tests/worker/test_command_aware_visitor.py ______________________________
+2026-11-10T21:53:52.4495359Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4495531Z __________________________________ ERROR collecting tests/worker/test_event_groups.py __________________________________
+2026-11-10T21:53:52.4496827Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4496999Z __________________________________ ERROR collecting tests/worker/test_event_groups.py __________________________________
+2026-11-10T21:53:52.4498205Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4498376Z ____________________________________ ERROR collecting tests/worker/test_extstore.py ____________________________________
+2026-11-10T21:53:52.4499580Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4499751Z ____________________________________ ERROR collecting tests/worker/test_extstore.py ____________________________________
+2026-11-10T21:53:52.4501083Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4501255Z __________________________________ ERROR collecting tests/worker/test_interceptor.py ___________________________________
+2026-11-10T21:53:52.4502467Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4502769Z __________________________________ ERROR collecting tests/worker/test_interceptor.py ___________________________________
+2026-11-10T21:53:52.4504019Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4504189Z ______________________________ ERROR collecting tests/worker/test_payload_size_limits.py _______________________________
+2026-11-10T21:53:52.4505521Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4505774Z ______________________________ ERROR collecting tests/worker/test_payload_size_limits.py _______________________________
+2026-11-10T21:53:52.4506978Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4507152Z _______________________________ ERROR collecting tests/worker/test_poller_auto_enroll.py _______________________________
+2026-11-10T21:53:52.4508354Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4508528Z _______________________________ ERROR collecting tests/worker/test_poller_auto_enroll.py _______________________________
+2026-11-10T21:53:52.4509797Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4509967Z ____________________________________ ERROR collecting tests/worker/test_replayer.py ____________________________________
+2026-11-10T21:53:52.4511237Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4511409Z ____________________________________ ERROR collecting tests/worker/test_replayer.py ____________________________________
+2026-11-10T21:53:52.4512704Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4512882Z _______________________________ ERROR collecting tests/worker/test_update_with_start.py ________________________________
+2026-11-10T21:53:52.4514168Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4514343Z _______________________________ ERROR collecting tests/worker/test_update_with_start.py ________________________________
+2026-11-10T21:53:52.4515646Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4515813Z ____________________________________ ERROR collecting tests/worker/test_visitor.py _____________________________________
+2026-11-10T21:53:52.4517022Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4517191Z ____________________________________ ERROR collecting tests/worker/test_visitor.py _____________________________________
+2026-11-10T21:53:52.4518385Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4518552Z _____________________________________ ERROR collecting tests/worker/test_worker.py _____________________________________
+2026-11-10T21:53:52.4519874Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4520043Z _____________________________________ ERROR collecting tests/worker/test_worker.py _____________________________________
+2026-11-10T21:53:52.4521241Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4521411Z __________________________________ ERROR collecting tests/worker/test_worker_exit.py ___________________________________
+2026-11-10T21:53:52.4522732Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4522945Z __________________________________ ERROR collecting tests/worker/test_worker_exit.py ___________________________________
+2026-11-10T21:53:52.4524300Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4524550Z ____________________________________ ERROR collecting tests/worker/test_workflow.py ____________________________________
+2026-11-10T21:53:52.4525748Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4525918Z ____________________________________ ERROR collecting tests/worker/test_workflow.py ____________________________________
+2026-11-10T21:53:52.4527116Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4527294Z ___________________________ ERROR collecting tests/worker/workflow_sandbox/test_importer.py ____________________________
+2026-11-10T21:53:52.4528548Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4528723Z ___________________________ ERROR collecting tests/worker/workflow_sandbox/test_importer.py ____________________________
+2026-11-10T21:53:52.4529987Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4530168Z _________________________ ERROR collecting tests/worker/workflow_sandbox/test_restrictions.py __________________________
+2026-11-10T21:53:52.4531361Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4531545Z _________________________ ERROR collecting tests/worker/workflow_sandbox/test_restrictions.py __________________________
+2026-11-10T21:53:52.4533011Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4533281Z ____________________________ ERROR collecting tests/worker/workflow_sandbox/test_runner.py _____________________________
+2026-11-10T21:53:52.4534627Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4534803Z ____________________________ ERROR collecting tests/worker/workflow_sandbox/test_runner.py _____________________________
+2026-11-10T21:53:52.4535996Z E   AttributeError: 'FixtureManager' object has no attribute '_arg2fixturedefs'. Did you mean: '_arg2node2fixturedefs'?
+2026-11-10T21:53:52.4540257Z Results (7.75s):
+2026-11-10T21:53:52.4540355Z          4 warnings
+2026-11-10T21:53:52.4540403Z        230 errors
+2026-11-10T21:53:52.8782252Z ##[error]Process completed with exit code 1.
+2026-11-10T21:53:52.8828555Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

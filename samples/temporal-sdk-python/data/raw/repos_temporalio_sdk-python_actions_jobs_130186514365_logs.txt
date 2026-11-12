@@ -1,0 +1,40 @@
+2026-11-10T22:51:34.5072719Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-10T22:51:37.3670030Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-10T22:51:37.3799547Z ##[group]Run : parse toolchain version
+2026-11-10T22:51:37.4108662Z ##[group]Run : construct rustup command line
+2026-11-10T22:51:37.4271054Z ##[group]Run : set $CARGO_HOME
+2026-11-10T22:51:37.4429422Z ##[group]Run : install rustup if needed
+2026-11-10T22:51:37.4589447Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-11-10T22:51:37.7975575Z ##[group]Run rustup default stable
+2026-11-10T22:51:37.8268451Z ##[group]Run : create cachekey
+2026-11-10T22:51:37.8730274Z ##[group]Run : disable incremental compilation
+2026-11-10T22:51:37.8877176Z ##[group]Run : enable colors in Cargo output
+2026-11-10T22:51:37.9046456Z ##[group]Run : enable Cargo sparse registry
+2026-11-10T22:51:37.9451642Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-10T22:51:37.9728657Z ##[group]Run rustc +stable --version --verbose
+2026-11-10T22:51:38.0080966Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-10T22:51:38.1784408Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-10T22:51:38.8677090Z Cache hit for restore-key: v0-rust-/opt/hostedtoolcache/Python/3.14.10/x64-cloud-test-Linux-x64-51ccc61f-b8260d03
+2026-11-10T22:51:43.3787361Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.14.10/x64-cloud-test-Linux-x64-51ccc61f-b8260d03" full match: false.
+2026-11-10T22:51:43.4241229Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-10T22:51:48.3971039Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-10T22:51:51.1626241Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.14.10-pruned-c45dbc510731ef0d7519cfe4a1d6fa4ca447aa7aa16efac06d0723dfbd9f6260
+2026-11-10T22:51:51.2208334Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.14.10-pruned-c45dbc510731ef0d7519cfe4a1d6fa4ca447aa7aa16efac06d0723dfbd9f6260
+2026-11-10T22:51:51.3234928Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.14.10-pruned-c45dbc510731ef0d7519cfe4a1d6fa4ca447aa7aa16efac06d0723dfbd9f6260
+2026-11-10T22:51:51.3899507Z ##[group]Run uv tool install poethepoet
+2026-11-10T22:51:52.2628312Z Installed 2 packages in 3ms
+2026-11-10T22:51:52.2695857Z ##[group]Run uv sync --all-extras
+2026-11-10T22:51:55.0885550Z Installed 221 packages in 384ms
+2026-11-10T22:51:55.1108953Z ##[group]Run poe build-develop
+2026-11-10T22:52:00.2486464Z Installed 2 packages in 28ms
+2026-11-10T22:53:21.0101486Z ##[group]Run cert_dir="$RUNNER_TEMP/cloud-test-certs"
+2026-11-10T22:53:21.1348285Z ##[group]Run uv run python .github/scripts/cloud_namespace.py create
+2026-11-10T22:53:21.1704618Z Installed 1 package in 1ms
+2026-11-10T22:54:34.2457753Z ##[group]Run mkdir junit-xml
+2026-11-10T22:54:34.2649394Z ##[group]Run poe test -s --workflow-environment envconfig --junit-xml=junit-xml/cloud.xml
+2026-11-10T23:01:31.9988095Z Results (413.57s):
+2026-11-10T23:01:31.9988329Z       1478 passed
+2026-11-10T23:01:31.9988537Z        361 skipped
+2026-11-10T23:01:31.9988751Z         35 warnings
+2026-11-10T23:01:32.4009509Z ##[group]Run uv run python .github/scripts/cloud_namespace.py delete "sdk-python-ci-42918354951-1.tb3he"
+2026-11-10T23:01:45.5130274Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

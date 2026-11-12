@@ -1,0 +1,388 @@
+# CI Diagnostic: {{ config.repo }}
+
+> **Sample report.** Produced by Cedarwood Studio from public data on {{ config.repo }} as of {{ config.as_of }}. Nobody at the project asked for it. Cedarwood Studio isn't affiliated with the project and the project hasn't endorsed this report. Nothing was sent to the project: no issue, pull request or comment.
+
+This is the report a CI Diagnostic client receives, run here on a public repository so anyone can check it. It's the second sample. The first, on wagtail/wagtail, found a slow pipeline with no re-runs in its history. This one was chosen because its history has many re-runs after a failure, so it shows what the diagnostic does with a pipeline where people press re-run. It names the tests and steps that failed and then passed on the same commit, and ranks them.
+
+Every number below was computed from the repository's own CI history, and the command that produces each one is printed next to it. The API responses behind them are stored with the report, with personal fields removed and logs trimmed, so the numbers can be recomputed without network access.
+
+A diagnostic measures how a pipeline behaves. It isn't an audit or a security assessment, and none of this judges the project or the people who maintain it. This SDK tests concurrent workers against a live server on three operating systems, and that kind of suite is hard to keep free of timing-dependent failures.
+
+## Summary
+
+**What was measured.** The `{{ config.workflow_name }}` workflow (`.github/workflows/{{ config.workflow }}`) on GitHub Actions: all {{ flaky.ci_runs }} of its runs over the 30 days from {{ window.since }} to {{ window.until }}, on pull requests and pushes, with every attempt of every run that was re-run; its last {{ main.summary.runs_total }} completed runs on `{{ config.branch }}` ({{ main.summary.first_run | date }} to {{ main.summary.last_run | date }}); and the log of every job that failed and later passed. Workflow files were read at commit `{{ static.ref | sha }}`.
+
+**What we found.**
+
+1. **{{ flaky.rerun_runs }} runs were re-run after a failure, and {{ flaky.rerun_final.success }} of them then passed with no change to the code.** Those re-runs hold {{ flaky.instance_count }} job executions that failed and later passed on the same commit ("failed, then passed" below; section 2 defines it). The log names a failing test in {{ flaky.by_kind.test }} of them. In {{ flaky.by_kind.timeout }} a test step ran past its time limit and the job was stopped. {{ flaky.by_kind.shared }} had one error shared by many tests, and {{ flaky.by_kind.other }} failed outside the tests.
+2. **One test accounts for {{ flaky.tests.0.failures }} of the {{ flaky.by_kind.test }} failures that name a test.** `{{ flaky.tests.0.test }}` failed and then passed {{ flaky.tests.0.failures }} times across {{ flaky.tests.0.runs }} runs, every time on pytest's 60-second limit for one test. Run alone on our fork, it timed out the same way in {{ probe.finished_failed }} of {{ probe.finished_total }} repetitions, counting the steps that ran to the end. The second, `{{ flaky.tests.1.test }}`, did so {{ flaky.tests.1.failures }} times. The logs name {{ flaky.tests_distinct }} tests in all, {{ flaky.tests_repeat }} of them more than once. Section 2 ranks them with the job log behind each.
+3. **{{ flaky.timeouts_windows }} of the {{ flaky.by_kind.timeout }} time-limit failures were on Windows, and {{ flaky.timeouts_recent }} of the {{ flaky.by_kind.timeout }} fall in the last seven days of the window.** A Windows job execution failed and then passed {{ flaky.platform_rates.windows | pct }} of the time, against {{ flaky.platform_rates.linux | pct }} on Linux.
+4. **None of the {{ flaky.main.latest_matrix.runs }} push runs on `{{ config.branch }}` since the job matrix changed on {{ flaky.main.latest_matrix.first_run | date }} ended green, as of {{ main.summary.last_run | date }}.** {{ flaky.main.latest_matrix.runs_with_timeout }} of them have a Windows test step past its time limit. Over the last {{ main.summary.runs_total }} pushes, {{ main.summary.conclusions.failure }} ended red and none was re-run. {{ flaky.main.runs_naming_a_known_test }} of those red runs name a test from the ranked list. A red run is the conclusion of a CI run. It doesn't by itself say the code on `{{ config.branch }}` is broken, and section 2 shows why many of these may be flaky checks.
+5. **A re-run that ended green delayed the verdict by {{ flaky.cost.delay_median_s | mmss }} at the median.** A pull-request run that passes the first time takes {{ flaky.pr_first_pass.wall_median_s | mmss }}. Added up over the {{ flaky.cost.runs }} runs, the delay comes to {{ flaky.cost.delay_total_s | hrs }} hours. That total includes the time before anyone pressed re-run, which in some runs was overnight. The re-run jobs used {{ flaky.cost.billed_min | int }} runner minutes.
+6. **{{ flaky.superseded.runs }} pull-request runs kept going after a newer commit had started a new run.** The workflow has no `concurrency` group, so the older run isn't cancelled. The jobs of those runs used {{ flaky.superseded.billed_min_after | int }} runner minutes after the newer run began.
+7. **{{ static.uses_by_pin.sha }} of {{ static.uses_total }} action references are pinned to commit SHAs, {{ static.uses_by_pin.local }} are local to the repository and one follows a branch.** {{ static.actions_deprecated_runtime | count }} actions run on a Node version GitHub has deprecated. The cache store holds {{ caches.entries_bytes | mb }} MB against GitHub's default limit of 10 GB.
+
+**What to change, in order of expected effect.** Section 7 has the arithmetic and the caveats.
+
+| # | Change | Evidence | Size |
+| --- | --- | --- | --- |
+| 1 | Find what stalls the Windows test steps | {{ flaky.by_kind.timeout }} failed-then-passed executions, {{ flaky.timeouts_windows }} on Windows and {{ flaky.timeouts_recent }} in the last seven days, and {{ flaky.main.latest_matrix.runs_with_timeout }} of the {{ flaky.main.latest_matrix.runs }} red runs on `{{ config.branch }}` since {{ flaky.main.latest_matrix.first_run | date }} | A logging change to make the log name the stalled test; the fix depends on what it names |
+| 2 | Fix `test_warns_when_workers_too_low` | {{ flaky.tests.0.failures }} failed-then-passed executions and {{ flaky.tests.0.main_failures }} more failed jobs on `{{ config.branch }}`; the only test named in {{ flaky.tests.0.sole_failures }} of the {{ flaky.tests.0.failures }} | One test |
+| 3 | Fix `test_worker_with_worker_deployment_config` | {{ flaky.tests.1.failures }} failed-then-passed executions and {{ flaky.tests.1.main_failures }} more failed jobs on `{{ config.branch }}` | One test |
+| 4 | Cancel superseded pull-request runs | {{ flaky.superseded.billed_min_after | int }} runner minutes in 30 days | Three lines |
+| 5 | Take two downloads off the path of every job | {{ flaky.downloads.protoc }} executions failed fetching `protoc`, {{ flaky.downloads.server }} on a corrupt test-server download | A cache step or a pinned download for each |
+| 6 | Decide how red runs on `{{ config.branch }}` are handled | {{ main.summary.conclusions.failure }} of {{ main.summary.runs_total }} pushes red, none re-run | A decision |
+| 7 | Pin the one reusable workflow that follows a branch, and move {{ static.actions_deprecated_runtime | count }} actions off Node 20 | No time saved | A few lines |
+
+What this evidence shows and what it doesn't is at the end of section 2. What couldn't be measured, and why no fix was tested on a fork, is in section 8.
+
+## 1. What was measured
+
+| Source | Window | Count |
+| --- | --- | --- |
+| All runs, all workflows, all branches | {{ window.since }} to {{ window.until }} (30 days) | {{ window.runs_all | int }} runs: {{ window.runs_own | int }} from workflow files, {{ window.runs_generated }} from workflows GitHub generates (Dependabot) |
+| Of those, runs of `{{ config.workflow_name }}` | Same | {{ flaky.ci_runs }} runs, {{ flaky.attempt_gt1 }} with more than one attempt |
+| Completed push runs of `{{ config.workflow_name }}` on `{{ config.branch }}` | {{ main.summary.first_run | date }} to {{ main.summary.last_run | date }} | {{ main.summary.runs_total }} runs: {{ main.summary.conclusions.success }} passed, {{ main.summary.conclusions.failure }} failed, {{ main.summary.conclusions.cancelled }} cancelled |
+| Logs of job executions that failed and then passed | {{ flaky.first_instance | date }} to {{ flaky.last_instance | date }} | {{ flaky.instance_count }} logs |
+| Logs of failed jobs in red runs on `{{ config.branch }}` | {{ main.summary.first_run | date }} to {{ main.summary.last_run | date }} | {{ flaky.main.failed_jobs }} logs |
+| Job logs, for cache hits | {{ caches.sample_first | date }} to {{ caches.sample_last | date }} | {{ caches.logs_read }} logs from the {{ caches.sample_runs }} most recent runs on `{{ config.branch }}` that reached a verdict |
+| Workflow files | Commit `{{ static.ref | sha }}` | {{ static.files | count }} files, {{ static.uses_total }} `uses:` references |
+| Cache entries | Snapshot on {{ config.as_of }} | {{ caches.entries }} entries |
+| Probe runs on our fork | {{ config.as_of }} | {{ probe.runs | count }} runs, {{ probe.rows | count }} test steps |
+
+**Definitions.** A run's *wall-clock time* is the latest job finish minus the earliest job creation, over the run's final attempt, which is the time a person waits for a verdict. *Runner minutes* round each job's running time up to a whole minute and add them. That's the unit GitHub bills a private repository in, before the higher rates it charges for Windows and macOS runners. This repository is public and pays nothing for standard runners; the minutes are shown because a private repository would pay. *Queue time* is the gap between a job being created and starting. *Failure rate* is failed runs over passed plus failed. Timings and runner minutes leave out `{{ flaky.gate_jobs.0 }}`, a job that only reports on the other jobs.
+
+**To reproduce.** Clone the report's repository, then:
+
+```
+python -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python -m cidiag analyze --sample temporal-sdk-python   # recompute results/metrics.json from data/raw
+.venv/bin/python -m cidiag verify --sample temporal-sdk-python    # check this report against a fresh computation
+.venv/bin/python -m cidiag query flaky.tests --sample temporal-sdk-python   # print any one measure
+```
+
+`python -m cidiag fetch --sample temporal-sdk-python` pulls the same endpoints again through `gh api`. Each section names the `query` that prints its numbers. Add `--sample temporal-sdk-python` to each.
+
+## 2. Flaky checks
+
+### How a flaky failure is counted
+
+A re-run executes the same commit again. If a job fails in one attempt and passes in a later attempt of the same run, the code was the same both times, so something other than the code decided the result. Each such failed execution is counted once below as "failed, then passed".
+
+Three things in the API make a naive count wrong, and the tool corrects for each.
+
+- **Attempts held for approval.** {{ flaky.attempt_gt1 }} runs of `{{ config.workflow_name }}` have an attempt number above 1. In {{ flaky.approval_reruns }} of them the first attempt was held for a maintainer's approval and never ran, so the second attempt was the first real execution. {{ flaky.rerun_runs }} runs have an earlier attempt that failed. Only those count as re-runs after a failure.
+- **Copies of jobs that weren't re-run.** When someone re-runs only the failed jobs, GitHub lists every other job again under the new attempt, with a new id and its original start time. A job that failed in attempt 2 and was left alone in attempt 3 shows up as a failure in both. Here a job counts only in the attempt it started in.
+- **Jobs that report on other jobs.** `{{ flaky.gate_jobs.0 }}` fails whenever a job it waits for fails. It's left out.
+
+Query: `python -m cidiag query flaky.instances`. Sources: `GET /repos/{{ config.repo }}/actions/runs/{id}/attempts/{n}`, `.../attempts/{n}/jobs` and `GET /repos/{{ config.repo }}/actions/jobs/{id}/logs`.
+
+### Re-runs in the 30 days
+
+| Measure | Value |
+| --- | --- |
+| Runs of `{{ config.workflow_name }}` | {{ flaky.ci_runs }} |
+| Runs that reached a verdict | {{ flaky.ci_verdicts }} |
+| Had at least one failed attempt | {{ flaky.any_attempt_failed_verdicts }} ({{ flaky.any_attempt_failed_rate | pct }}) |
+| Re-run after a failed attempt | {{ flaky.rerun_runs }} |
+| Re-run, and ended green | {{ flaky.rerun_final.success }} |
+| Re-run, and still red | {{ flaky.rerun_final.failure }} |
+| Re-run, then cancelled | {{ flaky.rerun_final.cancelled }} |
+| Most attempts on one run | {{ flaky.rerun_attempts_max }} |
+| Ended red after any re-runs | {{ flaky.final_failure_rate | pct }} of runs with a verdict |
+
+Query: `python -m cidiag query flaky.rerun_final`. {{ flaky.rerun_by_event.pull_request }} of the {{ flaky.rerun_runs }} re-run runs were on pull requests. Percentages are of the runs that reached a verdict. Counting the {{ flaky.any_attempt_failed_no_verdict }} that had a failed attempt and ended cancelled, {{ flaky.any_attempt_failed }} runs had a failed attempt, and {{ flaky.rerun_runs }} of those ({{ flaky.rerun_share_of_failed | pct }}) were re-run.
+
+Most runs had a failed attempt, and much of that isn't flakiness. The most frequent failing step in the window is the lint step (section 3), and a pull request that fails lint is failing on its own change. The {{ flaky.rerun_final.success }} runs that went green on a re-run are the ones where the history shows the code alone didn't decide the result.
+
+### What failed, by kind
+
+The {{ flaky.instance_count }} failed-then-passed job executions, by what their log says:
+
+| Kind | Executions | What it means |
+| --- | --- | --- |
+| Names a failing test | {{ flaky.by_kind.test }} | pytest reported one or more tests failing on their own. Ranked below. |
+| Step ran past its time limit | {{ flaky.by_kind.timeout }} | The runner stopped a test step at the limit in the workflow file. No test is named. |
+| One error shared by many tests | {{ flaky.by_kind.shared }} | Five or more tests in the job failed with the same error line. That's one failure, so it's listed once and those tests aren't ranked. |
+| Failed outside the tests | {{ flaky.by_kind.other }} | A setup step failed, or the log has no error line the parser reads. |
+
+Query: `python -m cidiag query flaky.by_kind`.
+
+### Tests that failed and then passed, ranked
+
+{{ flaky.by_kind.test }} executions name {{ flaky.tests_distinct }} tests between them. The count is job executions, so one run with the test failing on two runners counts twice under "Failed, then passed" and once under "Runs". "Also failed on main" counts failed jobs in the last {{ main.summary.runs_total }} pushes to `{{ config.branch }}` whose log names the same test. Those were never re-run, so they aren't in the first count. The error line is the first line pytest printed for the failure. Where a test failed with more than one error, it's the most frequent.
+
+{{ table:flaky_tests }}
+
+Query: `python -m cidiag query flaky.tests`. One path in the table ends in an ellipsis because the log cut it short and more than one file in the repository fits.
+
+The top two tests are {{ flaky.top2_failures }} of the {{ flaky.by_kind.test }} named failures. `{{ flaky.tests.0.name }}` hit pytest's 60-second per-test limit every time, on Linux and macOS, over {{ flaky.tests.0.first | date }} to {{ flaky.tests.0.last | date }}. It was the only test named in {{ flaky.tests.0.sole_failures }} of its {{ flaky.tests.0.failures }} executions. `{{ flaky.tests.1.name }}` failed on Linux only, with an assertion that a worker reported one deployment version when the test expected another.
+
+### One test, run alone on a fork
+
+The ranking says `{{ flaky.tests.0.name }}` fails with no change to the code. To check that away from the project's own pull requests, we forked the repository to [{{ probe.repo }}](https://github.com/{{ probe.repo }}) and pushed one branch, `{{ probe.branch }}`, from commit `{{ static.ref | sha }}`. The branch adds one workflow file and changes nothing else. On a Linux, a Windows and a macOS runner it builds the SDK with the same steps as `ci.yml`. Then it runs the test alone repeatedly in one process, runs it alone 200 times spread over the runner's cores, and runs all of `tests/worker/test_worker.py` once the way CI does. No test is skipped, retried or changed.
+
+We ran it twice. The first run gave the one-process step 200 repetitions and a 20-minute limit, which was too tight to finish. The second used 60 repetitions and longer limits. Both are in the table.
+
+{{ table:flaky_probe }}
+
+Query: `python -m cidiag query probe`. "Passed" and "Failed" are pytest's own counts where the step finished, and counts of its progress marks where it didn't.
+
+- **The test fails when run alone.** In the {{ probe.steps_alone_finished }} single-test steps that ran to the end, {{ probe.finished_failed }} of {{ probe.finished_total }} repetitions failed. Of the {{ probe.errors_total }} failures pytest printed an error for, {{ probe.errors.0.count }} read `{{ probe.errors.0.error }}`, the same line as in the project's history.
+- **One run of the test file doesn't show it.** The whole file passed in all {{ probe.file_steps }} of its steps: {{ probe.file_passed }} test results and {{ probe.file_failed }} failures. Someone who runs the file once will probably see nothing wrong.
+- **On Windows the same stall takes a different shape.** On Linux and macOS, pytest-timeout enforces the 60-second limit with a signal and fails the one test. Windows has no such signal, so pytest-timeout uses a watchdog thread there (the logs say `timeout method: thread`), and when a test runs past the limit it ends the whole pytest process. {{ probe.windows_alone_finished }} of the {{ probe.windows_alone }} single-test steps on Windows ran to the end. In {{ probe.windows_ended_by_timeout }}, pytest-timeout ended the process with no summary and no test named. {{ probe.windows_step_limit }} went quiet until our step limit, and the log doesn't say why.
+
+A Windows step that goes quiet with no test named resembles the {{ flaky.timeouts_windows }} Windows time-limit failures in the project's history (next subsection). In the ranking above, `{{ flaky.tests.0.name }}` is named {{ flaky.tests.0.failures }} times on Linux and macOS and {{ flaky.tests.0.on_windows }} times on Windows. Taken together, that suggests some of the Windows time-limit failures are this test, or others like it, reported in a different way.
+
+The probe doesn't prove that. It ran one test, on a later day, on runners assigned to our fork. Repeating a test inside one pytest session is also not how CI runs it, and the repetition may add stalls of its own. What it does show is that this test can run past 60 seconds with no pull request involved. It did so on Linux and macOS in the steps that finished, and on Windows in the step pytest-timeout ended.
+
+### Steps that ran past their time limit
+
+In {{ flaky.by_kind.timeout }} failed-then-passed executions the log names no test. A test step reached the `timeout-minutes` set for it in the workflow file and the runner stopped it.
+
+{{ table:flaky_timeouts }}
+
+Query: `python -m cidiag query flaky.timeouts`. By runner: {{ flaky.timeouts_by_platform | counts }}. {{ flaky.timeouts_recent }} of the {{ flaky.by_kind.timeout }} started on or after {{ flaky.timeouts_recent_from }}.
+
+The project sets `timeout = 60` and `timeout_func_only = true` for pytest in `pyproject.toml`. With that setting the 60-second limit covers the body of each test and leaves out its fixtures, so a stall while a fixture sets up or tears down would run until the step limit with no test named. That fits what the logs show. We didn't establish that it's the cause. Our stored copy of each log keeps the failure lines and drops pytest's progress output, so it can't say whether one test stalled or the whole step ran slow.
+
+### One error shared by many tests
+
+{{ table:flaky_shared }}
+
+Query: `python -m cidiag query flaky.shared`. In the largest case every test in the job that needs the local test server failed with the same line, because the server binary didn't download intact. Counting those as hundreds of flaky tests would bury the ranking above. Three tests in the ranking (`test_workflow_env_time_skipping_basic`, `test_workflow_env_time_skipping_manual` and `test_ui_port`) failed on their own with a download error of the same kind. In all, {{ flaky.downloads.server }} executions on {{ flaky.downloads.server_days }} different days trace to that download.
+
+### Failures outside the tests
+
+{{ table:flaky_other }}
+
+Query: `python -m cidiag query flaky.other`. {{ flaky.downloads.protoc }} executions in {{ flaky.downloads.protoc_runs }} runs failed while installing `protoc`, all on {{ flaky.downloads.protoc_first | date }} and {{ flaky.downloads.protoc_last | date }}. `arduino/setup-protoc` asks the GitHub API for the full list of protobuf releases on every job to resolve the version, at the commit pinned here (`src/installer.ts`, `fetchVersions`). When that list comes back empty the step stops with "unable to get latest version". The history shows the lookup failing in a burst. It gives no reason.
+
+### By runner
+
+Every job execution of `{{ config.workflow_name }}` in the window that ended in a pass or a failure, and how many of them failed and then passed:
+
+{{ table:flaky_platforms }}
+
+Query: `python -m cidiag query flaky.platforms`.
+
+### The main branch
+
+No run on `{{ config.branch }}` was re-run in the last {{ main.summary.runs_total }} pushes, so there's no second attempt to compare, and nothing on `{{ config.branch }}` counts as "failed, then passed". {{ main.summary.conclusions.failure }} of those pushes ended red. We read the logs of their failed jobs:
+
+| Measure | Value |
+| --- | --- |
+| Red runs on `{{ config.branch }}` | {{ flaky.main.failed_runs }} of {{ main.summary.runs_total }} |
+| Failed jobs in them, `{{ flaky.gate_jobs.0 }}` left out | {{ flaky.main.failed_jobs }} |
+| Of those, naming a test | {{ flaky.main.failed_jobs_by_kind.test }} |
+| Step past its time limit | {{ flaky.main.failed_jobs_by_kind.timeout }} |
+| One error shared by many tests | {{ flaky.main.failed_jobs_by_kind.shared }} |
+| Outside the tests | {{ flaky.main.failed_jobs_by_kind.other }} |
+| Red runs that name a test from the ranked list | {{ flaky.main.runs_naming_a_known_test }} |
+| Red runs where every failed job names only tests from the ranked list | {{ flaky.main.runs_only_known_tests }} |
+| Red runs with a step past its time limit | {{ flaky.main.runs_with_timeout }} |
+| Tests named on `{{ config.branch }}` that aren't in the ranked list | {{ flaky.main.other_tests_distinct }} |
+
+Query: `python -m cidiag query flaky.main`.
+
+The job matrix changed on {{ flaky.main.latest_matrix.first_run | date }}, when the Python versions moved from 3.10 and 3.14 to 3.11 and 3.15. All {{ flaky.main.latest_matrix.conclusions.failure }} pushes to `{{ config.branch }}` since then ended red, up to the last one read ({{ main.summary.last_run | date }}). Of their {{ flaky.main.latest_matrix.failed_jobs }} failed jobs, {{ flaky.main.latest_matrix.failed_jobs_by_kind.test }} name a test, {{ flaky.main.latest_matrix.failed_jobs_by_kind.timeout }} are a step past its time limit and {{ flaky.main.latest_matrix.failed_jobs_by_kind.shared }} is one error shared by many tests. All {{ flaky.main.latest_matrix.timeout_jobs }} time-limit failures were Windows jobs, in {{ flaky.main.latest_matrix.runs_with_timeout }} of the {{ flaky.main.latest_matrix.runs }} runs. Query: `python -m cidiag query flaky.main.latest_matrix`.
+
+A red run on `{{ config.branch }}` that names only tests known to fail and pass on the same commit elsewhere is probably flaky too. The history can't confirm it, because nobody ran it again.
+
+### What the re-runs cost
+
+Over the {{ flaky.cost.runs }} runs that were re-run after a failure and ended green:
+
+| Measure | Value |
+| --- | --- |
+| Delay from the first red verdict to the green one, median | {{ flaky.cost.delay_median_s | mmss }} |
+| Delay, 90th percentile | {{ flaky.cost.delay_p90_s | hmm }} |
+| Delay, all {{ flaky.cost.runs }} runs added up | {{ flaky.cost.delay_total_s | hrs }} hours |
+| Time from the run starting to the green verdict, median | {{ flaky.cost.total_median_s | hmm }} |
+| A pull-request run that passes the first time, median | {{ flaky.pr_first_pass.wall_median_s | mmss }} |
+| Runner minutes used by the re-run jobs | {{ flaky.cost.billed_min | int }} |
+| Attempts it took | {{ flaky.cost.attempts | attempts }} |
+
+Query: `python -m cidiag query flaky.cost`. The delay runs from the end of the first attempt to the end of the last. It includes the time before someone noticed the failure and pressed re-run, and at the 90th percentile that's overnight. The runner minutes are the smaller cost next to a pull request sitting red for {{ flaky.cost.delay_median_s | mmss }} on a commit that later passed.
+
+### What this evidence shows and what it doesn't
+
+- **It shows** that each failure counted above didn't come from the commit alone. The same job, on the same commit, later passed.
+- **A pass after a failure suggests a flaky test without proving one.** It says the failure isn't deterministic. One occurrence could be a slow runner or a network fault. `{{ flaky.tests.0.name }}` failed this way {{ flaky.tests.0.failures }} times in {{ flaky.tests.0.runs }} runs on two operating systems, which is hard to explain as chance. The {{ flaky.tests_once }} tests that appear once are candidates, and we wouldn't act on one of them without seeing it again.
+- **It undercounts.** A failure is counted only if someone re-ran the job and it then passed. {{ flaky.rerun_share_of_failed | pct }} of the runs with a failed attempt were re-run. Failures on `{{ config.branch }}` were never re-run. A flaky failure that the author cleared by pushing another commit is invisible here.
+- **It doesn't say why a test is flaky.** The error line says what the test saw. Finding the cause means reading the test and the code under it, which a diagnostic doesn't do.
+- **A step past its time limit names no test.** The {{ flaky.by_kind.timeout }} time-limit failures could be one stalled test or many.
+- **The ranking covers 30 days.** A test that fails one time in several hundred runs may not appear at all, and GitHub keeps job logs for 90 days by default, so the window can't be pushed back far.
+- **The project has its own reporting.** The workflow uploads JUnit XML for every test job. A team with those files can count failures per test directly, without waiting for someone to press re-run. We didn't use them because the artifacts expire after 14 days.
+
+## 3. Failure rates by workflow
+
+All runs created from {{ window.since }} to {{ window.until }}, on every branch:
+
+{{ table:rates }}
+
+Query: `python -m cidiag query window.rows`. Source: `GET /repos/{{ config.repo }}/actions/runs?created={day}`, one request per day, because GitHub returns at most 1,000 runs for one query and this window holds {{ window.runs_all | int }}.
+
+Cancelled runs and runs held for approval never reached a verdict and are left out of the failure rate, as are runs GitHub skipped. The failure rate is for the final attempt, so a run that failed, was re-run and passed counts as passed. "Re-run after failure" counts runs with an earlier attempt that failed. `Opengrep SAST` and `Check for CODEOWNERS` run on this repository but their files aren't in its `.github/workflows` directory at the commit we read, so they're counted here and not examined in section 5. A failed `Changelog` run means the pull request has no changelog entry yet, which is the check doing its job.
+
+**What failed.** Failed jobs of `{{ config.workflow_name }}` in the window, by job and step, over each run's final attempt. The ten most frequent:
+
+{{ table:failing_top }}
+
+Query: `python -m cidiag query window.failing_jobs`. `build-lint-test` runs as eight matrix jobs, so one pull request that fails lint adds eight to the first row.
+
+## 4. Run time, and where it goes
+
+Over the {{ main.summary.runs_with_verdict }} of the last {{ main.summary.runs_total }} runs on `{{ config.branch }}` that reached a verdict:
+
+| Measure | Value |
+| --- | --- |
+| Median wall-clock time | {{ main.summary.wall_median_s | mmss }} ({{ main.summary.wall_median_s | min }} min) |
+| Median, successful runs only | {{ main.summary.wall_median_success_s | mmss }} |
+| 90th percentile | {{ main.summary.wall_p90_s | mmss }} |
+| Slowest | {{ main.summary.wall_max_s | mmss }} |
+| Median runner minutes per run | {{ main.summary.billed_median_min | num }} |
+| Runner minutes, all {{ main.summary.runs_with_verdict }} runs | {{ main.summary.billed_total_min | int }} |
+
+Query: `python -m cidiag query main.summary`. Source: `GET /repos/{{ config.repo }}/actions/workflows/{{ config.workflow }}/runs?branch={{ config.branch }}&event=push&status=completed` and `GET /repos/{{ config.repo }}/actions/runs/{id}/jobs?filter=all`.
+
+On pull requests, the {{ flaky.pr_first_pass.runs_with_verdict }} runs that passed on the first attempt took {{ flaky.pr_first_pass.wall_median_s | mmss }} at the median and {{ flaky.pr_first_pass.wall_p90_s | mmss }} at the 90th percentile. Query: `python -m cidiag query flaky.pr_first_pass`.
+
+**By step.** Share of all step time across the {{ main.steps.runs }} successful runs on `{{ config.branch }}`, with the per-job report path removed from step names so that matrix jobs add up:
+
+{{ table:steps }}
+
+Query: `python -m cidiag query main.steps`. The test steps are the largest share. Building the Rust extension (`poe build-develop`, plus `Build Alpine wheel` in the two packaging jobs) is the next largest.
+
+**By job.** The job matrix changed on {{ flaky.main.latest_matrix.first_run | date }} and no run on `{{ config.branch }}` has passed since, so there are no successful runs of the current matrix to time. The table covers the {{ main.current_matrix.summary.runs_total }} successful runs on the matrix before the change ({{ main.current_matrix.first_run | date }} onward). "Finished last" counts the runs in which that job was the last to complete.
+
+{{ table:jobs_all }}
+
+Query: `python -m cidiag query main.current_matrix.jobs` (the name is the tool's; here it holds the matrix of the most recent run that passed). A Windows job finished last in {{ main.windows_last }} of the {{ main.current_matrix.summary.runs_total }} runs.
+
+**Waiting for a runner.** The longest wait any job had in a run was {{ main.queue.median_s | int }} seconds at the median and {{ main.queue.max_s | int }} seconds at most, over {{ main.queue.runs }} successful runs. No run had a job wait more than a minute. Query: `python -m cidiag query main.queue`.
+
+**Cancelled runs.** {{ main.cancelled.runs }} of the last {{ main.summary.runs_total }} runs on `{{ config.branch }}` were cancelled before a verdict, after using {{ main.cancelled.billed_min | int }} runner minutes. Across pushes and pull requests in the 30-day window, {{ window.ci_cancelled_cost.runs }} runs were cancelled after using {{ window.ci_cancelled_cost.billed_min | int }} runner minutes. Query: `python -m cidiag query main.cancelled`.
+
+**Superseded runs.** The workflow file has no `concurrency` group, so a new push to a pull request starts a new run and leaves the old one going. {{ flaky.superseded.runs }} pull-request runs were still running when a newer commit on the same branch started a run of its own. Their jobs used {{ flaky.superseded.billed_min_after | int }} runner minutes after that moment. Query: `python -m cidiag query flaky.superseded`. Runs are matched by head branch name, so two forks that both open a pull request from a branch called `main` could be confused. We saw no sign of that but didn't rule it out.
+
+## 5. Third-party actions
+
+{{ static.uses_total }} `uses:` references across {{ static.files | count }} workflow files. {{ static.uses_by_pin.local }} point at actions inside the repository. The rest go to {{ static.actions_distinct }} pairs of action and pinned version, two of them reusable workflows:
+
+{{ table:actions }}
+
+Query: `python -m cidiag query static.actions`. Source: the workflow files at `{{ static.ref | sha }}`, plus `GET /repos/{owner}/{action}` and each action's `action.yml` at the pinned ref. The last two rows are reusable workflows, which have no runtime or release of their own.
+
+- **Pinned:** {{ static.uses_by_pin.sha }} references are full commit SHAs. {{ static.uses_unpinned | count }} follows a branch:
+
+{{ table:unpinned }}
+
+- **Deprecated runtime:** {{ static.actions_deprecated_runtime | count }} actions declare Node 20, which GitHub has deprecated: {{ static.actions_deprecated_runtime | list }}. The job logs carry GitHub's own warning that these are being forced onto Node 24 (the warning line isn't among the lines our stored copies keep).
+- **Behind:** {{ static.actions_behind | count }} pinned actions are at least one major version behind their latest release.
+- **Archived:** {{ static.actions_archived | count }} of the action repositories are archived.
+
+The reusable workflow on line {{ static.uses_unpinned.0.line }} of `ci.yml` runs whatever is on `main` of `temporalio/features` at the time. It's the same organization's repository, so this is a matter of repeatability more than of trust. A red `features-tests` job can come from a change in the other repository.
+
+## 6. Dependency caches
+
+{{ static.jobs_installing }} jobs install dependencies and all of them have a cache step. Query: `python -m cidiag query static.jobs`.
+
+Whether a cache is hit can only be read from job logs. In {{ caches.logs_read }} job logs from the {{ caches.sample_runs }} most recent runs on `{{ config.branch }}` that reached a verdict:
+
+| Measure | Value |
+| --- | --- |
+| Python package cache (`setup-uv`) restored | {{ caches.uv.hit }} of {{ caches.uv_lookups }} lookups ({{ caches.uv_hit_rate | pct }}) |
+| Rust build cache (`rust-cache`) restored in full | {{ caches.rust.full }} of {{ caches.rust_lookups }} lookups ({{ caches.rust_full_rate | pct }}) |
+| Rust build cache restored from an older key | {{ caches.rust.partial }} |
+| Rust build cache not found | {{ caches.rust.miss }} |
+| `{{ caches.build_step }}` step with a full restore, median | {{ caches.build_full_median_s | mmss }} over {{ caches.build_full_n }} jobs |
+| `{{ caches.build_step }}` step without one, median | {{ caches.build_other_median_s | mmss }} over {{ caches.build_other_n }} jobs |
+
+Query: `python -m cidiag query caches`. Source: `GET /repos/{{ config.repo }}/actions/jobs/{id}/logs`, trimmed to the cache, failure and result lines.
+
+The cache list on {{ config.as_of }} held {{ caches.entries }} entries totaling {{ caches.entries_bytes | mb }} MB. GitHub's default limit for a repository is 10 GB, and it evicts the entries read least recently once a repository is over. A store sitting at the limit is a likely reason for some of the misses above, though the list is a snapshot and holds no history of evictions. {{ caches.entries_never_read }} of the {{ caches.entries }} entries hadn't been read since they were written, {{ caches.entries_never_read_on_pr }} of them on pull-request refs, where a cache written by one pull request can't be read by another.
+
+A full restore of the Rust cache is worth {{ caches.build_saving_s | int }} seconds on the build step at the median. That's small next to the test steps, so the caches aren't where this pipeline's time goes.
+
+## 7. Changes ranked by expected effect
+
+Most of this pipeline's cost is red verdicts on commits that later passed unchanged. The minutes are the smaller part. The order below follows how many failed-then-passed executions and red runs each item accounts for.
+
+**1. Find what stalls the Windows test steps.**
+
+- Evidence: {{ flaky.by_kind.timeout }} failed-then-passed executions ended at a step time limit, {{ flaky.timeouts_windows }} of them on Windows and {{ flaky.timeouts_recent }} since {{ flaky.timeouts_recent_from }} (the last seven days of the window). On `{{ config.branch }}`, {{ flaky.main.latest_matrix.runs_with_timeout }} of the {{ flaky.main.latest_matrix.runs }} runs since the matrix change have a Windows test step past its limit, and none of the {{ flaky.main.latest_matrix.runs }} passed.
+- Most of these are recent. The matrix moved to Python 3.11 and 3.15 on {{ flaky.main.latest_matrix.first_run | date }}. Time-limit failures before that date exist too ({{ flaky.timeouts_first | date }} is the first), so the change may have made an existing problem more frequent. We haven't shown that it did.
+- One candidate comes from the probe in section 2. On Windows, the probe's steps stopped with the whole pytest process ended or with the step silent, where Linux and macOS reported a failure by name. If that's what's happening here, the Windows time-limit failures and the ranked tests are partly the same problem, and items 2 and 3 would shrink this one.
+- The first step is to get a name. Two cheap ways are to run the Windows jobs with verbose output, so the log lists each test as it finishes and the ones that never finish stand out, or to set pytest's `faulthandler_timeout`, which prints every thread's stack when a test runs long. We haven't tried either on this suite, and under `pytest-xdist` what a worker process prints doesn't always reach the log.
+- Raising the step limit might turn some of these green and wouldn't tell anyone why they're slow. We wouldn't start there.
+- Size: a logging change to get the name. The fix is unknown until then.
+
+**2. Fix `{{ flaky.tests.0.name }}`.**
+
+- Evidence: {{ flaky.tests.0.failures }} failed-then-passed executions in {{ flaky.tests.0.runs }} runs, {{ flaky.tests.0.main_failures }} more failed jobs on `{{ config.branch }}`. It was the only test named in {{ flaky.tests.0.sole_failures }} of the {{ flaky.tests.0.failures }}. Every failure is the 60-second per-test limit.
+- If it stopped failing, {{ flaky.tests.0.sole_failures }} of the {{ flaky.instance_count }} failed-then-passed executions wouldn't have happened. Most of the runs it appears in had other failures as well. In {{ flaky.tests.0.runs_cleared }} of its {{ flaky.tests.0.runs }} runs it was the only reason for the re-run.
+- Size: one test. The cause needs someone who knows the worker code.
+- Marking the test to retry on failure would take it off this list and leave whatever makes a worker wait 60 seconds. We wouldn't recommend that as the fix.
+
+**3. Fix `{{ flaky.tests.1.name }}`.**
+
+- Evidence: {{ flaky.tests.1.failures }} failed-then-passed executions in {{ flaky.tests.1.runs }} runs, all on Linux, and {{ flaky.tests.1.main_failures }} more failed jobs on `{{ config.branch }}`.
+- The assertion compares deployment version strings and fails with `{{ flaky.tests.1.error }}`. A test that sees the next version too early or the previous one too late may be racing a server-side change. That's a guess from the error line.
+- Size: one test.
+
+**4. Cancel superseded pull-request runs.**
+
+- Evidence: {{ flaky.superseded.runs }} runs in 30 days, {{ flaky.superseded.billed_min_after | int }} runner minutes used after a newer commit had its own run.
+- Change: a `concurrency` group keyed on the pull request, with `cancel-in-progress` set for pull requests only. Three lines. On `{{ config.branch }}` every push should keep its own verdict.
+- Runner minutes here are free to a public repository. For a private one this is the largest saving in minutes in the report.
+
+**5. Take two downloads off the path of every job.**
+
+- `protoc`: {{ flaky.downloads.protoc }} failed-then-passed executions in {{ flaky.downloads.protoc_runs }} runs, on two days. The setup action lists every protobuf release from the GitHub API on each job. Setting an exact version wouldn't remove that lookup, because the action lists releases either way. Caching the `protoc` binary, or fetching one fixed release directly, would.
+- Test server: {{ flaky.downloads.server }} executions on {{ flaky.downloads.server_days }} days failed because the test server archive didn't extract. The tests download it at run time. Caching it between runs, keyed on its version, would remove the download from most jobs. We haven't checked how the SDK chooses the version to download.
+- Size: one cache step each, untested.
+
+**6. Decide how red runs on `{{ config.branch }}` are handled.** This is a choice for the project.
+
+- {{ main.summary.conclusions.failure }} of the last {{ main.summary.runs_total }} pushes ended red and none was re-run. With half the runs red, many of them for the reasons in section 2, a red run caused by a real regression is hard to tell from the rest.
+- Options that cost little: re-run failed jobs on `{{ config.branch }}` once automatically and record that it happened, or post red runs on `{{ config.branch }}` to a channel with the failing test names from the JUnit files the workflow already uploads.
+- An automatic retry hides flakiness unless something counts the retries. If the project adds one, the count belongs in the same place as the result.
+
+**7. Pin the reusable workflow and move off Node 20.** No time saved.
+
+- `temporalio/features/.github/workflows/python.yaml@main` is the one reference that follows a branch.
+- {{ static.actions_deprecated_runtime | count }} actions run on Node 20. GitHub forces them onto Node 24 today, and a later runner update can break them.
+
+**Smaller observations.**
+
+- At the commit we read, one test step in `ci.yml` (line {{ flaky.retries_configured.0.line }}, the FIPS build) retries tests that fail with one named error, up to three times. Earlier in the window the Python 3.10 jobs carried the same retry, which is why it shows in step names in sections 3 and 4. That's a targeted retry. Tests retried inside a job don't show in run history. In the {{ caches.logs_read }} logs we read from `{{ config.branch }}`, pytest's result counts report {{ caches.reruns_in_job }} retried tests.
+- The cache store is at GitHub's 10 GB default. Dropping caches written on pull-request refs, which no other pull request can read, would leave more room for the ones `{{ config.branch }}` reads.
+
+## 8. What couldn't be measured
+
+- **No fix was tested on a fork.** The first sample changed three lines and showed runs before and after. A flaky test doesn't allow that in a handful of runs. A test that fails one time in twenty needs a few hundred runs on each side to show a difference, and the fix itself needs someone who knows the code under test. What we ran on our fork was a measurement of one test, described in section 2 under "One test, run alone on a fork". We didn't add retries or skip any test on the fork to get a green run.
+- **Which test was running when a step hit its time limit.** Covered in section 2.
+- **Failures nobody re-ran.** {{ flaky.any_attempt_failed }} runs had a failed attempt and {{ flaky.rerun_runs }} were re-run. We read the logs of the red runs on `{{ config.branch }}` and didn't read the logs of red pull-request runs that were never re-run, since a pull request can fail on its own change and the history can't tell the two apart.
+- **Why a test is flaky.** The report names tests and quotes what they printed. It doesn't read the SDK's code.
+- **Why the `protoc` lookup failed on two days.** The log gives the action's error and no HTTP status.
+- **The `cloud-test` job.** It runs against a hosted service with secrets, so it can't run on a fork, and its failures in the window weren't examined beyond the counts in section 3.
+- **Flakiness older than the window.** Logs are kept 90 days by default. We read 30 days of re-runs and about five weeks of `{{ config.branch }}`.
+- **Cost in dollars.** The repository is public. Runner minutes are reported raw. GitHub bills a private repository more per minute for Windows and macOS runners than for Linux, and one job here runs on a runner with a custom label whose rate we can't see. For a client, the report prices the minutes at the rate on the client's bill and the waiting at a loaded hourly rate the client gives us.
+- **Cache hits before the log sample.** The hit rates come from {{ caches.sample_runs }} runs. The cache list is a snapshot.
+
+## 9. How this report was made
+
+- **Tool.** The `cidiag` package in this repository, written in Python with unit tests. It calls the GitHub REST API through `gh api`, stores every response under `samples/temporal-sdk-python/data/raw/` (with the names, logins and email addresses of the people behind each run removed, release notes dropped, action manifests cut to the line that names the runtime, and logs trimmed to the lines the analysis reads), and computes everything from those files.
+- **Every number is generated.** This file is produced from `REPORT.md.tmpl` and `results/metrics.json` in the same directory. `python -m cidiag verify --sample temporal-sdk-python` recomputes the metrics from the raw data and fails if this file differs by a character. The repository's CI runs that check on every push.
+- **Test names** come from pytest's failure sections and its summary table in each job log. The parser is in `cidiag/flaky.py` and reads pytest output. A suite on another test runner needs its own parser.
+- **Percentiles** are nearest-rank, so each one is a value that occurred. A median over an even number of runs is the average of the two middle values.
+- **Scope.** This report covers how the pipeline performs: time, failures, re-runs, pins, caches. It isn't a review of the project's code, tests or security.
+
+## Appendix: every job execution that failed and then passed
+
+{{ table:flaky_log }}
+
+Query: `python -m cidiag query flaky.instances`.
+
+Cedarwood Studio, Jack Senechal, principal. hello@cedarwood.studio

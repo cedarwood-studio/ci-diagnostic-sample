@@ -1,0 +1,8 @@
+2026-10-21T19:14:01.2247900Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-26.04-3.13.16-9fa60c1827c5dee97887dc780270bffc0e8ec33714aac7b990243d847abec823
+2026-10-21T19:14:01.4084456Z Cache hit for: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-26.04-3.13.16-9fa60c1827c5dee97887dc780270bffc0e8ec33714aac7b990243d847abec823
+2026-10-21T19:14:04.1383330Z cache restored from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-26.04-3.13.16-9fa60c1827c5dee97887dc780270bffc0e8ec33714aac7b990243d847abec823
+2026-10-21T19:14:10.6252547Z Installed 138 packages in 416ms
+2026-10-21T19:14:10.9425910Z Installed 1 package in 67ms
+2026-10-21T19:14:11.0824244Z Installed 2 packages in 2ms
+2026-10-21T19:16:55.8159059Z Ran 1082 tests in 91.828s
+2026-10-21T19:16:55.8159277Z OK (skipped=6)

@@ -1,0 +1,79 @@
+2026-11-05T22:14:04.1184617Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-05T22:14:06.3059762Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-05T22:14:06.3229876Z ##[group]Run : parse toolchain version
+2026-11-05T22:14:06.3407049Z ##[group]Run : construct rustup command line
+2026-11-05T22:14:06.3516069Z ##[group]Run : set $CARGO_HOME
+2026-11-05T22:14:06.3626280Z ##[group]Run : install rustup if needed
+2026-11-05T22:14:06.3734501Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-11-05T22:14:06.6153803Z ##[group]Run rustup default stable
+2026-11-05T22:14:06.6401618Z ##[group]Run : create cachekey
+2026-11-05T22:14:06.6849525Z ##[group]Run : disable incremental compilation
+2026-11-05T22:14:06.6955504Z ##[group]Run : enable colors in Cargo output
+2026-11-05T22:14:06.7055937Z ##[group]Run : enable Cargo sparse registry
+2026-11-05T22:14:06.7451614Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-05T22:14:06.7713221Z ##[group]Run rustc +stable --version --verbose
+2026-11-05T22:14:06.8027001Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-05T22:14:06.9742524Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-05T22:14:07.7492008Z Cache hit for restore-key: v0-rust-/opt/hostedtoolcache/Python/3.14.10/x64-cloud-test-Linux-x64-51ccc61f-14a79ee2
+2026-11-05T22:14:13.8428863Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.14.10/x64-cloud-test-Linux-x64-51ccc61f-14a79ee2" full match: false.
+2026-11-05T22:14:14.0139335Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-05T22:14:19.7458696Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-05T22:14:22.3491483Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-cf522891bf9ff4f503b2c22ddcc0b1b2591b0b88554ca73562fbbdf398983576
+2026-11-05T22:14:22.4481741Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-cf522891bf9ff4f503b2c22ddcc0b1b2591b0b88554ca73562fbbdf398983576
+2026-11-05T22:14:23.0159195Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-cf522891bf9ff4f503b2c22ddcc0b1b2591b0b88554ca73562fbbdf398983576
+2026-11-05T22:14:23.0833524Z ##[group]Run uv tool install poethepoet
+2026-11-05T22:14:23.2096352Z Installed 2 packages in 3ms
+2026-11-05T22:14:23.2156292Z ##[group]Run uv sync --all-extras
+2026-11-05T22:14:25.9584424Z Installed 221 packages in 481ms
+2026-11-05T22:14:25.9823279Z ##[group]Run poe build-develop
+2026-11-05T22:14:30.4335153Z Installed 2 packages in 48ms
+2026-11-05T22:15:53.7064024Z ##[group]Run cert_dir="$RUNNER_TEMP/cloud-test-certs"
+2026-11-05T22:15:54.3771724Z ##[group]Run uv run python .github/scripts/cloud_namespace.py create
+2026-11-05T22:15:54.4094861Z Installed 1 package in 1ms
+2026-11-05T22:17:01.7526240Z ##[group]Run mkdir junit-xml
+2026-11-05T22:17:01.7685094Z ##[group]Run poe test -s --workflow-environment envconfig --junit-xml=junit-xml/cloud.xml
+2026-11-05T22:24:03.1784561Z ======================================================== ERRORS ========================================================
+2026-11-05T22:24:03.1785186Z _________________________________________ ERROR at setup of test_skip_full_run _________________________________________
+2026-11-05T22:24:03.1813649Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.1815270Z __________________________________ ERROR at setup of test_with_time_skipping_disabled __________________________________
+2026-11-05T22:24:03.1840879Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.1842005Z ___________________________________ ERROR at setup of test_fast_forward_with_resume ____________________________________
+2026-11-05T22:24:03.1866769Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.1868040Z ______________________________ ERROR at setup of test_partial_fast_forward_then_unbounded ______________________________
+2026-11-05T22:24:03.1892978Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.1894099Z ____________________________ ERROR at setup of test_child_workflow_propagates_time_skipping ____________________________
+2026-11-05T22:24:03.1918763Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.1919909Z ___________________ ERROR at setup of test_fast_forward_returns_false_when_workflow_terminates_first ___________________
+2026-11-05T22:24:03.1944624Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.1945736Z ______________________________ ERROR at setup of test_fast_forward_accepts_float_duration ______________________________
+2026-11-05T22:24:03.1970606Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.1971716Z __________________________________ ERROR at setup of test_fast_forward_spans_retries ___________________________________
+2026-11-05T22:24:03.2015051Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2016381Z ______________________________ ERROR at setup of test_fast_forward_spans_continue_as_new _______________________________
+2026-11-05T22:24:03.2041403Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2042532Z _______________________________ ERROR at setup of test_fast_forward_spans_cron_restarts ________________________________
+2026-11-05T22:24:03.2066837Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2067974Z _________________________ ERROR at setup of test_signal_with_start_stamps_time_skipping_config _________________________
+2026-11-05T22:24:03.2092614Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2093738Z _________________________ ERROR at setup of test_update_with_start_stamps_time_skipping_config _________________________
+2026-11-05T22:24:03.2118070Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2119465Z ____________________________ ERROR at setup of test_get_time_skipping_info_during_workflow _____________________________
+2026-11-05T22:24:03.2143501Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2144629Z ___________________ ERROR at setup of test_get_time_skipping_info_returns_none_when_ts_never_enabled ___________________
+2026-11-05T22:24:03.2169252Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2170366Z ___________________________________ ERROR at setup of test_transition_event_payload ____________________________________
+2026-11-05T22:24:03.2194524Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2195683Z ______________________ ERROR at setup of test_child_workflow_started_event_has_state_propagation _______________________
+2026-11-05T22:24:03.2212413Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2212859Z ____________________________ ERROR at setup of test_fast_forward_exceeds_execution_timeout _____________________________
+2026-11-05T22:24:03.2222968Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2223417Z __________________________ ERROR at setup of test_overriding_fast_forward_raises_on_original ___________________________
+2026-11-05T22:24:03.2251539Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-11-05T22:24:03.2281579Z Results (415.45s):
+2026-11-05T22:24:03.2281733Z       1411 passed
+2026-11-05T22:24:03.2281883Z        344 skipped
+2026-11-05T22:24:03.2282031Z         33 warnings
+2026-11-05T22:24:03.2282173Z         18 errors
+2026-11-05T22:24:03.6085714Z ##[error]Process completed with exit code 1.
+2026-11-05T22:24:03.6141287Z ##[group]Run uv run python .github/scripts/cloud_namespace.py delete "sdk-python-ci-42119706012-1.tb3he"
+2026-11-05T22:24:14.8215198Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

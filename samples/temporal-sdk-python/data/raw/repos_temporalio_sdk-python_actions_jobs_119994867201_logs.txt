@@ -1,0 +1,48 @@
+2026-10-22T18:00:28.9181527Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-22T18:00:39.7332846Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-22T18:00:39.7512345Z ##[group]Run : parse toolchain version
+2026-10-22T18:00:39.9160236Z ##[group]Run : construct rustup command line
+2026-10-22T18:00:39.9889119Z ##[group]Run : set $CARGO_HOME
+2026-10-22T18:00:40.0452813Z ##[group]Run : install rustup if needed on windows
+2026-10-22T18:00:40.1074363Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-10-22T18:00:44.1133087Z ##[group]Run rustup default stable
+2026-10-22T18:00:44.2140211Z ##[group]Run : create cachekey
+2026-10-22T18:00:44.9481960Z ##[group]Run : disable incremental compilation
+2026-10-22T18:00:44.9914414Z ##[group]Run : enable colors in Cargo output
+2026-10-22T18:00:45.0352390Z ##[group]Run : enable Cargo sparse registry
+2026-10-22T18:00:45.1979027Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-22T18:00:45.2939582Z ##[group]Run rustc +stable --version --verbose
+2026-10-22T18:00:45.3872828Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-22T18:00:45.5410920Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-22T18:00:47.9572141Z Cache hit for: v0-rust-C:\hostedtoolcache\windows\Python\3.14.8\x64-build-lint-test-Windows_NT-x64-40b1bf26-7679fea8
+2026-10-22T18:01:10.8400092Z Restored from cache key "v0-rust-C:\hostedtoolcache\windows\Python\3.14.8\x64-build-lint-test-Windows_NT-x64-40b1bf26-7679fea8" full match: true.
+2026-10-22T18:01:10.8706753Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-22T18:01:17.4014150Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-22T18:01:20.3612628Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.14.8-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-22T18:01:20.5317298Z Cache hit for: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.14.8-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-22T18:01:21.9274420Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.14.8-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-22T18:01:22.0165078Z ##[group]Run uv tool install poethepoet
+2026-10-22T18:01:22.8138455Z Installed 2 packages in 9ms
+2026-10-22T18:01:22.9032967Z ##[group]Run uv sync --all-extras
+2026-10-22T18:01:32.6918342Z Installed 224 packages in 3.86s
+2026-10-22T18:01:32.8061971Z ##[group]Run poe build-develop
+2026-10-22T18:01:58.7175642Z Installed 1 package in 134ms
+2026-10-22T18:03:50.4580930Z ##[group]Run poe lint
+2026-10-22T18:05:20.0555149Z ##[group]Run mkdir junit-xml
+2026-10-22T18:05:20.4357147Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.14--windows-latest.xml
+2026-10-22T18:11:46.1855549Z ====================================================== FAILURES =======================================================
+2026-10-22T18:11:46.1856172Z ________________________________________ test_workflow_env_time_skipping_basic ________________________________________
+2026-10-22T18:11:46.1870259Z E       RuntimeError: Failed starting test server: invalid ephemeral server download: could not extract ZIP archive entry
+2026-10-22T18:11:46.1922874Z                                                   Summary of Failures                                                   
+2026-10-22T18:11:46.1923406Z +----------------------------------------------------------------------------------------------------------------------+
+2026-10-22T18:11:46.1923900Z |  File                            |  Function                       |  Function Line  |  Error Line  |  Error         |
+2026-10-22T18:11:46.1924386Z |----------------------------------+---------------------------------+-----------------+--------------+----------------|
+2026-10-22T18:11:46.1925347Z |  tests\testing\test_workflow.py  |  test_workflow_env_time_skipp�  |  61             |  63          |  RuntimeError  |
+2026-10-22T18:11:46.1925887Z +----------------------------------------------------------------------------------------------------------------------+
+2026-10-22T18:11:46.1926297Z Results (382.02s):
+2026-10-22T18:11:46.1926583Z          1 failed
+2026-10-22T18:11:46.1926811Z       1527 passed
+2026-10-22T18:11:46.1927369Z         11 skipped
+2026-10-22T18:11:46.1927613Z         32 warnings
+2026-10-22T18:11:46.5921441Z ##[error]Process completed with exit code 1.
+2026-10-22T18:11:46.6102360Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

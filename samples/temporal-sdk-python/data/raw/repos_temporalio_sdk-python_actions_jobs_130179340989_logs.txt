@@ -1,0 +1,49 @@
+2026-11-10T22:37:28.4116037Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-10T22:37:32.0898914Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-10T22:37:32.1008872Z ##[group]Run : parse toolchain version
+2026-11-10T22:37:32.1228666Z ##[group]Run : construct rustup command line
+2026-11-10T22:37:32.1508991Z ##[group]Run : set $CARGO_HOME
+2026-11-10T22:37:32.1647000Z ##[group]Run : install rustup if needed
+2026-11-10T22:37:32.1783097Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-11-10T22:37:39.0424553Z ##[group]Run rustup default stable
+2026-11-10T22:37:39.0686764Z ##[group]Run : create cachekey
+2026-11-10T22:37:39.6436919Z ##[group]Run : disable incremental compilation
+2026-11-10T22:37:39.6576591Z ##[group]Run : enable colors in Cargo output
+2026-11-10T22:37:39.6695986Z ##[group]Run : enable Cargo sparse registry
+2026-11-10T22:37:39.7074529Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-10T22:37:39.7682406Z ##[group]Run rustc +stable --version --verbose
+2026-11-10T22:37:39.8319867Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-10T22:37:40.2231951Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-10T22:37:43.0840331Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.11.18/x64-check-protos-Linux-x64-51ccc61f-b8260d03
+2026-11-10T22:37:48.1873156Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.11.18/x64-check-protos-Linux-x64-51ccc61f-b8260d03" full match: true.
+2026-11-10T22:37:48.2124463Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-10T22:37:53.5566773Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-10T22:37:55.8103980Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.11.18-pruned-c45dbc510731ef0d7519cfe4a1d6fa4ca447aa7aa16efac06d0723dfbd9f6260
+2026-11-10T22:37:55.9436425Z No GitHub Actions cache found for key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.11.18-pruned-c45dbc510731ef0d7519cfe4a1d6fa4ca447aa7aa16efac06d0723dfbd9f6260
+2026-11-10T22:37:56.0080405Z ##[group]Run uv tool install poethepoet
+2026-11-10T22:37:56.3259914Z Installed 2 packages in 26ms
+2026-11-10T22:37:56.3315494Z ##[group]Run uv sync --all-extras
+2026-11-10T22:38:02.0845136Z Installed 222 packages in 1.84s
+2026-11-10T22:38:02.1204647Z ##[group]Run cargo install --locked nexgen --version 0.2.8 --features advanced --force
+2026-11-10T22:39:29.3273130Z ##[group]Run poe build-develop
+2026-11-10T22:39:32.9570683Z Installed 2 packages in 22ms
+2026-11-10T22:40:53.2271869Z ##[group]Run poe gen-protos
+2026-11-10T22:40:53.3342740Z Installed 1 package in 1ms
+2026-11-10T22:40:53.6168256Z Installed 7 packages in 8ms
+2026-11-10T22:40:58.3451992Z ##[group]Run [[ -z $(git status --porcelain temporalio tests) ]] || (git diff temporalio tests; echo "Protos changed"; exit 1)
+2026-11-10T22:40:58.4412378Z ##[group]Run uv add --dev --python 3.11 "googleapis-common-protos==1.70.0"
+2026-11-10T22:40:59.1715673Z Installed 1 package in 3ms
+2026-11-10T22:40:59.1899474Z ##[group]Run uv add --python 3.11 "protobuf==4.21.12"
+2026-11-10T22:41:00.5844132Z Installed 1 package in 113ms
+2026-11-10T22:41:00.5948864Z ##[group]Run uv sync --all-extras
+2026-11-10T22:41:00.7389838Z Installed 3 packages in 2ms
+2026-11-10T22:41:00.7472338Z ##[group]Run poe build-develop
+2026-11-10T22:41:01.2547119Z Installed 2 packages in 22ms
+2026-11-10T22:41:28.8292384Z ##[group]Run poe test -s
+2026-11-10T22:41:28.9320271Z Installed 1 package in 1ms
+2026-11-10T22:49:24.7329174Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-10T22:49:24.7601597Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-10T22:49:26.9362542Z Results (473.07s):
+2026-11-10T22:49:26.9362708Z       1831 passed
+2026-11-10T22:49:26.9362869Z          8 skipped
+2026-11-10T22:49:26.9363031Z         36 warnings

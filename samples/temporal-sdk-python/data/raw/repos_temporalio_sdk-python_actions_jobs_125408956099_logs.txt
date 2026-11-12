@@ -1,0 +1,52 @@
+2026-11-02T16:41:06.1991679Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-02T16:41:09.2745404Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-02T16:41:09.2848593Z ##[group]Run : parse toolchain version
+2026-11-02T16:41:09.3018196Z ##[group]Run : construct rustup command line
+2026-11-02T16:41:09.3101241Z ##[group]Run : set $CARGO_HOME
+2026-11-02T16:41:09.3179489Z ##[group]Run : install rustup if needed
+2026-11-02T16:41:09.3260829Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-11-02T16:41:09.5871757Z ##[group]Run rustup default stable
+2026-11-02T16:41:09.6073024Z ##[group]Run : create cachekey
+2026-11-02T16:41:09.6403214Z ##[group]Run : disable incremental compilation
+2026-11-02T16:41:09.6474386Z ##[group]Run : enable colors in Cargo output
+2026-11-02T16:41:09.6556626Z ##[group]Run : enable Cargo sparse registry
+2026-11-02T16:41:09.6854343Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-02T16:41:09.7040288Z ##[group]Run rustc +stable --version --verbose
+2026-11-02T16:41:09.7286283Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-02T16:41:09.8612580Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-02T16:41:10.4154296Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.14.9/x64-cloud-test-Linux-x64-51ccc61f-14a79ee2
+2026-11-02T16:41:14.6246572Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.14.9/x64-cloud-test-Linux-x64-51ccc61f-14a79ee2" full match: true.
+2026-11-02T16:41:14.6828668Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-02T16:41:20.2097005Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-02T16:41:21.7238932Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-8a90cd5776079c6b79d2c1f46a457d3a21599743327011b93d1cbc7ab8ab3108
+2026-11-02T16:41:21.7704372Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-8a90cd5776079c6b79d2c1f46a457d3a21599743327011b93d1cbc7ab8ab3108
+2026-11-02T16:41:22.0775401Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-8a90cd5776079c6b79d2c1f46a457d3a21599743327011b93d1cbc7ab8ab3108
+2026-11-02T16:41:22.1788091Z ##[group]Run uv tool install poethepoet
+2026-11-02T16:41:22.7407494Z Installed 2 packages in 108ms
+2026-11-02T16:41:22.8606611Z ##[group]Run uv sync --all-extras
+2026-11-02T16:41:27.1853174Z Installed 221 packages in 2.03s
+2026-11-02T16:41:27.2903654Z ##[group]Run poe build-develop
+2026-11-02T16:41:31.0774058Z Installed 2 packages in 117ms
+2026-11-02T16:42:41.9763607Z ##[group]Run cert_dir="$RUNNER_TEMP/cloud-test-certs"
+2026-11-02T16:42:42.6628480Z ##[group]Run uv run python .github/scripts/cloud_namespace.py create
+2026-11-02T16:42:42.6944764Z Installed 1 package in 1ms
+2026-11-02T16:44:00.2198575Z ##[group]Run mkdir junit-xml
+2026-11-02T16:44:00.2312536Z ##[group]Run poe test -s --workflow-environment envconfig --junit-xml=junit-xml/cloud.xml
+2026-11-02T16:50:43.1131261Z ======================================================= FAILURES =======================================================
+2026-11-02T16:50:43.1131957Z ________________________________________________ test_search_attributes ________________________________________________
+2026-11-02T16:50:43.1168477Z E       temporal_sdk_bridge.RPCError: (3, 'search attribute TemporalChangeVersion is reserved by system', b'')
+2026-11-02T16:50:43.1209195Z E           temporalio.service.RPCError: search attribute TemporalChangeVersion is reserved by system
+2026-11-02T16:50:43.1277012Z                                          Summary of Failures                                         
+2026-11-02T16:50:43.1278073Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+2026-11-02T16:50:43.1278729Z ┃  File                    ┃  Function                ┃  Function Line  ┃  Error Line  ┃  Error     ┃
+2026-11-02T16:50:43.1279417Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+2026-11-02T16:50:43.1280250Z │  tests/test_activity.py  │  test_search_attributes  │  1147           │  1165        │  RPCError  │
+2026-11-02T16:50:43.1281007Z └──────────────────────────┴──────────────────────────┴─────────────────┴──────────────┴────────────┘
+2026-11-02T16:50:43.1281443Z Results (399.45s):
+2026-11-02T16:50:43.1281680Z          1 failed
+2026-11-02T16:50:43.1281909Z       1413 passed
+2026-11-02T16:50:43.1282130Z        339 skipped
+2026-11-02T16:50:43.1282358Z         32 warnings
+2026-11-02T16:50:43.4960601Z ##[error]Process completed with exit code 1.
+2026-11-02T16:50:43.5007841Z ##[group]Run uv run python .github/scripts/cloud_namespace.py delete "sdk-python-ci-41483872372-1.tb3he"
+2026-11-02T16:50:56.5533292Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

@@ -1,0 +1,53 @@
+{
+  "profile": "flaky",
+  "repo": "temporalio/sdk-python",
+  "workflow": "ci.yml",
+  "workflow_name": "Continuous Integration",
+  "branch": "main",
+  "main_run_count": 100,
+  "log_run_count": 10,
+  "window_since": "2026-10-12",
+  "window_until": "2026-11-10",
+  "window_by_day": true,
+  "jobs_scope": "workflow",
+  "workflow_ref": "57f3dd6b5ef8c9fe4e559c69c6d53ca5da707e39",
+  "as_of": "2026-11-12",
+  "flaky": {
+    "gate_jobs": [
+      "Required PR Checks"
+    ],
+    "error_groups": {
+      "protoc": [
+        "unable to get latest version",
+        "Failed to download version"
+      ],
+      "server": [
+        "invalid ephemeral server download"
+      ]
+    }
+  },
+  "cache": {
+    "build_step": "Run poe build-develop"
+  },
+  "probe": {
+    "repo": "cedarwood-studio/sdk-python",
+    "branch": "ci-diagnostic/flake-probe",
+    "test": "tests/worker/test_worker.py::test_warns_when_workers_too_low",
+    "run_ids": [
+      43156891102,
+      43160729589
+    ],
+    "steps": {
+      "The test alone, 200 times, one process": "--flake-runs=200 -p no:randomly",
+      "The test alone, 60 times, one process": "--flake-runs=60",
+      "The test alone, 200 times, spread over all cores": "--flake-runs=200 -n auto",
+      "The whole test file, as CI runs it": "pytest tests/worker/test_worker.py -n auto"
+    },
+    "kinds": {
+      "The test alone, 200 times, one process": "serial",
+      "The test alone, 60 times, one process": "serial",
+      "The test alone, 200 times, spread over all cores": "parallel",
+      "The whole test file, as CI runs it": "file"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+2026-10-22T16:27:13.6606595Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-22T16:27:16.5408999Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-22T16:27:16.5540801Z ##[group]Run : parse toolchain version
+2026-10-22T16:27:16.5792130Z ##[group]Run : construct rustup command line
+2026-10-22T16:27:16.5928552Z ##[group]Run : set $CARGO_HOME
+2026-10-22T16:27:16.6062572Z ##[group]Run : install rustup if needed
+2026-10-22T16:27:16.6206666Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-10-22T16:27:25.3047768Z ##[group]Run rustup default stable
+2026-10-22T16:27:25.3348427Z ##[group]Run : create cachekey
+2026-10-22T16:27:25.3640376Z ##[group]Run : disable incremental compilation
+2026-10-22T16:27:25.3745288Z ##[group]Run : enable colors in Cargo output
+2026-10-22T16:27:25.3851292Z ##[group]Run : enable Cargo sparse registry
+2026-10-22T16:27:25.4128510Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-22T16:27:25.4312136Z ##[group]Run rustc +stable --version --verbose
+2026-10-22T16:27:25.4579078Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-22T16:27:25.5904175Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-22T16:27:26.1240119Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.10.22/arm64-build-lint-test-Linux-arm64-e99c569a-d9a07ed7
+2026-10-22T16:27:39.4163969Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.10.22/arm64-build-lint-test-Linux-arm64-e99c569a-d9a07ed7" full match: true.
+2026-10-22T16:27:39.4663198Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-22T16:27:40.2067223Z ##[error]Error: unable to get latest version
+2026-10-22T16:27:40.2181031Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

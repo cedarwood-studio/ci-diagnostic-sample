@@ -1,0 +1,48 @@
+2026-11-10T21:51:08.9021770Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-10T21:51:15.4035160Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-10T21:51:15.4195320Z ##[group]Run : parse toolchain version
+2026-11-10T21:51:15.5201060Z ##[group]Run : construct rustup command line
+2026-11-10T21:51:15.5864790Z ##[group]Run : set $CARGO_HOME
+2026-11-10T21:51:15.6459790Z ##[group]Run : install rustup if needed
+2026-11-10T21:51:15.7175620Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-10T21:51:16.5580690Z ##[group]Run rustup default stable
+2026-11-10T21:51:16.6814620Z ##[group]Run : create cachekey
+2026-11-10T21:51:16.8884810Z ##[group]Run : disable incremental compilation
+2026-11-10T21:51:16.9760740Z ##[group]Run : enable colors in Cargo output
+2026-11-10T21:51:17.0265700Z ##[group]Run : enable Cargo sparse registry
+2026-11-10T21:51:17.1800150Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-10T21:51:17.2718140Z ##[group]Run rustc +stable --version --verbose
+2026-11-10T21:51:17.3808540Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-10T21:52:09.4735780Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-10T21:52:10.8799200Z Cache hit for: v0-rust-/Users/runner/hostedtoolcache/Python/3.15.2/arm64-build-lint-test-Darwin-arm64-cb28eb46-b8260d03
+2026-11-10T21:52:23.4601900Z Restored from cache key "v0-rust-/Users/runner/hostedtoolcache/Python/3.15.2/arm64-build-lint-test-Darwin-arm64-cb28eb46-b8260d03" full match: true.
+2026-11-10T21:52:23.5319050Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-10T21:52:29.6859630Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-10T21:52:31.4521080Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-apple-darwin-macos-16-3.15.2-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-10T21:52:31.5946290Z No GitHub Actions cache found for key: setup-uv-2-aarch64-apple-darwin-macos-16-3.15.2-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-10T21:52:31.6604880Z ##[group]Run uv tool install poethepoet
+2026-11-10T21:52:37.6187800Z Installed 2 packages in 4ms
+2026-11-10T21:52:37.7124380Z ##[group]Run uv sync --all-extras
+2026-11-10T21:54:31.1028910Z Installed 219 packages in 2.06s
+2026-11-10T21:54:31.4825830Z ##[group]Run poe build-develop
+2026-11-10T21:54:42.2196920Z Installed 2 packages in 22ms
+2026-11-10T21:57:35.9112780Z ##[group]Run poe lint
+2026-11-10T21:57:36.6976120Z Installed 1 package in 6ms
+2026-11-10T21:59:29.7192140Z ##[group]Run mkdir junit-xml
+2026-11-10T21:59:29.9496480Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.15--macos-arm.xml
+2026-11-10T22:06:13.2338610Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-10T22:06:13.3267090Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-10T22:06:13.3860250Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-10T22:06:15.6739800Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-10T22:06:16.4540510Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-11-10T22:06:21.7010820Z Results (407.72s):
+2026-11-10T22:06:21.7011270Z       1831 passed
+2026-11-10T22:06:21.7011970Z          8 skipped
+2026-11-10T22:06:21.7012790Z         37 warnings
+2026-11-10T22:06:22.5617950Z ##[group]Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.15--macos-arm--time-skipping-v2.xml
+2026-11-10T22:12:29.7826470Z Results (364.79s):
+2026-11-10T22:12:29.7827090Z       1801 passed
+2026-11-10T22:12:29.7827760Z         38 skipped
+2026-11-10T22:12:29.7828280Z         38 warnings
+2026-11-10T22:12:30.3476090Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-10T22:12:32.1713640Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020

@@ -1,0 +1,39 @@
+2026-11-10T22:37:29.2295585Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-10T22:37:41.1141829Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-10T22:37:41.1343302Z ##[group]Run : parse toolchain version
+2026-11-10T22:37:41.3073721Z ##[group]Run : construct rustup command line
+2026-11-10T22:37:41.3755314Z ##[group]Run : set $CARGO_HOME
+2026-11-10T22:37:41.4259168Z ##[group]Run : install rustup if needed on windows
+2026-11-10T22:37:41.4792832Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-10T22:37:46.0296759Z ##[group]Run rustup default stable
+2026-11-10T22:37:46.1342361Z ##[group]Run : create cachekey
+2026-11-10T22:37:46.9414054Z ##[group]Run : disable incremental compilation
+2026-11-10T22:37:46.9899219Z ##[group]Run : enable colors in Cargo output
+2026-11-10T22:37:47.0385291Z ##[group]Run : enable Cargo sparse registry
+2026-11-10T22:37:47.2269098Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-10T22:37:47.3413182Z ##[group]Run rustc +stable --version --verbose
+2026-11-10T22:37:47.4449660Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-10T22:37:47.6304537Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-10T22:37:50.1612152Z Cache hit for: v0-rust-C:\hostedtoolcache\windows\Python\3.15.2\x64-build-lint-test-Windows_NT-x64-40b1bf26-92165640
+2026-11-10T22:38:11.3052088Z Restored from cache key "v0-rust-C:\hostedtoolcache\windows\Python\3.15.2\x64-build-lint-test-Windows_NT-x64-40b1bf26-92165640" full match: true.
+2026-11-10T22:38:11.3332409Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-10T22:38:17.1300631Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-10T22:38:20.1748494Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.15.2-pruned-5d428c54ce11aeba742758ae4ec0a570f9125a5bc456ba3d613fa5a647956eb8
+2026-11-10T22:38:20.2853736Z No GitHub Actions cache found for key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.15.2-pruned-5d428c54ce11aeba742758ae4ec0a570f9125a5bc456ba3d613fa5a647956eb8
+2026-11-10T22:38:20.3620953Z ##[group]Run uv tool install poethepoet
+2026-11-10T22:38:33.7964207Z Installed 2 packages in 8ms
+2026-11-10T22:38:33.9509237Z ##[group]Run uv sync --all-extras
+2026-11-10T22:39:23.7972121Z Installed 222 packages in 2.72s
+2026-11-10T22:39:24.1800179Z ##[group]Run poe build-develop
+2026-11-10T22:39:43.8042421Z Installed 2 packages in 120ms
+2026-11-10T22:41:32.4777959Z ##[group]Run poe lint
+2026-11-10T22:41:34.5006114Z Installed 1 package in 1.09s
+2026-11-10T22:42:55.8007826Z ##[group]Run mkdir junit-xml
+2026-11-10T22:42:56.2147400Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.15--windows-latest.xml
+2026-11-10T22:50:32.8109314Z Results (452.57s):
+2026-11-10T22:50:32.8109700Z       1825 passed
+2026-11-10T22:50:32.8110028Z         14 skipped
+2026-11-10T22:50:32.8110387Z         37 warnings
+2026-11-10T22:50:33.5395529Z ##[group]Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.15--windows-latest--time-skipping-v2.xml
+2026-11-10T23:05:33.7068470Z ##[error]The action 'Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.15--windows-latest--time-skipping-v2.xml' has timed out after 15 minutes.
+2026-11-10T23:05:33.8720772Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

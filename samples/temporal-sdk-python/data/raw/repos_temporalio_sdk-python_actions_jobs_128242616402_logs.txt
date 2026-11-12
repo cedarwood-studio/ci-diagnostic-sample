@@ -1,0 +1,54 @@
+2026-11-07T00:45:59.1504810Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-07T00:46:02.9517332Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-07T00:46:02.9620665Z ##[group]Run : parse toolchain version
+2026-11-07T00:46:02.9824496Z ##[group]Run : construct rustup command line
+2026-11-07T00:46:02.9907908Z ##[group]Run : set $CARGO_HOME
+2026-11-07T00:46:02.9984101Z ##[group]Run : install rustup if needed
+2026-11-07T00:46:03.0063804Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-11-07T00:46:03.3483590Z ##[group]Run rustup default stable
+2026-11-07T00:46:03.3686912Z ##[group]Run : create cachekey
+2026-11-07T00:46:03.4312075Z ##[group]Run : disable incremental compilation
+2026-11-07T00:46:03.4384593Z ##[group]Run : enable colors in Cargo output
+2026-11-07T00:46:03.4473786Z ##[group]Run : enable Cargo sparse registry
+2026-11-07T00:46:03.4778355Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-07T00:46:03.4969126Z ##[group]Run rustc +stable --version --verbose
+2026-11-07T00:46:03.5216246Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-07T00:46:03.6529203Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-07T00:46:05.3744308Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.14.10/x64-cloud-test-Linux-x64-51ccc61f-b8260d03
+2026-11-07T00:46:11.4778912Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.14.10/x64-cloud-test-Linux-x64-51ccc61f-b8260d03" full match: true.
+2026-11-07T00:46:11.5201435Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-07T00:46:16.7550650Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-07T00:46:18.1408722Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-07T00:46:18.3287197Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-07T00:46:18.7790294Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-07T00:46:18.9245737Z ##[group]Run uv tool install poethepoet
+2026-11-07T00:46:19.7323608Z Installed 2 packages in 107ms
+2026-11-07T00:46:19.8422551Z ##[group]Run uv sync --all-extras
+2026-11-07T00:46:23.0976188Z Installed 221 packages in 1.19s
+2026-11-07T00:46:23.1563862Z ##[group]Run poe build-develop
+2026-11-07T00:46:28.0622720Z Installed 2 packages in 102ms
+2026-11-07T00:47:37.8445297Z ##[group]Run cert_dir="$RUNNER_TEMP/cloud-test-certs"
+2026-11-07T00:47:38.2040311Z ##[group]Run uv run python .github/scripts/cloud_namespace.py create
+2026-11-07T00:47:38.2298150Z Installed 1 package in 1ms
+2026-11-07T00:48:55.3329966Z ##[group]Run mkdir junit-xml
+2026-11-07T00:48:55.3430519Z ##[group]Run poe test -s --workflow-environment envconfig --junit-xml=junit-xml/cloud.xml
+2026-11-07T00:57:06.8026018Z ======================================================= FAILURES =======================================================
+2026-11-07T00:57:06.8026524Z ______________________________________ test_worker_with_worker_deployment_config _______________________________________
+2026-11-07T00:57:06.8049292Z E           AssertionError: assert 'v3' == 'v2'
+2026-11-07T00:57:06.8049530Z E             
+2026-11-07T00:57:06.8049716Z E             - v2
+2026-11-07T00:57:06.8049893Z E             + v3
+2026-11-07T00:57:06.8115350Z                                                   Summary of Failures                                                   
+2026-11-07T00:57:06.8116278Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+2026-11-07T00:57:06.8116817Z ┃  File                         ┃  Function                        ┃  Function Line  ┃  Error Line  ┃  Error           ┃
+2026-11-07T00:57:06.8117363Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+2026-11-07T00:57:06.8117992Z │  tests/worker/test_worker.py  │  test_worker_with_worker_deplo…  │  917            │  994         │  AssertionError  │
+2026-11-07T00:57:06.8119059Z └───────────────────────────────┴──────────────────────────────────┴─────────────────┴──────────────┴──────────────────┘
+2026-11-07T00:57:06.8119630Z Results (488.19s):
+2026-11-07T00:57:06.8119886Z          1 failed
+2026-11-07T00:57:06.8120138Z       1456 passed
+2026-11-07T00:57:06.8120421Z        361 skipped
+2026-11-07T00:57:06.8120708Z         33 warnings
+2026-11-07T00:57:07.1578332Z ##[error]Process completed with exit code 1.
+2026-11-07T00:57:07.1622779Z ##[group]Run uv run python .github/scripts/cloud_namespace.py delete "sdk-python-ci-42320196477-1.tb3he"
+2026-11-07T00:57:30.4795890Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

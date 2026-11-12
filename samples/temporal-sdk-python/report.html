@@ -1,0 +1,2693 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>CI Diagnostic: temporalio/sdk-python</title>
+<style>
+:root { --fg:#1b1f1d; --muted:#5a635f; --line:#d9ddd9; --bg:#fbfbf9; --accent:#2f5d4a;
+  --code:#f0f1ee; }
+@media (prefers-color-scheme: dark) {
+  :root { --fg:#e6e8e5; --muted:#a3aba6; --line:#3a403c; --bg:#151816; --accent:#8fc3aa;
+    --code:#20241f; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg);
+  font: 16px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+main { max-width: 52rem; margin: 0 auto; padding: 1.25rem 1rem 4rem; }
+h1 { font-size: 1.7rem; line-height: 1.2; margin: 1.2rem 0 .6rem; }
+h2 { font-size: 1.3rem; margin: 2.4rem 0 .6rem; padding-top: 1rem;
+  border-top: 1px solid var(--line); }
+h3 { font-size: 1.08rem; margin: 1.6rem 0 .4rem; }
+a { color: var(--accent); }
+blockquote { margin: 1rem 0; padding: .7rem 1rem; border-left: 4px solid var(--accent);
+  background: var(--code); }
+blockquote p { margin: 0; }
+code { background: var(--code); padding: .1em .3em; border-radius: 3px; font-size: .9em;
+  overflow-wrap: anywhere; }
+pre { background: var(--code); padding: .8rem; border-radius: 4px; overflow-x: auto; }
+pre code { padding: 0; background: none; overflow-wrap: normal; }
+.table-wrap { overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; font-size: .9rem; min-width: 100%;
+  font-variant-numeric: tabular-nums; }
+th, td { border-bottom: 1px solid var(--line); padding: .35rem .6rem; text-align: left;
+  vertical-align: top; }
+th { color: var(--muted); font-weight: 600; white-space: nowrap; }
+li { margin: .25rem 0; }
+</style>
+</head>
+<body>
+<main>
+<h1>CI Diagnostic: temporalio/sdk-python</h1>
+<blockquote>
+<p><strong>Sample report.</strong> Produced by Cedarwood Studio from public data on temporalio/sdk-python as of 2026-11-12. Nobody at the project asked for it. Cedarwood Studio isn't affiliated with the project and the project hasn't endorsed this report. Nothing was sent to the project: no issue, pull request or comment.</p>
+</blockquote>
+<p>This is the report a CI Diagnostic client receives, run here on a public repository so anyone can check it. It's the second sample. The first, on wagtail/wagtail, found a slow pipeline with no re-runs in its history. This one was chosen because its history has many re-runs after a failure, so it shows what the diagnostic does with a pipeline where people press re-run. It names the tests and steps that failed and then passed on the same commit, and ranks them.</p>
+<p>Every number below was computed from the repository's own CI history, and the command that produces each one is printed next to it. The API responses behind them are stored with the report, with personal fields removed and logs trimmed, so the numbers can be recomputed without network access.</p>
+<p>A diagnostic measures how a pipeline behaves. It isn't an audit or a security assessment, and none of this judges the project or the people who maintain it. This SDK tests concurrent workers against a live server on three operating systems, and that kind of suite is hard to keep free of timing-dependent failures.</p>
+<h2>Summary</h2>
+<p><strong>What was measured.</strong> The <code>Continuous Integration</code> workflow (<code>.github/workflows/ci.yml</code>) on GitHub Actions: all 414 of its runs over the 30 days from 2026-10-12 to 2026-11-10, on pull requests and pushes, with every attempt of every run that was re-run; its last 100 completed runs on <code>main</code> (2026-10-06 to 2026-11-11); and the log of every job that failed and later passed. Workflow files were read at commit <code>57f3dd6</code>.</p>
+<p><strong>What we found.</strong></p>
+<ol>
+<li><strong>62 runs were re-run after a failure, and 45 of them then passed with no change to the code.</strong> Those re-runs hold 127 job executions that failed and later passed on the same commit ("failed, then passed" below; section 2 defines it). The log names a failing test in 61 of them. In 39 a test step ran past its time limit and the job was stopped. 5 had one error shared by many tests, and 22 failed outside the tests.</li>
+<li><strong>One test accounts for 22 of the 61 failures that name a test.</strong> <code>tests/worker/test_worker.py::test_warns_when_workers_too_low</code> failed and then passed 22 times across 15 runs, every time on pytest's 60-second limit for one test. Run alone on our fork, it timed out the same way in 11 of 780 repetitions, counting the steps that ran to the end. The second, <code>tests/worker/test_worker.py::test_worker_with_worker_deployment_config</code>, did so 9 times. The logs name 26 tests in all, 8 of them more than once. Section 2 ranks them with the job log behind each.</li>
+<li><strong>37 of the 39 time-limit failures were on Windows, and 30 of the 39 fall in the last seven days of the window.</strong> A Windows job execution failed and then passed 6.0% of the time, against 1.6% on Linux.</li>
+<li><strong>None of the 11 push runs on <code>main</code> since the job matrix changed on 2026-11-06 ended green, as of 2026-11-11.</strong> 7 of them have a Windows test step past its time limit. Over the last 100 pushes, 50 ended red and none was re-run. 21 of those red runs name a test from the ranked list. A red run is the conclusion of a CI run. It doesn't by itself say the code on <code>main</code> is broken, and section 2 shows why many of these may be flaky checks.</li>
+<li><strong>A re-run that ended green delayed the verdict by 39:12 at the median.</strong> A pull-request run that passes the first time takes 23:49. Added up over the 45 runs, the delay comes to 223.5 hours. That total includes the time before anyone pressed re-run, which in some runs was overnight. The re-run jobs used 1,989 runner minutes.</li>
+<li><strong>53 pull-request runs kept going after a newer commit had started a new run.</strong> The workflow has no <code>concurrency</code> group, so the older run isn't cancelled. The jobs of those runs used 5,512 runner minutes after the newer run began.</li>
+<li><strong>66 of 74 action references are pinned to commit SHAs, 7 are local to the repository and one follows a branch.</strong> 6 actions run on a Node version GitHub has deprecated. The cache store holds 10,754 MB against GitHub's default limit of 10 GB.</li>
+</ol>
+<p><strong>What to change, in order of expected effect.</strong> Section 7 has the arithmetic and the caveats.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Change</th>
+<th>Evidence</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Find what stalls the Windows test steps</td>
+<td>39 failed-then-passed executions, 37 on Windows and 30 in the last seven days, and 7 of the 11 red runs on <code>main</code> since 2026-11-06</td>
+<td>A logging change to make the log name the stalled test; the fix depends on what it names</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Fix <code>test_warns_when_workers_too_low</code></td>
+<td>22 failed-then-passed executions and 9 more failed jobs on <code>main</code>; the only test named in 21 of the 22</td>
+<td>One test</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Fix <code>test_worker_with_worker_deployment_config</code></td>
+<td>9 failed-then-passed executions and 3 more failed jobs on <code>main</code></td>
+<td>One test</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Cancel superseded pull-request runs</td>
+<td>5,512 runner minutes in 30 days</td>
+<td>Three lines</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Take two downloads off the path of every job</td>
+<td>18 executions failed fetching <code>protoc</code>, 9 on a corrupt test-server download</td>
+<td>A cache step or a pinned download for each</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Decide how red runs on <code>main</code> are handled</td>
+<td>50 of 100 pushes red, none re-run</td>
+<td>A decision</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Pin the one reusable workflow that follows a branch, and move 6 actions off Node 20</td>
+<td>No time saved</td>
+<td>A few lines</td>
+</tr>
+</tbody>
+</table></div>
+<p>What this evidence shows and what it doesn't is at the end of section 2. What couldn't be measured, and why no fix was tested on a fork, is in section 8.</p>
+<h2>1. What was measured</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Window</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All runs, all workflows, all branches</td>
+<td>2026-10-12 to 2026-11-10 (30 days)</td>
+<td>1,714 runs: 1,660 from workflow files, 54 from workflows GitHub generates (Dependabot)</td>
+</tr>
+<tr>
+<td>Of those, runs of <code>Continuous Integration</code></td>
+<td>Same</td>
+<td>414 runs, 114 with more than one attempt</td>
+</tr>
+<tr>
+<td>Completed push runs of <code>Continuous Integration</code> on <code>main</code></td>
+<td>2026-10-06 to 2026-11-11</td>
+<td>100 runs: 43 passed, 50 failed, 7 cancelled</td>
+</tr>
+<tr>
+<td>Logs of job executions that failed and then passed</td>
+<td>2026-10-13 to 2026-11-10</td>
+<td>127 logs</td>
+</tr>
+<tr>
+<td>Logs of failed jobs in red runs on <code>main</code></td>
+<td>2026-10-06 to 2026-11-11</td>
+<td>85 logs</td>
+</tr>
+<tr>
+<td>Job logs, for cache hits</td>
+<td>2026-11-07 to 2026-11-11</td>
+<td>150 logs from the 10 most recent runs on <code>main</code> that reached a verdict</td>
+</tr>
+<tr>
+<td>Workflow files</td>
+<td>Commit <code>57f3dd6</code></td>
+<td>6 files, 74 <code>uses:</code> references</td>
+</tr>
+<tr>
+<td>Cache entries</td>
+<td>Snapshot on 2026-11-12</td>
+<td>50 entries</td>
+</tr>
+<tr>
+<td>Probe runs on our fork</td>
+<td>2026-11-12</td>
+<td>2 runs, 18 test steps</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Definitions.</strong> A run's <em>wall-clock time</em> is the latest job finish minus the earliest job creation, over the run's final attempt, which is the time a person waits for a verdict. <em>Runner minutes</em> round each job's running time up to a whole minute and add them. That's the unit GitHub bills a private repository in, before the higher rates it charges for Windows and macOS runners. This repository is public and pays nothing for standard runners; the minutes are shown because a private repository would pay. <em>Queue time</em> is the gap between a job being created and starting. <em>Failure rate</em> is failed runs over passed plus failed. Timings and runner minutes leave out <code>Required PR Checks</code>, a job that only reports on the other jobs.</p>
+<p><strong>To reproduce.</strong> Clone the report's repository, then:</p>
+<pre><code>python -m venv .venv &amp;&amp; .venv/bin/pip install -r requirements.txt
+.venv/bin/python -m cidiag analyze --sample temporal-sdk-python   # recompute results/metrics.json from data/raw
+.venv/bin/python -m cidiag verify --sample temporal-sdk-python    # check this report against a fresh computation
+.venv/bin/python -m cidiag query flaky.tests --sample temporal-sdk-python   # print any one measure
+</code></pre>
+<p><code>python -m cidiag fetch --sample temporal-sdk-python</code> pulls the same endpoints again through <code>gh api</code>. Each section names the <code>query</code> that prints its numbers. Add <code>--sample temporal-sdk-python</code> to each.</p>
+<h2>2. Flaky checks</h2>
+<h3>How a flaky failure is counted</h3>
+<p>A re-run executes the same commit again. If a job fails in one attempt and passes in a later attempt of the same run, the code was the same both times, so something other than the code decided the result. Each such failed execution is counted once below as "failed, then passed".</p>
+<p>Three things in the API make a naive count wrong, and the tool corrects for each.</p>
+<ul>
+<li><strong>Attempts held for approval.</strong> 114 runs of <code>Continuous Integration</code> have an attempt number above 1. In 43 of them the first attempt was held for a maintainer's approval and never ran, so the second attempt was the first real execution. 62 runs have an earlier attempt that failed. Only those count as re-runs after a failure.</li>
+<li><strong>Copies of jobs that weren't re-run.</strong> When someone re-runs only the failed jobs, GitHub lists every other job again under the new attempt, with a new id and its original start time. A job that failed in attempt 2 and was left alone in attempt 3 shows up as a failure in both. Here a job counts only in the attempt it started in.</li>
+<li><strong>Jobs that report on other jobs.</strong> <code>Required PR Checks</code> fails whenever a job it waits for fails. It's left out.</li>
+</ul>
+<p>Query: <code>python -m cidiag query flaky.instances</code>. Sources: <code>GET /repos/temporalio/sdk-python/actions/runs/{id}/attempts/{n}</code>, <code>.../attempts/{n}/jobs</code> and <code>GET /repos/temporalio/sdk-python/actions/jobs/{id}/logs</code>.</p>
+<h3>Re-runs in the 30 days</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Runs of <code>Continuous Integration</code></td>
+<td>414</td>
+</tr>
+<tr>
+<td>Runs that reached a verdict</td>
+<td>388</td>
+</tr>
+<tr>
+<td>Had at least one failed attempt</td>
+<td>247 (63.7%)</td>
+</tr>
+<tr>
+<td>Re-run after a failed attempt</td>
+<td>62</td>
+</tr>
+<tr>
+<td>Re-run, and ended green</td>
+<td>45</td>
+</tr>
+<tr>
+<td>Re-run, and still red</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Re-run, then cancelled</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Most attempts on one run</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Ended red after any re-runs</td>
+<td>52.1% of runs with a verdict</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.rerun_final</code>. 62 of the 62 re-run runs were on pull requests. Percentages are of the runs that reached a verdict. Counting the 2 that had a failed attempt and ended cancelled, 249 runs had a failed attempt, and 62 of those (24.9%) were re-run.</p>
+<p>Most runs had a failed attempt, and much of that isn't flakiness. The most frequent failing step in the window is the lint step (section 3), and a pull request that fails lint is failing on its own change. The 45 runs that went green on a re-run are the ones where the history shows the code alone didn't decide the result.</p>
+<h3>What failed, by kind</h3>
+<p>The 127 failed-then-passed job executions, by what their log says:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Executions</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Names a failing test</td>
+<td>61</td>
+<td>pytest reported one or more tests failing on their own. Ranked below.</td>
+</tr>
+<tr>
+<td>Step ran past its time limit</td>
+<td>39</td>
+<td>The runner stopped a test step at the limit in the workflow file. No test is named.</td>
+</tr>
+<tr>
+<td>One error shared by many tests</td>
+<td>5</td>
+<td>Five or more tests in the job failed with the same error line. That's one failure, so it's listed once and those tests aren't ranked.</td>
+</tr>
+<tr>
+<td>Failed outside the tests</td>
+<td>22</td>
+<td>A setup step failed, or the log has no error line the parser reads.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.by_kind</code>.</p>
+<h3>Tests that failed and then passed, ranked</h3>
+<p>61 executions name 26 tests between them. The count is job executions, so one run with the test failing on two runners counts twice under "Failed, then passed" and once under "Runs". "Also failed on main" counts failed jobs in the last 100 pushes to <code>main</code> whose log names the same test. Those were never re-run, so they aren't in the first count. The error line is the first line pytest printed for the failure. Where a test failed with more than one error, it's the most frequent.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Test</th>
+<th>Failed, then passed</th>
+<th>Runs</th>
+<th>Seen</th>
+<th>Also failed on main</th>
+<th>Runner</th>
+<th>Error line</th>
+<th>Most recent job logs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>tests/worker/test_worker.py::test_warns_when_workers_too_low</code></td>
+<td>22</td>
+<td>15</td>
+<td>2026-10-29 to 2026-11-10</td>
+<td>9</td>
+<td>linux 16, macos 6</td>
+<td><code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42908130654/job/130151392745">42908130654</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42908130654/job/130151393148">42908130654</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42918643927/job/130187509299">42918643927</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>tests/worker/test_worker.py::test_worker_with_worker_deployment_config</code></td>
+<td>9</td>
+<td>7</td>
+<td>2026-11-05 to 2026-11-06</td>
+<td>3</td>
+<td>linux 9</td>
+<td><code>AssertionError: assert 'version-v3' == 'version-v2'</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42136990712/job/127639534567">42136990712</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42138126482/job/127646931148">42138126482</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42279866572/job/128105738305">42279866572</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>tests/testing/test_workflow.py::test_workflow_env_time_skipping_basic</code></td>
+<td>4</td>
+<td>4</td>
+<td>2026-10-20 to 2026-11-05</td>
+<td>1</td>
+<td>linux 3, windows 1</td>
+<td><code>RuntimeError: Failed starting test server: invalid ephemeral server download: could not extract tar archive entry</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39827582866/job/119994867201">39827582866</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/41653264899/job/125976738846">41653264899</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127434934764">42081358180</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>tests/worker/test_worker.py::test_custom_slot_supplier</code></td>
+<td>3</td>
+<td>2</td>
+<td>2026-10-29 to 2026-11-05</td>
+<td>2</td>
+<td>linux 1, macos 1, windows 1</td>
+<td><code>temporal_sdk_bridge.RPCError: (1, 'operation was canceled', b'')</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949338621/job/123712981685">40949338621</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/40949338621/job/123712981679">40949338621</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42128350012/job/127598255936">42128350012</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>tests/testing/test_workflow.py::test_ui_port</code></td>
+<td>2</td>
+<td>2</td>
+<td>2026-10-19 to 2026-10-22</td>
+<td>3</td>
+<td>linux 1, windows 1</td>
+<td><code>RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive e...</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39281238651/job/118155744977">39281238651</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/39840312543/job/120039286072">39840312543</a></td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>tests/worker/test_worker.py::test_worker_deployment_ramp</code></td>
+<td>2</td>
+<td>2</td>
+<td>2026-11-05 to 2026-11-09</td>
+<td>1</td>
+<td>linux 2</td>
+<td><code>RecursionError: maximum recursion depth exceeded</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42128350012/job/127598255376">42128350012</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42679739634/job/129370729355">42679739634</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>tests/worker/test_worker.py::test_worker_fatal_error_with</code></td>
+<td>2</td>
+<td>2</td>
+<td>2026-11-05 to 2026-11-09</td>
+<td>2</td>
+<td>linux 2</td>
+<td><code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101160398/job/127533670069">42101160398</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42688982209/job/129403352161">42688982209</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_cancel_multi</code></td>
+<td>2</td>
+<td>2</td>
+<td>2026-10-22 to 2026-11-06</td>
+<td>0</td>
+<td>macos 2</td>
+<td><code>temporalio.client._exceptions.WorkflowFailureError: Workflow execution failed</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39727841101/job/119655775549">39727841101</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42279866572/job/128105738597">42279866572</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>tests/testing/test_workflow.py::test_workflow_env_time_skipping_manual</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-05</td>
+<td>0</td>
+<td>linux 1</td>
+<td><code>RuntimeError: Failed starting test server: invalid ephemeral server download: could not extract tar archive entry</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127434934764">42081358180</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>tests/worker/test_activ…::test_sync_activity_process_cancel</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-06</td>
+<td>0</td>
+<td>macos 1</td>
+<td><code>temporalio.client._exceptions.WorkflowFailureError: Workflow execution failed</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42136242308/job/127624997645">42136242308</a></td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>tests/worker/test_event_groups.py::test_timer_commands_carry_markers</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-02</td>
+<td>1</td>
+<td>linux 1</td>
+<td><code>assert 0 == 1</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/41176936720/job/125403278718">41176936720</a></td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>tests/worker/test_extstore.py::test_worker_storage_drivers_empty_without_external_storage</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-29</td>
+<td>0</td>
+<td>linux 1</td>
+<td><code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123712983943">40949339295</a></td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>tests/worker/test_extstore.py::test_worker_storage_drivers_populated_from_client</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-10</td>
+<td>0</td>
+<td>linux 1</td>
+<td><code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42919105015/job/130189102903">42919105015</a></td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>tests/worker/test_interceptor.py::test_worker_interceptor</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-07</td>
+<td>0</td>
+<td>windows 1</td>
+<td><code>temporal_sdk_bridge.RPCError: (1, 'operation was canceled', b'')</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42271554950/job/128238642418">42271554950</a></td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>tests/worker/test_worker.py::test_worker_fatal_error_run</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-06</td>
+<td>0</td>
+<td>linux 1</td>
+<td><code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42305815253/job/128204568821">42305815253</a></td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>tests/worker/test_workflow.py::test_activity_pause_unpause</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-14</td>
+<td>1</td>
+<td>linux 1</td>
+<td><code>temporal_sdk_bridge.RPCError: (1, 'operation was canceled', b'')</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38590740106/job/115944621624">38590740106</a></td>
+</tr>
+<tr>
+<td>17</td>
+<td><code>tests/worker/test_workflow.py::test_alternate_async_loop_ordering</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-13</td>
+<td>1</td>
+<td>macos 1</td>
+<td><code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38442762780/job/115453277843">38442762780</a></td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>tests/worker/test_workflow.py::test_wait_condition_timer_options_not_used_by_later_timers</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-03</td>
+<td>0</td>
+<td>linux 1</td>
+<td><code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/41731429920/job/126249487288">41731429920</a></td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_cancel_activity_then_evict[local-try-cancel-task-failure]</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-13</td>
+<td>1</td>
+<td>linux 1</td>
+<td><code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38486702807/job/115601968171">38486702807</a></td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_cancel_activity_while_workflow_cancelled</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-14</td>
+<td>2</td>
+<td>windows 1</td>
+<td><code>assert not [event_id: 12\nevent_time {\n seconds: 3684182490\n nanos: 455000000\n}\nevent_type: EVENT_TYPE_WORKFLOW_T...</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38655157187/job/116163050702">38655157187</a></td>
+</tr>
+<tr>
+<td>21</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_cancel_child_started[False]</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-28</td>
+<td>0</td>
+<td>linux 1</td>
+<td><code>AssertionError: assert False</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40738924878/job/122995000801">40738924878</a></td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_cancel_child_started[True]</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-05</td>
+<td>0</td>
+<td>linux 1</td>
+<td><code>AssertionError: assert False</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101161020/job/127504008913">42101161020</a></td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_cancel_external</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-22</td>
+<td>1</td>
+<td>macos 1</td>
+<td><code>Failed: DID NOT RAISE WorkflowFailureError</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39727834777/job/119655755601">39727834777</a></td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_local_activity_cancel_during_backoff[False]</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-28</td>
+<td>0</td>
+<td>macos 1</td>
+<td><code>assert 19 in [1, 5, 6, 7, 25, 17, ...]</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40611793357/job/122938106845">40611793357</a></td>
+</tr>
+<tr>
+<td>25</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_sleep_task_cancellation</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-29</td>
+<td>0</td>
+<td>macos 1</td>
+<td><code>AssertionError: Expected TimerCanceled event in history</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40803372300/job/123216456828">40803372300</a></td>
+</tr>
+<tr>
+<td>26</td>
+<td><code>tests/worker/test_workflow.py::test_workflow_stack_trace</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-06</td>
+<td>0</td>
+<td>macos 1</td>
+<td><code>temporal_sdk_bridge.RPCError: (3, "[TMPRL1101] Potential deadlock detected: workflow didn't yield within 2 second(s)....</code></td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42136242308/job/127624997645">42136242308</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.tests</code>. One path in the table ends in an ellipsis because the log cut it short and more than one file in the repository fits.</p>
+<p>The top two tests are 31 of the 61 named failures. <code>test_warns_when_workers_too_low</code> hit pytest's 60-second per-test limit every time, on Linux and macOS, over 2026-10-29 to 2026-11-10. It was the only test named in 21 of its 22 executions. <code>test_worker_with_worker_deployment_config</code> failed on Linux only, with an assertion that a worker reported one deployment version when the test expected another.</p>
+<h3>One test, run alone on a fork</h3>
+<p>The ranking says <code>test_warns_when_workers_too_low</code> fails with no change to the code. To check that away from the project's own pull requests, we forked the repository to <a href="https://github.com/cedarwood-studio/sdk-python">cedarwood-studio/sdk-python</a> and pushed one branch, <code>ci-diagnostic/flake-probe</code>, from commit <code>57f3dd6</code>. The branch adds one workflow file and changes nothing else. On a Linux, a Windows and a macOS runner it builds the SDK with the same steps as <code>ci.yml</code>. Then it runs the test alone repeatedly in one process, runs it alone 200 times spread over the runner's cores, and runs all of <code>tests/worker/test_worker.py</code> once the way CI does. No test is skipped, retried or changed.</p>
+<p>We ran it twice. The first run gave the one-process step 200 repetitions and a 20-minute limit, which was too tight to finish. The second used 60 repetitions and longer limits. Both are in the table.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Run and job</th>
+<th>Runner</th>
+<th>Step</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>How the step ended</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785743">43156891102</a></td>
+<td>linux</td>
+<td>The test alone, 200 times, one process</td>
+<td>123</td>
+<td>1</td>
+<td>stopped at our step limit</td>
+<td>20:13</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785743">43156891102</a></td>
+<td>linux</td>
+<td>The test alone, 200 times, spread over all cores</td>
+<td>199</td>
+<td>1</td>
+<td>finished</td>
+<td>14:03</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785743">43156891102</a></td>
+<td>linux</td>
+<td>The whole test file, as CI runs it</td>
+<td>47</td>
+<td>0</td>
+<td>finished</td>
+<td>0:37</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785937">43156891102</a></td>
+<td>macos</td>
+<td>The test alone, 200 times, one process</td>
+<td>113</td>
+<td>3</td>
+<td>stopped at our step limit</td>
+<td>20:12</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785937">43156891102</a></td>
+<td>macos</td>
+<td>The test alone, 200 times, spread over all cores</td>
+<td>197</td>
+<td>3</td>
+<td>finished</td>
+<td>6:36</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785937">43156891102</a></td>
+<td>macos</td>
+<td>The whole test file, as CI runs it</td>
+<td>47</td>
+<td>0</td>
+<td>finished</td>
+<td>0:27</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785546">43156891102</a></td>
+<td>windows</td>
+<td>The test alone, 200 times, one process</td>
+<td>8</td>
+<td>0</td>
+<td>pytest-timeout ended the process</td>
+<td>3:09</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785546">43156891102</a></td>
+<td>windows</td>
+<td>The test alone, 200 times, spread over all cores</td>
+<td>3</td>
+<td>0</td>
+<td>stopped at our step limit</td>
+<td>20:08</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43156891102/job/130978785546">43156891102</a></td>
+<td>windows</td>
+<td>The whole test file, as CI runs it</td>
+<td>45</td>
+<td>0</td>
+<td>finished</td>
+<td>1:06</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997525">43160729589</a></td>
+<td>linux</td>
+<td>The test alone, 60 times, one process</td>
+<td>56</td>
+<td>4</td>
+<td>finished</td>
+<td>29:29</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997525">43160729589</a></td>
+<td>linux</td>
+<td>The test alone, 200 times, spread over all cores</td>
+<td>100</td>
+<td>3</td>
+<td>stopped at our step limit</td>
+<td>30:13</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997525">43160729589</a></td>
+<td>linux</td>
+<td>The whole test file, as CI runs it</td>
+<td>47</td>
+<td>0</td>
+<td>finished</td>
+<td>0:30</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997591">43160729589</a></td>
+<td>macos</td>
+<td>The test alone, 60 times, one process</td>
+<td>58</td>
+<td>2</td>
+<td>finished</td>
+<td>4:32</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997591">43160729589</a></td>
+<td>macos</td>
+<td>The test alone, 200 times, spread over all cores</td>
+<td>199</td>
+<td>1</td>
+<td>finished</td>
+<td>5:34</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997591">43160729589</a></td>
+<td>macos</td>
+<td>The whole test file, as CI runs it</td>
+<td>47</td>
+<td>0</td>
+<td>finished</td>
+<td>0:23</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997308">43160729589</a></td>
+<td>windows</td>
+<td>The test alone, 60 times, one process</td>
+<td>60</td>
+<td>0</td>
+<td>finished</td>
+<td>5:09</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997308">43160729589</a></td>
+<td>windows</td>
+<td>The test alone, 200 times, spread over all cores</td>
+<td>135</td>
+<td>0</td>
+<td>stopped at our step limit</td>
+<td>30:07</td>
+</tr>
+<tr>
+<td><a href="https://github.com/cedarwood-studio/sdk-python/actions/runs/43160729589/job/130990997308">43160729589</a></td>
+<td>windows</td>
+<td>The whole test file, as CI runs it</td>
+<td>45</td>
+<td>0</td>
+<td>finished</td>
+<td>1:13</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query probe</code>. "Passed" and "Failed" are pytest's own counts where the step finished, and counts of its progress marks where it didn't.</p>
+<ul>
+<li><strong>The test fails when run alone.</strong> In the 6 single-test steps that ran to the end, 11 of 780 repetitions failed. Of the 11 failures pytest printed an error for, 11 read <code>Failed: Timeout (&gt;60.0s) from pytest-timeout.</code>, the same line as in the project's history.</li>
+<li><strong>One run of the test file doesn't show it.</strong> The whole file passed in all 6 of its steps: 278 test results and 0 failures. Someone who runs the file once will probably see nothing wrong.</li>
+<li><strong>On Windows the same stall takes a different shape.</strong> On Linux and macOS, pytest-timeout enforces the 60-second limit with a signal and fails the one test. Windows has no such signal, so pytest-timeout uses a watchdog thread there (the logs say <code>timeout method: thread</code>), and when a test runs past the limit it ends the whole pytest process. 1 of the 4 single-test steps on Windows ran to the end. In 1, pytest-timeout ended the process with no summary and no test named. 2 went quiet until our step limit, and the log doesn't say why.</li>
+</ul>
+<p>A Windows step that goes quiet with no test named resembles the 37 Windows time-limit failures in the project's history (next subsection). In the ranking above, <code>test_warns_when_workers_too_low</code> is named 22 times on Linux and macOS and 0 times on Windows. Taken together, that suggests some of the Windows time-limit failures are this test, or others like it, reported in a different way.</p>
+<p>The probe doesn't prove that. It ran one test, on a later day, on runners assigned to our fork. Repeating a test inside one pytest session is also not how CI runs it, and the repetition may add stalls of its own. What it does show is that this test can run past 60 seconds with no pull request involved. It did so on Linux and macOS in the steps that finished, and on Windows in the step pytest-timeout ended.</p>
+<h3>Steps that ran past their time limit</h3>
+<p>In 39 failed-then-passed executions the log names no test. A test step reached the <code>timeout-minutes</code> set for it in the workflow file and the runner stopped it.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Step limit</th>
+<th>Failed, then passed</th>
+<th>Runs</th>
+<th>Seen</th>
+<th>Most recent job logs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>10 min</td>
+<td>8</td>
+<td>4</td>
+<td>2026-11-06 to 2026-11-09</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/128185984515">42279866249</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42305815253/job/128194717990">42305815253</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/129321802365">42279866249</a></td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>15 min</td>
+<td>8</td>
+<td>6</td>
+<td>2026-11-06 to 2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/129336725091">42279866249</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42755878845/job/129630018815">42755878845</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42777052659/job/129964787011">42777052659</a></td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.11, windows-latest)</code></td>
+<td>15 min</td>
+<td>7</td>
+<td>6</td>
+<td>2026-11-06 to 2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42918643927/job/130187509373">42918643927</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42919105015/job/130189102990">42919105015</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42919105015/job/130201893250">42919105015</a></td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>15 min</td>
+<td>5</td>
+<td>5</td>
+<td>2026-10-29 to 2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123726199512">40949339295</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42081130391/job/127434134622">42081130391</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127434935116">42081358180</a></td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>10 min</td>
+<td>4</td>
+<td>4</td>
+<td>2026-10-13 to 2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123712983847">40949339295</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127459953253">42081358180</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42130768800/job/127606492280">42130768800</a></td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>15 min</td>
+<td>4</td>
+<td>3</td>
+<td>2026-10-29 to 2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123738353870">40949339295</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/41512911720/job/125509012690">41512911720</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127434934973">42081358180</a></td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td>15 min</td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-13</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38451473069/job/115483184206">38451473069</a></td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>10 min</td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127459953130">42081358180</a></td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.15, ubuntu-latest)</code></td>
+<td>10 min</td>
+<td>1</td>
+<td>1</td>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42128350012/job/127598255553">42128350012</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.timeouts</code>. By runner: windows 37, linux 1, macos 1. 30 of the 39 started on or after 2026-11-04.</p>
+<p>The project sets <code>timeout = 60</code> and <code>timeout_func_only = true</code> for pytest in <code>pyproject.toml</code>. With that setting the 60-second limit covers the body of each test and leaves out its fixtures, so a stall while a fixture sets up or tears down would run until the step limit with no test named. That fits what the logs show. We didn't establish that it's the cause. Our stored copy of each log keeps the failure lines and drops pytest's progress output, so it can't say whether one test stalled or the whole step ran slow.</p>
+<h3>One error shared by many tests</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Error line</th>
+<th>Failed, then passed</th>
+<th>Tests it took down per job</th>
+<th>Seen</th>
+<th>Job logs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry</code></td>
+<td>4</td>
+<td>18 to 624</td>
+<td>2026-10-13 to 2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40008061417/job/122234383085">40008061417</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123726199679">40949339295</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42119706012/job/127568543267">42119706012</a></td>
+</tr>
+<tr>
+<td><code>TimeoutError: timed out</code></td>
+<td>1</td>
+<td>10</td>
+<td>2026-11-03</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/41718242569/job/126203818088">41718242569</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.shared</code>. In the largest case every test in the job that needs the local test server failed with the same line, because the server binary didn't download intact. Counting those as hundreds of flaky tests would bury the ranking above. Three tests in the ranking (<code>test_workflow_env_time_skipping_basic</code>, <code>test_workflow_env_time_skipping_manual</code> and <code>test_ui_port</code>) failed on their own with a download error of the same kind. In all, 9 executions on 7 different days trace to that download.</p>
+<h3>Failures outside the tests</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Failing step</th>
+<th>Error line</th>
+<th>Failed, then passed</th>
+<th>Runs</th>
+<th>Seen</th>
+<th>Most recent job logs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b</code></td>
+<td><code>Error: unable to get latest version</code></td>
+<td>15</td>
+<td>3</td>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964370058">39818846071</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/39816766359/job/119968935520">39816766359</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/39816766359/job/119968935791">39816766359</a></td>
+</tr>
+<tr>
+<td><code>Install Protoc</code></td>
+<td><code>Error: unable to get latest version</code></td>
+<td>2</td>
+<td>2</td>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39814145763/job/119948162441">39814145763</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964369816">39818846071</a></td>
+</tr>
+<tr>
+<td><code>Run SDK-features tests directly</code></td>
+<td>none in the log</td>
+<td>2</td>
+<td>2</td>
+<td>2026-10-28 to 2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40571679224/job/122932219336">40571679224</a>, <a href="https://github.com/temporalio/sdk-python/actions/runs/42919105015/job/130189103582">42919105015</a></td>
+</tr>
+<tr>
+<td><code>Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b</code></td>
+<td><code>Error: Failed to download version v23.4: Error, Unexpected HTTP response: 500 - 500</code></td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-20</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39451551904/job/118727390864">39451551904</a></td>
+</tr>
+<tr>
+<td><code>Run poe test -s --workflow-environment time-skipping</code></td>
+<td>none in the log</td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-13</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38447120318/job/115468297216">38447120318</a></td>
+</tr>
+<tr>
+<td><code>Test Alpine wheel</code></td>
+<td>none in the log</td>
+<td>1</td>
+<td>1</td>
+<td>2026-10-23</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39920469335/job/120532851838">39920469335</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.other</code>. 18 executions in 4 runs failed while installing <code>protoc</code>, all on 2026-10-20 and 2026-10-22. <code>arduino/setup-protoc</code> asks the GitHub API for the full list of protobuf releases on every job to resolve the version, at the commit pinned here (<code>src/installer.ts</code>, <code>fetchVersions</code>). When that list comes back empty the step stops with "unable to get latest version". The history shows the lookup failing in a burst. It gives no reason.</p>
+<h3>By runner</h3>
+<p>Every job execution of <code>Continuous Integration</code> in the window that ended in a pass or a failure, and how many of them failed and then passed:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Runner</th>
+<th>Job executions</th>
+<th>Failed, then passed</th>
+<th>Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>linux</td>
+<td>4,006</td>
+<td>63</td>
+<td>1.6%</td>
+</tr>
+<tr>
+<td>windows</td>
+<td>765</td>
+<td>46</td>
+<td>6.0%</td>
+</tr>
+<tr>
+<td>macos</td>
+<td>747</td>
+<td>18</td>
+<td>2.4%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.platforms</code>.</p>
+<h3>The main branch</h3>
+<p>No run on <code>main</code> was re-run in the last 100 pushes, so there's no second attempt to compare, and nothing on <code>main</code> counts as "failed, then passed". 50 of those pushes ended red. We read the logs of their failed jobs:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red runs on <code>main</code></td>
+<td>50 of 100</td>
+</tr>
+<tr>
+<td>Failed jobs in them, <code>Required PR Checks</code> left out</td>
+<td>85</td>
+</tr>
+<tr>
+<td>Of those, naming a test</td>
+<td>48</td>
+</tr>
+<tr>
+<td>Step past its time limit</td>
+<td>17</td>
+</tr>
+<tr>
+<td>One error shared by many tests</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Outside the tests</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Red runs that name a test from the ranked list</td>
+<td>21</td>
+</tr>
+<tr>
+<td>Red runs where every failed job names only tests from the ranked list</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Red runs with a step past its time limit</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Tests named on <code>main</code> that aren't in the ranked list</td>
+<td>17</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.main</code>.</p>
+<p>The job matrix changed on 2026-11-06, when the Python versions moved from 3.10 and 3.14 to 3.11 and 3.15. All 11 pushes to <code>main</code> since then ended red, up to the last one read (2026-11-11). Of their 24 failed jobs, 14 name a test, 9 are a step past its time limit and 1 is one error shared by many tests. All 9 time-limit failures were Windows jobs, in 7 of the 11 runs. Query: <code>python -m cidiag query flaky.main.latest_matrix</code>.</p>
+<p>A red run on <code>main</code> that names only tests known to fail and pass on the same commit elsewhere is probably flaky too. The history can't confirm it, because nobody ran it again.</p>
+<h3>What the re-runs cost</h3>
+<p>Over the 45 runs that were re-run after a failure and ended green:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Delay from the first red verdict to the green one, median</td>
+<td>39:12</td>
+</tr>
+<tr>
+<td>Delay, 90th percentile</td>
+<td>16:33:49</td>
+</tr>
+<tr>
+<td>Delay, all 45 runs added up</td>
+<td>223.5 hours</td>
+</tr>
+<tr>
+<td>Time from the run starting to the green verdict, median</td>
+<td>1:18:19</td>
+</tr>
+<tr>
+<td>A pull-request run that passes the first time, median</td>
+<td>23:49</td>
+</tr>
+<tr>
+<td>Runner minutes used by the re-run jobs</td>
+<td>1,989</td>
+</tr>
+<tr>
+<td>Attempts it took</td>
+<td>2 attempts in 26 runs, 3 in 15, 4 in 1, 5 in 1, 6 in 1, 7 in 1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.cost</code>. The delay runs from the end of the first attempt to the end of the last. It includes the time before someone noticed the failure and pressed re-run, and at the 90th percentile that's overnight. The runner minutes are the smaller cost next to a pull request sitting red for 39:12 on a commit that later passed.</p>
+<h3>What this evidence shows and what it doesn't</h3>
+<ul>
+<li><strong>It shows</strong> that each failure counted above didn't come from the commit alone. The same job, on the same commit, later passed.</li>
+<li><strong>A pass after a failure suggests a flaky test without proving one.</strong> It says the failure isn't deterministic. One occurrence could be a slow runner or a network fault. <code>test_warns_when_workers_too_low</code> failed this way 22 times in 15 runs on two operating systems, which is hard to explain as chance. The 18 tests that appear once are candidates, and we wouldn't act on one of them without seeing it again.</li>
+<li><strong>It undercounts.</strong> A failure is counted only if someone re-ran the job and it then passed. 24.9% of the runs with a failed attempt were re-run. Failures on <code>main</code> were never re-run. A flaky failure that the author cleared by pushing another commit is invisible here.</li>
+<li><strong>It doesn't say why a test is flaky.</strong> The error line says what the test saw. Finding the cause means reading the test and the code under it, which a diagnostic doesn't do.</li>
+<li><strong>A step past its time limit names no test.</strong> The 39 time-limit failures could be one stalled test or many.</li>
+<li><strong>The ranking covers 30 days.</strong> A test that fails one time in several hundred runs may not appear at all, and GitHub keeps job logs for 90 days by default, so the window can't be pushed back far.</li>
+<li><strong>The project has its own reporting.</strong> The workflow uploads JUnit XML for every test job. A team with those files can count failures per test directly, without waiting for someone to press re-run. We didn't use them because the artifacts expire after 14 days.</li>
+</ul>
+<h2>3. Failure rates by workflow</h2>
+<p>All runs created from 2026-10-12 to 2026-11-10, on every branch:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Trigger</th>
+<th>Runs</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Cancelled</th>
+<th>Held for approval</th>
+<th>Failure rate</th>
+<th>Re-run after failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Changelog</td>
+<td>pull_request</td>
+<td>374</td>
+<td>249</td>
+<td>114</td>
+<td>0</td>
+<td>11</td>
+<td>31.4%</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Check for CODEOWNERS</td>
+<td>pull_request_target</td>
+<td>334</td>
+<td>233</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0%</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Opengrep SAST</td>
+<td>pull_request</td>
+<td>333</td>
+<td>283</td>
+<td>39</td>
+<td>0</td>
+<td>11</td>
+<td>12.1%</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Continuous Integration</td>
+<td>pull_request</td>
+<td>329</td>
+<td>149</td>
+<td>161</td>
+<td>8</td>
+<td>11</td>
+<td>51.9%</td>
+<td>62</td>
+</tr>
+<tr>
+<td>SDK Sentinel PR responder relay</td>
+<td>issue_comment</td>
+<td>154</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>n/a</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Continuous Integration</td>
+<td>push</td>
+<td>85</td>
+<td>37</td>
+<td>41</td>
+<td>7</td>
+<td>0</td>
+<td>52.6%</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Nightly</td>
+<td>schedule</td>
+<td>30</td>
+<td>30</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0%</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Check for CODEOWNERS</td>
+<td>pull_request</td>
+<td>20</td>
+<td>15</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+<td>0.0%</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Release from main</td>
+<td>workflow_dispatch</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.0%</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query window.rows</code>. Source: <code>GET /repos/temporalio/sdk-python/actions/runs?created={day}</code>, one request per day, because GitHub returns at most 1,000 runs for one query and this window holds 1,714.</p>
+<p>Cancelled runs and runs held for approval never reached a verdict and are left out of the failure rate, as are runs GitHub skipped. The failure rate is for the final attempt, so a run that failed, was re-run and passed counts as passed. "Re-run after failure" counts runs with an earlier attempt that failed. <code>Opengrep SAST</code> and <code>Check for CODEOWNERS</code> run on this repository but their files aren't in its <code>.github/workflows</code> directory at the commit we read, so they're counted here and not examined in section 5. A failed <code>Changelog</code> run means the pull request has no changelog entry yet, which is the check doing its job.</p>
+<p><strong>What failed.</strong> Failed jobs of <code>Continuous Integration</code> in the window, by job and step, over each run's final attempt. The ten most frequent:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Failing step</th>
+<th>Failures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>build-lint-test</code></td>
+<td><code>Run poe lint</code></td>
+<td>188</td>
+</tr>
+<tr>
+<td><code>Required PR Checks</code></td>
+<td><code>Fail if any check failed or was cancelled</code></td>
+<td>95</td>
+</tr>
+<tr>
+<td><code>build-lint-test</code></td>
+<td><code>Run poe test -s</code></td>
+<td>78</td>
+</tr>
+<tr>
+<td><code>build-lint-test</code></td>
+<td><code>Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s</code></td>
+<td>45</td>
+</tr>
+<tr>
+<td><code>cloud-test</code></td>
+<td><code>Run poe test -s --workflow-environment envconfig</code></td>
+<td>35</td>
+</tr>
+<tr>
+<td><code>build-lint-test</code></td>
+<td><code>Run poe test -s --workflow-environment time-skipping-v2</code></td>
+<td>33</td>
+</tr>
+<tr>
+<td><code>test-latest-deps</code></td>
+<td><code>Run poe lint</code></td>
+<td>31</td>
+</tr>
+<tr>
+<td><code>build-lint-test</code></td>
+<td><code>Run arduino/setup-protoc</code></td>
+<td>18</td>
+</tr>
+<tr>
+<td><code>fips-build</code></td>
+<td><code>Run tests against the FIPS build</code></td>
+<td>17</td>
+</tr>
+<tr>
+<td><code>test-latest-deps</code></td>
+<td><code>Run poe test -s</code></td>
+<td>15</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query window.failing_jobs</code>. <code>build-lint-test</code> runs as eight matrix jobs, so one pull request that fails lint adds eight to the first row.</p>
+<h2>4. Run time, and where it goes</h2>
+<p>Over the 93 of the last 100 runs on <code>main</code> that reached a verdict:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Median wall-clock time</td>
+<td>23:00 (23.0 min)</td>
+</tr>
+<tr>
+<td>Median, successful runs only</td>
+<td>22:57</td>
+</tr>
+<tr>
+<td>90th percentile</td>
+<td>28:21</td>
+</tr>
+<tr>
+<td>Slowest</td>
+<td>60:31</td>
+</tr>
+<tr>
+<td>Median runner minutes per run</td>
+<td>238</td>
+</tr>
+<tr>
+<td>Runner minutes, all 93 runs</td>
+<td>21,560</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query main.summary</code>. Source: <code>GET /repos/temporalio/sdk-python/actions/workflows/ci.yml/runs?branch=main&amp;event=push&amp;status=completed</code> and <code>GET /repos/temporalio/sdk-python/actions/runs/{id}/jobs?filter=all</code>.</p>
+<p>On pull requests, the 63 runs that passed on the first attempt took 23:49 at the median and 27:36 at the 90th percentile. Query: <code>python -m cidiag query flaky.pr_first_pass</code>.</p>
+<p><strong>By step.</strong> Share of all step time across the 43 successful runs on <code>main</code>, with the per-job report path removed from step names so that matrix jobs add up:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Minutes per run, all jobs</th>
+<th>Share of step time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s</td>
+<td>28.0</td>
+<td>12.4%</td>
+</tr>
+<tr>
+<td>Build Alpine wheel</td>
+<td>27.4</td>
+<td>12.2%</td>
+</tr>
+<tr>
+<td>Run poe test  -s</td>
+<td>27.4</td>
+<td>12.1%</td>
+</tr>
+<tr>
+<td>Run poe build-develop</td>
+<td>21.0</td>
+<td>9.3%</td>
+</tr>
+<tr>
+<td>Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s --workflow-environment time-skipping-v2</td>
+<td>20.3</td>
+<td>9.0%</td>
+</tr>
+<tr>
+<td>Run poe test  -s --workflow-environment time-skipping-v2</td>
+<td>19.6</td>
+<td>8.7%</td>
+</tr>
+<tr>
+<td>Run poe lint</td>
+<td>16.3</td>
+<td>7.2%</td>
+</tr>
+<tr>
+<td>Run poe test -s --workflow-environment envconfig</td>
+<td>7.6</td>
+<td>3.4%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query main.steps</code>. The test steps are the largest share. Building the Rust extension (<code>poe build-develop</code>, plus <code>Build Alpine wheel</code> in the two packaging jobs) is the next largest.</p>
+<p><strong>By job.</strong> The job matrix changed on 2026-11-06 and no run on <code>main</code> has passed since, so there are no successful runs of the current matrix to time. The table covers the 43 successful runs on the matrix before the change (2026-10-06 onward). "Finished last" counts the runs in which that job was the last to complete.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Runs</th>
+<th>Median</th>
+<th>90th pct</th>
+<th>Finished last</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>43</td>
+<td>22:35</td>
+<td>25:08</td>
+<td>24</td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>43</td>
+<td>22:00</td>
+<td>23:55</td>
+<td>14</td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.14, ubuntu-latest)</code></td>
+<td>43</td>
+<td>20:34</td>
+<td>23:10</td>
+<td>2</td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.10, ubuntu-arm)</code></td>
+<td>43</td>
+<td>18:13</td>
+<td>19:18</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.14, ubuntu-arm)</code></td>
+<td>43</td>
+<td>17:28</td>
+<td>19:20</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.10, ubuntu-latest)</code></td>
+<td>43</td>
+<td>17:18</td>
+<td>19:04</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td>43</td>
+<td>16:55</td>
+<td>19:30</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>build-lint-test (3.14, macos-arm)</code></td>
+<td>43</td>
+<td>16:31</td>
+<td>19:18</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>alpine-package-test (cp310-musllinux_aarch64, ubuntu-24.04-arm64-2-core)</code></td>
+<td>43</td>
+<td>15:12</td>
+<td>16:13</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>alpine-package-test (cp310-musllinux_x86_64, ubuntu-latest)</code></td>
+<td>43</td>
+<td>13:46</td>
+<td>14:54</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>fips-build</code></td>
+<td>43</td>
+<td>13:31</td>
+<td>15:59</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>cloud-test</code></td>
+<td>43</td>
+<td>11:05</td>
+<td>12:44</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>test-latest-deps</code></td>
+<td>43</td>
+<td>10:22</td>
+<td>11:35</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>check-protos</code></td>
+<td>43</td>
+<td>10:14</td>
+<td>11:00</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>features-tests / test</code></td>
+<td>43</td>
+<td>8:11</td>
+<td>9:11</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query main.current_matrix.jobs</code> (the name is the tool's; here it holds the matrix of the most recent run that passed). A Windows job finished last in 38 of the 43 runs.</p>
+<p><strong>Waiting for a runner.</strong> The longest wait any job had in a run was 5 seconds at the median and 10 seconds at most, over 43 successful runs. No run had a job wait more than a minute. Query: <code>python -m cidiag query main.queue</code>.</p>
+<p><strong>Cancelled runs.</strong> 7 of the last 100 runs on <code>main</code> were cancelled before a verdict, after using 1,812 runner minutes. Across pushes and pull requests in the 30-day window, 15 runs were cancelled after using 4,697 runner minutes. Query: <code>python -m cidiag query main.cancelled</code>.</p>
+<p><strong>Superseded runs.</strong> The workflow file has no <code>concurrency</code> group, so a new push to a pull request starts a new run and leaves the old one going. 53 pull-request runs were still running when a newer commit on the same branch started a run of its own. Their jobs used 5,512 runner minutes after that moment. Query: <code>python -m cidiag query flaky.superseded</code>. Runs are matched by head branch name, so two forks that both open a pull request from a branch called <code>main</code> could be confused. We saw no sign of that but didn't rule it out.</p>
+<h2>5. Third-party actions</h2>
+<p>74 <code>uses:</code> references across 6 workflow files. 7 point at actions inside the repository. The rest go to 14 pairs of action and pinned version, two of them reusable workflows:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Ref</th>
+<th>Version comment</th>
+<th>Uses</th>
+<th>Pinned to</th>
+<th>Runtime</th>
+<th>Latest release</th>
+<th>Archived</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Swatinem/rust-cache</td>
+<td><code>e18b497796c1</code></td>
+<td>v2</td>
+<td>7</td>
+<td>commit SHA</td>
+<td>node24</td>
+<td>v2.9.3</td>
+<td>no</td>
+</tr>
+<tr>
+<td>actions/checkout</td>
+<td><code>9c091bb21b7c</code></td>
+<td>v7.0.0</td>
+<td>11</td>
+<td>commit SHA</td>
+<td>node24</td>
+<td>v7.0.1</td>
+<td>no</td>
+</tr>
+<tr>
+<td>actions/checkout</td>
+<td><code>de0fac2e4500</code></td>
+<td>v6</td>
+<td>3</td>
+<td>commit SHA</td>
+<td>node24</td>
+<td>v7.0.1</td>
+<td>no</td>
+</tr>
+<tr>
+<td>actions/create-github-app-token</td>
+<td><code>fee1f7d63c2f</code></td>
+<td>v2</td>
+<td>1</td>
+<td>commit SHA</td>
+<td>node20</td>
+<td>v3.3.0</td>
+<td>no</td>
+</tr>
+<tr>
+<td>actions/setup-go</td>
+<td><code>d35c59abb061</code></td>
+<td>v5</td>
+<td>1</td>
+<td>commit SHA</td>
+<td>node20</td>
+<td>v7.0.0</td>
+<td>no</td>
+</tr>
+<tr>
+<td>actions/setup-node</td>
+<td><code>49933ea5288c</code></td>
+<td>v4</td>
+<td>1</td>
+<td>commit SHA</td>
+<td>node20</td>
+<td>v7.1.0</td>
+<td>no</td>
+</tr>
+<tr>
+<td>actions/setup-python</td>
+<td><code>a26af69be951</code></td>
+<td>v5</td>
+<td>9</td>
+<td>commit SHA</td>
+<td>node20</td>
+<td>v7.1.0</td>
+<td>no</td>
+</tr>
+<tr>
+<td>actions/upload-artifact</td>
+<td><code>ea165f8d65b6</code></td>
+<td>v4</td>
+<td>6</td>
+<td>commit SHA</td>
+<td>node20</td>
+<td>v7.0.2</td>
+<td>no</td>
+</tr>
+<tr>
+<td>arduino/setup-protoc</td>
+<td><code>c65c819552d1</code></td>
+<td>v3</td>
+<td>7</td>
+<td>commit SHA</td>
+<td>node20</td>
+<td>v3.0.0</td>
+<td>no</td>
+</tr>
+<tr>
+<td>astral-sh/setup-uv</td>
+<td><code>cec208311dfd</code></td>
+<td>v8</td>
+<td>8</td>
+<td>commit SHA</td>
+<td>node24</td>
+<td>v10.3.3</td>
+<td>no</td>
+</tr>
+<tr>
+<td>dtolnay/rust-toolchain</td>
+<td><code>29eef336d9b2</code></td>
+<td>stable</td>
+<td>9</td>
+<td>commit SHA</td>
+<td>composite</td>
+<td>v1</td>
+<td>no</td>
+</tr>
+<tr>
+<td>pypa/gh-action-pypi-publish</td>
+<td><code>cef221092ed1</code></td>
+<td>release/v1</td>
+<td>2</td>
+<td>commit SHA</td>
+<td>composite</td>
+<td>v1.14.3</td>
+<td>no</td>
+</tr>
+<tr>
+<td>temporalio/.github/.github/workflows/changelog-fragments.yml</td>
+<td><code>f2a689950aa8</code></td>
+<td></td>
+<td>1</td>
+<td>commit SHA</td>
+<td></td>
+<td></td>
+<td>no</td>
+</tr>
+<tr>
+<td>temporalio/features/.github/workflows/python.yaml</td>
+<td><code>main</code></td>
+<td></td>
+<td>1</td>
+<td>tag or branch</td>
+<td></td>
+<td></td>
+<td>no</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query static.actions</code>. Source: the workflow files at <code>57f3dd6</code>, plus <code>GET /repos/{owner}/{action}</code> and each action's <code>action.yml</code> at the pinned ref. The last two rows are reusable workflows, which have no runtime or release of their own.</p>
+<ul>
+<li><strong>Pinned:</strong> 66 references are full commit SHAs. 1 follows a branch:</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Reference</th>
+<th>Ref</th>
+<th>File</th>
+<th>Line</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>temporalio/features/.github/workflows/python.yaml</code></td>
+<td><code>main</code></td>
+<td>ci.yml</td>
+<td>356</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Deprecated runtime:</strong> 6 actions declare Node 20, which GitHub has deprecated: <code>actions/setup-python</code>, <code>arduino/setup-protoc</code>, <code>actions/upload-artifact</code>, <code>actions/setup-node</code>, <code>actions/setup-go</code>, <code>actions/create-github-app-token</code>. The job logs carry GitHub's own warning that these are being forced onto Node 24 (the warning line isn't among the lines our stored copies keep).</li>
+<li><strong>Behind:</strong> 7 pinned actions are at least one major version behind their latest release.</li>
+<li><strong>Archived:</strong> 0 of the action repositories are archived.</li>
+</ul>
+<p>The reusable workflow on line 356 of <code>ci.yml</code> runs whatever is on <code>main</code> of <code>temporalio/features</code> at the time. It's the same organization's repository, so this is a matter of repeatability more than of trust. A red <code>features-tests</code> job can come from a change in the other repository.</p>
+<h2>6. Dependency caches</h2>
+<p>8 jobs install dependencies and all of them have a cache step. Query: <code>python -m cidiag query static.jobs</code>.</p>
+<p>Whether a cache is hit can only be read from job logs. In 150 job logs from the 10 most recent runs on <code>main</code> that reached a verdict:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Python package cache (<code>setup-uv</code>) restored</td>
+<td>110 of 150 lookups (73.3%)</td>
+</tr>
+<tr>
+<td>Rust build cache (<code>rust-cache</code>) restored in full</td>
+<td>92 of 130 lookups (70.8%)</td>
+</tr>
+<tr>
+<td>Rust build cache restored from an older key</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Rust build cache not found</td>
+<td>24</td>
+</tr>
+<tr>
+<td><code>Run poe build-develop</code> step with a full restore, median</td>
+<td>1:29 over 85 jobs</td>
+</tr>
+<tr>
+<td><code>Run poe build-develop</code> step without one, median</td>
+<td>2:10 over 35 jobs</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query caches</code>. Source: <code>GET /repos/temporalio/sdk-python/actions/jobs/{id}/logs</code>, trimmed to the cache, failure and result lines.</p>
+<p>The cache list on 2026-11-12 held 50 entries totaling 10,754 MB. GitHub's default limit for a repository is 10 GB, and it evicts the entries read least recently once a repository is over. A store sitting at the limit is a likely reason for some of the misses above, though the list is a snapshot and holds no history of evictions. 45 of the 50 entries hadn't been read since they were written, 13 of them on pull-request refs, where a cache written by one pull request can't be read by another.</p>
+<p>A full restore of the Rust cache is worth 41 seconds on the build step at the median. That's small next to the test steps, so the caches aren't where this pipeline's time goes.</p>
+<h2>7. Changes ranked by expected effect</h2>
+<p>Most of this pipeline's cost is red verdicts on commits that later passed unchanged. The minutes are the smaller part. The order below follows how many failed-then-passed executions and red runs each item accounts for.</p>
+<p><strong>1. Find what stalls the Windows test steps.</strong></p>
+<ul>
+<li>Evidence: 39 failed-then-passed executions ended at a step time limit, 37 of them on Windows and 30 since 2026-11-04 (the last seven days of the window). On <code>main</code>, 7 of the 11 runs since the matrix change have a Windows test step past its limit, and none of the 11 passed.</li>
+<li>Most of these are recent. The matrix moved to Python 3.11 and 3.15 on 2026-11-06. Time-limit failures before that date exist too (2026-10-13 is the first), so the change may have made an existing problem more frequent. We haven't shown that it did.</li>
+<li>One candidate comes from the probe in section 2. On Windows, the probe's steps stopped with the whole pytest process ended or with the step silent, where Linux and macOS reported a failure by name. If that's what's happening here, the Windows time-limit failures and the ranked tests are partly the same problem, and items 2 and 3 would shrink this one.</li>
+<li>The first step is to get a name. Two cheap ways are to run the Windows jobs with verbose output, so the log lists each test as it finishes and the ones that never finish stand out, or to set pytest's <code>faulthandler_timeout</code>, which prints every thread's stack when a test runs long. We haven't tried either on this suite, and under <code>pytest-xdist</code> what a worker process prints doesn't always reach the log.</li>
+<li>Raising the step limit might turn some of these green and wouldn't tell anyone why they're slow. We wouldn't start there.</li>
+<li>Size: a logging change to get the name. The fix is unknown until then.</li>
+</ul>
+<p><strong>2. Fix <code>test_warns_when_workers_too_low</code>.</strong></p>
+<ul>
+<li>Evidence: 22 failed-then-passed executions in 15 runs, 9 more failed jobs on <code>main</code>. It was the only test named in 21 of the 22. Every failure is the 60-second per-test limit.</li>
+<li>If it stopped failing, 21 of the 127 failed-then-passed executions wouldn't have happened. Most of the runs it appears in had other failures as well. In 1 of its 15 runs it was the only reason for the re-run.</li>
+<li>Size: one test. The cause needs someone who knows the worker code.</li>
+<li>Marking the test to retry on failure would take it off this list and leave whatever makes a worker wait 60 seconds. We wouldn't recommend that as the fix.</li>
+</ul>
+<p><strong>3. Fix <code>test_worker_with_worker_deployment_config</code>.</strong></p>
+<ul>
+<li>Evidence: 9 failed-then-passed executions in 7 runs, all on Linux, and 3 more failed jobs on <code>main</code>.</li>
+<li>The assertion compares deployment version strings and fails with <code>AssertionError: assert 'version-v3' == 'version-v2'</code>. A test that sees the next version too early or the previous one too late may be racing a server-side change. That's a guess from the error line.</li>
+<li>Size: one test.</li>
+</ul>
+<p><strong>4. Cancel superseded pull-request runs.</strong></p>
+<ul>
+<li>Evidence: 53 runs in 30 days, 5,512 runner minutes used after a newer commit had its own run.</li>
+<li>Change: a <code>concurrency</code> group keyed on the pull request, with <code>cancel-in-progress</code> set for pull requests only. Three lines. On <code>main</code> every push should keep its own verdict.</li>
+<li>Runner minutes here are free to a public repository. For a private one this is the largest saving in minutes in the report.</li>
+</ul>
+<p><strong>5. Take two downloads off the path of every job.</strong></p>
+<ul>
+<li><code>protoc</code>: 18 failed-then-passed executions in 4 runs, on two days. The setup action lists every protobuf release from the GitHub API on each job. Setting an exact version wouldn't remove that lookup, because the action lists releases either way. Caching the <code>protoc</code> binary, or fetching one fixed release directly, would.</li>
+<li>Test server: 9 executions on 7 days failed because the test server archive didn't extract. The tests download it at run time. Caching it between runs, keyed on its version, would remove the download from most jobs. We haven't checked how the SDK chooses the version to download.</li>
+<li>Size: one cache step each, untested.</li>
+</ul>
+<p><strong>6. Decide how red runs on <code>main</code> are handled.</strong> This is a choice for the project.</p>
+<ul>
+<li>50 of the last 100 pushes ended red and none was re-run. With half the runs red, many of them for the reasons in section 2, a red run caused by a real regression is hard to tell from the rest.</li>
+<li>Options that cost little: re-run failed jobs on <code>main</code> once automatically and record that it happened, or post red runs on <code>main</code> to a channel with the failing test names from the JUnit files the workflow already uploads.</li>
+<li>An automatic retry hides flakiness unless something counts the retries. If the project adds one, the count belongs in the same place as the result.</li>
+</ul>
+<p><strong>7. Pin the reusable workflow and move off Node 20.</strong> No time saved.</p>
+<ul>
+<li><code>temporalio/features/.github/workflows/python.yaml@main</code> is the one reference that follows a branch.</li>
+<li>6 actions run on Node 20. GitHub forces them onto Node 24 today, and a later runner update can break them.</li>
+</ul>
+<p><strong>Smaller observations.</strong></p>
+<ul>
+<li>At the commit we read, one test step in <code>ci.yml</code> (line 162, the FIPS build) retries tests that fail with one named error, up to three times. Earlier in the window the Python 3.10 jobs carried the same retry, which is why it shows in step names in sections 3 and 4. That's a targeted retry. Tests retried inside a job don't show in run history. In the 150 logs we read from <code>main</code>, pytest's result counts report 0 retried tests.</li>
+<li>The cache store is at GitHub's 10 GB default. Dropping caches written on pull-request refs, which no other pull request can read, would leave more room for the ones <code>main</code> reads.</li>
+</ul>
+<h2>8. What couldn't be measured</h2>
+<ul>
+<li><strong>No fix was tested on a fork.</strong> The first sample changed three lines and showed runs before and after. A flaky test doesn't allow that in a handful of runs. A test that fails one time in twenty needs a few hundred runs on each side to show a difference, and the fix itself needs someone who knows the code under test. What we ran on our fork was a measurement of one test, described in section 2 under "One test, run alone on a fork". We didn't add retries or skip any test on the fork to get a green run.</li>
+<li><strong>Which test was running when a step hit its time limit.</strong> Covered in section 2.</li>
+<li><strong>Failures nobody re-ran.</strong> 249 runs had a failed attempt and 62 were re-run. We read the logs of the red runs on <code>main</code> and didn't read the logs of red pull-request runs that were never re-run, since a pull request can fail on its own change and the history can't tell the two apart.</li>
+<li><strong>Why a test is flaky.</strong> The report names tests and quotes what they printed. It doesn't read the SDK's code.</li>
+<li><strong>Why the <code>protoc</code> lookup failed on two days.</strong> The log gives the action's error and no HTTP status.</li>
+<li><strong>The <code>cloud-test</code> job.</strong> It runs against a hosted service with secrets, so it can't run on a fork, and its failures in the window weren't examined beyond the counts in section 3.</li>
+<li><strong>Flakiness older than the window.</strong> Logs are kept 90 days by default. We read 30 days of re-runs and about five weeks of <code>main</code>.</li>
+<li><strong>Cost in dollars.</strong> The repository is public. Runner minutes are reported raw. GitHub bills a private repository more per minute for Windows and macOS runners than for Linux, and one job here runs on a runner with a custom label whose rate we can't see. For a client, the report prices the minutes at the rate on the client's bill and the waiting at a loaded hourly rate the client gives us.</li>
+<li><strong>Cache hits before the log sample.</strong> The hit rates come from 10 runs. The cache list is a snapshot.</li>
+</ul>
+<h2>9. How this report was made</h2>
+<ul>
+<li><strong>Tool.</strong> The <code>cidiag</code> package in this repository, written in Python with unit tests. It calls the GitHub REST API through <code>gh api</code>, stores every response under <code>samples/temporal-sdk-python/data/raw/</code> (with the names, logins and email addresses of the people behind each run removed, release notes dropped, action manifests cut to the line that names the runtime, and logs trimmed to the lines the analysis reads), and computes everything from those files.</li>
+<li><strong>Every number is generated.</strong> This file is produced from <code>REPORT.md.tmpl</code> and <code>results/metrics.json</code> in the same directory. <code>python -m cidiag verify --sample temporal-sdk-python</code> recomputes the metrics from the raw data and fails if this file differs by a character. The repository's CI runs that check on every push.</li>
+<li><strong>Test names</strong> come from pytest's failure sections and its summary table in each job log. The parser is in <code>cidiag/flaky.py</code> and reads pytest output. A suite on another test runner needs its own parser.</li>
+<li><strong>Percentiles</strong> are nearest-rank, so each one is a value that occurred. A median over an even number of runs is the average of the two middle values.</li>
+<li><strong>Scope.</strong> This report covers how the pipeline performs: time, failures, re-runs, pins, caches. It isn't a review of the project's code, tests or security.</li>
+</ul>
+<h2>Appendix: every job execution that failed and then passed</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Job log</th>
+<th>Failed in attempt</th>
+<th>Job</th>
+<th>What failed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-10-13</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38442762780/job/115453277843">38442762780</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td><code>test_alternate_async_loop_ordering</code></td>
+</tr>
+<tr>
+<td>2026-10-13</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38447120318/job/115468297216">38447120318</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-13</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38451473069/job/115483184496">38451473069</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-10-13</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38451473069/job/115483184206">38451473069</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-10-13</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38460304882/job/115513433647">38460304882</a></td>
+<td>1, passed in 2</td>
+<td><code>check-protos</code></td>
+<td>one error shared by many tests</td>
+</tr>
+<tr>
+<td>2026-10-13</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38486702807/job/115601968171">38486702807</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, ubuntu-arm)</code></td>
+<td><code>test_workflow_cancel_activity_then_evict[local-try-cancel-task-failure]</code></td>
+</tr>
+<tr>
+<td>2026-10-14</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38590740106/job/115944621624">38590740106</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, ubuntu-latest)</code></td>
+<td><code>test_activity_pause_unpause</code></td>
+</tr>
+<tr>
+<td>2026-10-14</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/38655157187/job/116163050702">38655157187</a></td>
+<td>1, passed in 3</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td><code>test_workflow_cancel_activity_while_workflow_cancelled</code></td>
+</tr>
+<tr>
+<td>2026-10-19</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39281238651/job/118155744977">39281238651</a></td>
+<td>1, passed in 3</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td><code>test_ui_port</code></td>
+</tr>
+<tr>
+<td>2026-10-20</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39451551904/job/118727390864">39451551904</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-20</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39509291394/job/118925982740">39509291394</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, ubuntu-latest)</code></td>
+<td><code>test_workflow_env_time_skipping_basic</code></td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39727834777/job/119655755601">39727834777</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td><code>test_workflow_cancel_external</code></td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39727841101/job/119655775549">39727841101</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td><code>test_workflow_cancel_multi</code></td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39814145763/job/119948161597">39814145763</a></td>
+<td>2, passed in 3</td>
+<td><code>fips-build</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39814145763/job/119948162142">39814145763</a></td>
+<td>2, passed in 3</td>
+<td><code>check-protos</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39814145763/job/119948162175">39814145763</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.10, ubuntu-latest)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39814145763/job/119948162441">39814145763</a></td>
+<td>2, passed in 3</td>
+<td><code>features-tests / test</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39814145763/job/119948162478">39814145763</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.14, ubuntu-latest)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39814145763/job/119948162637">39814145763</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.14, macos-arm)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39814145763/job/119948162359">39814145763</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.10, ubuntu-arm)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964369652">39818846071</a></td>
+<td>1, passed in 2</td>
+<td><code>check-protos</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964369816">39818846071</a></td>
+<td>1, passed in 2</td>
+<td><code>features-tests / test</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964369856">39818846071</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, ubuntu-latest)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964369863">39818846071</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, macos-arm)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964369977">39818846071</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, ubuntu-latest)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964370004">39818846071</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964370077">39818846071</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39818846071/job/119964370058">39818846071</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, ubuntu-arm)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39816766359/job/119968935520">39816766359</a></td>
+<td>2, passed in 3</td>
+<td><code>check-protos</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39816766359/job/119968935791">39816766359</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.14, ubuntu-arm)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39827582866/job/119994867201">39827582866</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td><code>test_workflow_env_time_skipping_basic</code></td>
+</tr>
+<tr>
+<td>2026-10-22</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39840312543/job/120039286072">39840312543</a></td>
+<td>1, passed in 2</td>
+<td><code>test-latest-deps</code></td>
+<td><code>test_ui_port</code></td>
+</tr>
+<tr>
+<td>2026-10-23</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/39920469335/job/120532851838">39920469335</a></td>
+<td>2, passed in 3</td>
+<td><code>alpine-package-test (cp310-musllinux_x86_64, ubuntu-latest)</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-27</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40008061417/job/122234383085">40008061417</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.10, ubuntu-arm)</code></td>
+<td>one error shared by many tests</td>
+</tr>
+<tr>
+<td>2026-10-28</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40571679224/job/122932219336">40571679224</a></td>
+<td>2, passed in 3</td>
+<td><code>features-tests / test</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-10-28</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40611793357/job/122938106845">40611793357</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td><code>test_workflow_local_activity_cancel_during_backoff[False]</code></td>
+</tr>
+<tr>
+<td>2026-10-28</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40738924878/job/122995000801">40738924878</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.10, ubuntu-arm)</code></td>
+<td><code>test_workflow_cancel_child_started[False]</code></td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40803372300/job/123216456828">40803372300</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, macos-arm)</code></td>
+<td><code>test_workflow_sleep_task_cancellation</code></td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40940430278/job/123682073571">40940430278</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40940430278/job/123682073477">40940430278</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40940759080/job/123683206280">40940759080</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949338621/job/123712981685">40949338621</a></td>
+<td>1, passed in 2</td>
+<td><code>check-protos</code></td>
+<td><code>test_custom_slot_supplier</code></td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949338621/job/123712981679">40949338621</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td><code>test_custom_slot_supplier</code></td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123712983569">40949339295</a></td>
+<td>1, passed in 2</td>
+<td><code>fips-build</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123712983801">40949339295</a></td>
+<td>1, passed in 4</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123712983847">40949339295</a></td>
+<td>1, passed in 3</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123712983943">40949339295</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, ubuntu-latest)</code></td>
+<td><code>test_worker_storage_drivers_empty_without_external_storage</code></td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123726199512">40949339295</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123726199679">40949339295</a></td>
+<td>2, passed in 4</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>one error shared by many tests</td>
+</tr>
+<tr>
+<td>2026-10-29</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/40949339295/job/123738353870">40949339295</a></td>
+<td>3, passed in 4</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-02</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/41176936720/job/125403278718">41176936720</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.10, ubuntu-arm)</code></td>
+<td><code>test_timer_commands_carry_markers</code></td>
+</tr>
+<tr>
+<td>2026-11-02</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/41512911720/job/125509012690">41512911720</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-03</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/41653264899/job/125976738846">41653264899</a></td>
+<td>1, passed in 2</td>
+<td><code>test-latest-deps</code></td>
+<td><code>test_workflow_env_time_skipping_basic</code></td>
+</tr>
+<tr>
+<td>2026-11-03</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/41718242569/job/126203818088">41718242569</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, ubuntu-latest)</code></td>
+<td>one error shared by many tests</td>
+</tr>
+<tr>
+<td>2026-11-03</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/41731429920/job/126249487288">41731429920</a></td>
+<td>1, passed in 2</td>
+<td><code>cloud-test</code></td>
+<td><code>test_wait_condition_timer_options_not_used_by_later_timers</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42081130391/job/127434134622">42081130391</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127434934764">42081358180</a></td>
+<td>1, passed in 2</td>
+<td><code>check-protos</code></td>
+<td><code>test_workflow_env_time_skipping_basic</code>, <code>test_workflow_env_time_skipping_manual</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127434934973">42081358180</a></td>
+<td>1, passed in 3</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127434935116">42081358180</a></td>
+<td>1, passed in 3</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127459953130">42081358180</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.14, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42081358180/job/127459953253">42081358180</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101160398/job/127504005782">42101160398</a></td>
+<td>1, passed in 2</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101160398/job/127504006173">42101160398</a></td>
+<td>1, passed in 3</td>
+<td><code>build-lint-test (3.14, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101161020/job/127504008432">42101161020</a></td>
+<td>1, passed in 2</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101161020/job/127504008506">42101161020</a></td>
+<td>1, passed in 2</td>
+<td><code>fips-build</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101161020/job/127504008875">42101161020</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101161020/job/127504008913">42101161020</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, ubuntu-arm)</code></td>
+<td><code>test_workflow_cancel_child_started[True]</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42101160398/job/127533670069">42101160398</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.14, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code>, <code>test_worker_fatal_error_with</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42119706012/job/127568543267">42119706012</a></td>
+<td>1, passed in 2</td>
+<td><code>cloud-test</code></td>
+<td>one error shared by many tests</td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42128350012/job/127598255376">42128350012</a></td>
+<td>1, passed in 2</td>
+<td><code>fips-build</code></td>
+<td><code>test_worker_deployment_ramp</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42128350012/job/127598255936">42128350012</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, macos-arm)</code></td>
+<td><code>test_custom_slot_supplier</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42128350012/job/127598255553">42128350012</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.15, ubuntu-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42130768800/job/127606492110">42130768800</a></td>
+<td>1, passed in 2</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-05</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42130768800/job/127606492280">42130768800</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42136242308/job/127624997407">42136242308</a></td>
+<td>1, passed in 2</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42136242308/job/127624997645">42136242308</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.10, macos-arm)</code></td>
+<td><code>test_sync_activity_process_cancel</code>, <code>test_workflow_stack_trace</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42136990712/job/127627552851">42136990712</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.14, macos-arm)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42136990712/job/127627552971">42136990712</a></td>
+<td>1, passed in 3</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42138126482/job/127631355455">42138126482</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, macos-arm)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42138126482/job/127631355588">42138126482</a></td>
+<td>1, passed in 3</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42138126482/job/127631355611">42138126482</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42138126482/job/127631355636">42138126482</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42138126482/job/127631355835">42138126482</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.15, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42138126482/job/127631355904">42138126482</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, ubuntu-arm)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42136990712/job/127639534567">42136990712</a></td>
+<td>2, passed in 3</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42138126482/job/127646931148">42138126482</a></td>
+<td>2, passed in 3</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42271554950/job/128077119523">42271554950</a></td>
+<td>1, passed in 6</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42271554950/job/128077119192">42271554950</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42271554950/job/128077119207">42271554950</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.15, macos-arm)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42271554950/job/128103031758">42271554950</a></td>
+<td>2, passed in 6</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/128105737774">42279866249</a></td>
+<td>1, passed in 7</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866572/job/128105738305">42279866572</a></td>
+<td>1, passed in 2</td>
+<td><code>cloud-test</code></td>
+<td><code>test_worker_with_worker_deployment_config</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866572/job/128105738461">42279866572</a></td>
+<td>1, passed in 2</td>
+<td><code>test-latest-deps</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866572/job/128105738597">42279866572</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, macos-arm)</code></td>
+<td><code>test_workflow_cancel_multi</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866572/job/128105738639">42279866572</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.15, macos-arm)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42271554950/job/128131439098">42271554950</a></td>
+<td>3, passed in 6</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42271554950/job/128177376096">42271554950</a></td>
+<td>4, passed in 6</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42302504174/job/128183561550">42302504174</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42302504174/job/128183561713">42302504174</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/128185984515">42279866249</a></td>
+<td>2, passed in 7</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42305815253/job/128194717839">42305815253</a></td>
+<td>1, passed in 3</td>
+<td><code>build-lint-test (3.15, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42305815253/job/128194717990">42305815253</a></td>
+<td>1, passed in 3</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/128203143594">42279866249</a></td>
+<td>3, passed in 7</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42305815253/job/128204568343">42305815253</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42305815253/job/128204568821">42305815253</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.15, ubuntu-latest)</code></td>
+<td><code>test_worker_fatal_error_run</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42311937516/job/128215236309">42311937516</a></td>
+<td>1, passed in 2</td>
+<td><code>check-protos</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-06</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42311937516/job/128215236337">42311937516</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-07</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42271554950/job/128238642418">42271554950</a></td>
+<td>5, passed in 6</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td><code>test_worker_interceptor</code></td>
+</tr>
+<tr>
+<td>2026-11-07</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/128238688256">42279866249</a></td>
+<td>4, passed in 7</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-09</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42324268431/job/129286507213">42324268431</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.11, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-09</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42324268431/job/129286507588">42324268431</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.11, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-09</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/129321802365">42279866249</a></td>
+<td>5, passed in 7</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-09</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42667785610/job/129335957445">42667785610</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-09</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42279866249/job/129336725091">42279866249</a></td>
+<td>6, passed in 7</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-09</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42679739634/job/129370729355">42679739634</a></td>
+<td>1, passed in 2</td>
+<td><code>fips-build</code></td>
+<td><code>test_worker_deployment_ramp</code></td>
+</tr>
+<tr>
+<td>2026-11-09</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42688982209/job/129403352161">42688982209</a></td>
+<td>1, passed in 2</td>
+<td><code>fips-build</code></td>
+<td><code>test_worker_fatal_error_with</code></td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42755878845/job/129630018815">42755878845</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42777052659/job/129964786307">42777052659</a></td>
+<td>2, passed in 3</td>
+<td><code>test-latest-deps</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42777052659/job/129964787011">42777052659</a></td>
+<td>2, passed in 3</td>
+<td><code>build-lint-test (3.15, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42908130654/job/130151392745">42908130654</a></td>
+<td>1, passed in 2</td>
+<td><code>check-protos</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42908130654/job/130151393148">42908130654</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.15, macos-arm)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42918643927/job/130187509299">42918643927</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, ubuntu-latest)</code></td>
+<td><code>test_warns_when_workers_too_low</code></td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42918643927/job/130187509373">42918643927</a></td>
+<td>1, passed in 2</td>
+<td><code>build-lint-test (3.11, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42919105015/job/130189102903">42919105015</a></td>
+<td>1, passed in 2</td>
+<td><code>check-protos</code></td>
+<td><code>test_worker_storage_drivers_populated_from_client</code></td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42919105015/job/130189102990">42919105015</a></td>
+<td>1, passed in 4</td>
+<td><code>build-lint-test (3.11, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42919105015/job/130189103582">42919105015</a></td>
+<td>1, passed in 2</td>
+<td><code>features-tests / test</code></td>
+<td>outside the tests</td>
+</tr>
+<tr>
+<td>2026-11-10</td>
+<td><a href="https://github.com/temporalio/sdk-python/actions/runs/42919105015/job/130201893250">42919105015</a></td>
+<td>2, passed in 4</td>
+<td><code>build-lint-test (3.11, windows-latest)</code></td>
+<td>step past its time limit</td>
+</tr>
+</tbody>
+</table></div>
+<p>Query: <code>python -m cidiag query flaky.instances</code>.</p>
+<p>Cedarwood Studio, Jack Senechal, principal. hello@cedarwood.studio</p>
+</main>
+</body>
+</html>

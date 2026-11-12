@@ -1,0 +1,44 @@
+2026-11-09T19:04:33.8414955Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-09T19:04:36.9039463Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-09T19:04:36.9320741Z ##[group]Run : parse toolchain version
+2026-11-09T19:04:37.1905358Z ##[group]Run : construct rustup command line
+2026-11-09T19:04:37.2227622Z ##[group]Run : set $CARGO_HOME
+2026-11-09T19:04:37.2742950Z ##[group]Run : install rustup if needed
+2026-11-09T19:04:37.3213702Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-09T19:04:37.8743462Z ##[group]Run rustup default stable
+2026-11-09T19:04:37.9431463Z ##[group]Run : create cachekey
+2026-11-09T19:04:38.2669523Z ##[group]Run : disable incremental compilation
+2026-11-09T19:04:38.4627063Z ##[group]Run : enable colors in Cargo output
+2026-11-09T19:04:38.5517433Z ##[group]Run : enable Cargo sparse registry
+2026-11-09T19:04:38.6319818Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-09T19:04:38.7373655Z ##[group]Run rustc +stable --version --verbose
+2026-11-09T19:04:38.7781671Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-09T19:04:38.9409364Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-09T19:04:40.1668217Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.11.18/arm64-build-lint-test-Linux-arm64-e99c569a-b8260d03
+2026-11-09T19:04:51.3186141Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.11.18/arm64-build-lint-test-Linux-arm64-e99c569a-b8260d03" full match: true.
+2026-11-09T19:04:52.2118312Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-09T19:04:58.6579081Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-09T19:05:01.0625994Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.11.18-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-09T19:05:01.1938532Z Cache hit for: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.11.18-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-09T19:05:01.7727611Z cache restored from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.11.18-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-09T19:05:01.8381102Z ##[group]Run uv tool install poethepoet
+2026-11-09T19:05:01.9496739Z Installed 2 packages in 2ms
+2026-11-09T19:05:01.9556140Z ##[group]Run uv sync --all-extras
+2026-11-09T19:05:08.0580790Z Installed 222 packages in 2.74s
+2026-11-09T19:05:08.0790371Z ##[group]Run poe build-develop
+2026-11-09T19:05:12.1075277Z Installed 2 packages in 19ms
+2026-11-09T19:07:04.0791611Z ##[group]Run poe lint
+2026-11-09T19:07:05.4531783Z Installed 1 package in 94ms
+2026-11-09T19:08:49.9395662Z ##[group]Run mkdir junit-xml
+2026-11-09T19:08:49.9557946Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.11--ubuntu-arm.xml
+2026-11-09T19:15:57.6669619Z Results (424.42s):
+2026-11-09T19:15:57.6669941Z       1824 passed
+2026-11-09T19:15:57.6670256Z         13 skipped
+2026-11-09T19:15:57.6670565Z         36 warnings
+2026-11-09T19:15:58.1318073Z ##[group]Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.11--ubuntu-arm--time-skipping-v2.xml
+2026-11-09T19:22:31.8350810Z Results (392.68s):
+2026-11-09T19:22:31.8351608Z       1794 passed
+2026-11-09T19:22:31.8351934Z         43 skipped
+2026-11-09T19:22:31.8352215Z         37 warnings
+2026-11-09T19:22:32.2633949Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-09T19:22:33.5012261Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020

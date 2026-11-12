@@ -1,0 +1,51 @@
+2026-10-20T18:10:16.8776576Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-20T18:10:27.5610507Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-20T18:10:27.5752951Z ##[group]Run : parse toolchain version
+2026-10-20T18:10:27.7626895Z ##[group]Run : construct rustup command line
+2026-10-20T18:10:27.8174839Z ##[group]Run : set $CARGO_HOME
+2026-10-20T18:10:27.8525796Z ##[group]Run : install rustup if needed on windows
+2026-10-20T18:10:27.8973867Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-10-20T18:10:47.5286512Z ##[group]Run rustup default stable
+2026-10-20T18:10:47.6105051Z ##[group]Run : create cachekey
+2026-10-20T18:10:48.4311828Z ##[group]Run : disable incremental compilation
+2026-10-20T18:10:48.4708302Z ##[group]Run : enable colors in Cargo output
+2026-10-20T18:10:48.5127110Z ##[group]Run : enable Cargo sparse registry
+2026-10-20T18:10:48.7136578Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-20T18:10:48.8087361Z ##[group]Run rustc +stable --version --verbose
+2026-10-20T18:10:48.8942883Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-20T18:10:49.0457071Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-20T18:10:50.5911458Z No cache found.
+2026-10-20T18:10:50.6173422Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-20T18:10:57.0781321Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-20T18:10:59.3312249Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.10.11-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-20T18:10:59.5880774Z No GitHub Actions cache found for key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.10.11-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-20T18:10:59.6639560Z ##[group]Run uv tool install poethepoet
+2026-10-20T18:11:00.2331536Z Installed 3 packages in 9ms
+2026-10-20T18:11:00.3225814Z ##[group]Run uv sync --all-extras
+2026-10-20T18:11:06.3429667Z Installed 220 packages in 2.13s
+2026-10-20T18:11:06.4582582Z ##[group]Run poe build-develop
+2026-10-20T18:11:32.4128853Z Installed 1 package in 120ms
+2026-10-20T18:14:10.0439527Z ##[group]Run poe lint
+2026-10-20T18:15:28.7582306Z ##[group]Run mkdir junit-xml
+2026-10-20T18:15:29.1043239Z ##[group]Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s --junit-xml=junit-xml/3.10--windows-latest.xml
+2026-10-20T18:22:10.8802399Z Results (398.12s):
+2026-10-20T18:22:10.8802639Z       1504 passed
+2026-10-20T18:22:10.8802829Z         22 skipped
+2026-10-20T18:22:10.8803036Z         34 warnings
+2026-10-20T18:22:11.4058332Z ##[group]Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s --workflow-environment time-skipping-v1 --junit-xml=junit-xml/3.10--windows-latest--time-skipping-v1.xml
+2026-10-20T18:26:38.3419394Z ====================================================== FAILURES =======================================================
+2026-10-20T18:26:38.3420039Z _______________________________ test_workflow_cancel_activity_while_workflow_cancelled ________________________________
+2026-10-20T18:26:38.3438889Z E       assert not [event_id: 12\nevent_time {\n  seconds: 3684681028\n  nanos: 766000000\n}\nevent_type: EVENT_TYPE_WORKFLOW_TASK_FAILED\nwork...d: 10\n  started_event_id: 11\n  cause: WORKFLOW_TASK_FAILED_CAUSE_UNHANDLED_COMMAND\n  identity: "1148@runnervm0xl3a"\n}\n]
+2026-10-20T18:26:38.3595847Z                                                   Summary of Failures                                                   
+2026-10-20T18:26:38.3596392Z +----------------------------------------------------------------------------------------------------------------------+
+2026-10-20T18:26:38.3596952Z |  File                           |  Function                      |  Function Line  |  Error Line  |  Error           |
+2026-10-20T18:26:38.3597477Z |---------------------------------+--------------------------------+-----------------+--------------+------------------|
+2026-10-20T18:26:38.3598245Z |  tests\worker\test_workflow.py  |  test_workflow_cancel_activi�  |  1097           |  1137        |  AssertionError  |
+2026-10-20T18:26:38.3598882Z +----------------------------------------------------------------------------------------------------------------------+
+2026-10-20T18:26:38.3599298Z Results (265.63s):
+2026-10-20T18:26:38.3599523Z          1 failed
+2026-10-20T18:26:38.3599771Z       1145 passed
+2026-10-20T18:26:38.3599989Z        380 skipped
+2026-10-20T18:26:38.3600214Z         32 warnings
+2026-10-20T18:26:38.8454942Z ##[error]Process completed with exit code 1.
+2026-10-20T18:26:38.8636819Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

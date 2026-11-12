@@ -1,0 +1,47 @@
+2026-10-19T15:52:52.2846107Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-19T15:53:06.7925554Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-19T15:53:06.8181680Z ##[group]Run : parse toolchain version
+2026-10-19T15:53:07.0296455Z ##[group]Run : construct rustup command line
+2026-10-19T15:53:07.1313408Z ##[group]Run : set $CARGO_HOME
+2026-10-19T15:53:07.1964615Z ##[group]Run : install rustup if needed on windows
+2026-10-19T15:53:07.2678589Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-10-19T15:53:28.4803987Z ##[group]Run rustup default stable
+2026-10-19T15:53:28.6143329Z ##[group]Run : create cachekey
+2026-10-19T15:53:29.4543815Z ##[group]Run : disable incremental compilation
+2026-10-19T15:53:29.5094645Z ##[group]Run : enable colors in Cargo output
+2026-10-19T15:53:29.5674143Z ##[group]Run : enable Cargo sparse registry
+2026-10-19T15:53:29.7862736Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-19T15:53:29.9134135Z ##[group]Run rustc +stable --version --verbose
+2026-10-19T15:53:30.0375650Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-19T15:53:30.2547828Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-19T15:53:32.1876407Z No cache found.
+2026-10-19T15:53:32.2203680Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-19T15:53:37.9337118Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-19T15:53:40.8135106Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.14.8-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-19T15:53:40.9486791Z Cache hit for: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.14.8-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-19T15:53:41.5336729Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.14.8-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-19T15:53:41.6240247Z ##[group]Run uv tool install poethepoet
+2026-10-19T15:53:42.1993377Z Installed 2 packages in 13ms
+2026-10-19T15:53:42.3353568Z ##[group]Run uv sync --all-extras
+2026-10-19T15:53:51.8856885Z Installed 224 packages in 3.89s
+2026-10-19T15:53:52.0539402Z ##[group]Run poe build-develop
+2026-10-19T15:54:26.5600082Z Installed 1 package in 174ms
+2026-10-19T15:58:33.8136299Z ##[group]Run poe lint
+2026-10-19T16:00:53.8058751Z ##[group]Run mkdir junit-xml
+2026-10-19T16:00:54.3497103Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.14--windows-latest.xml
+2026-10-19T16:09:01.8350171Z ====================================================== FAILURES =======================================================
+2026-10-19T16:09:01.8351374Z ____________________________________________________ test_ui_port _____________________________________________________
+2026-10-19T16:09:01.8377376Z E       RuntimeError: Failed starting Temporal dev server: invalid ephemeral server download: could not extract tar archive entry
+2026-10-19T16:09:01.8460307Z                                           Summary of Failures                                          
+2026-10-19T16:09:01.8460912Z +-----------------------------------------------------------------------------------------------------+
+2026-10-19T16:09:01.8461506Z |  File                            |  Function      |  Function Line  |  Error Line  |  Error         |
+2026-10-19T16:09:01.8462134Z |----------------------------------+----------------+-----------------+--------------+----------------|
+2026-10-19T16:09:01.8462773Z |  tests\testing\test_workflow.py  |  test_ui_port  |  328            |  330         |  RuntimeError  |
+2026-10-19T16:09:01.8463431Z +-----------------------------------------------------------------------------------------------------+
+2026-10-19T16:09:01.8463927Z Results (477.10s):
+2026-10-19T16:09:01.8464203Z          1 failed
+2026-10-19T16:09:01.8464493Z       1513 passed
+2026-10-19T16:09:01.8464746Z         12 skipped
+2026-10-19T16:09:01.8465023Z         33 warnings
+2026-10-19T16:09:02.5256582Z ##[error]Process completed with exit code 1.
+2026-10-19T16:09:02.5522304Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

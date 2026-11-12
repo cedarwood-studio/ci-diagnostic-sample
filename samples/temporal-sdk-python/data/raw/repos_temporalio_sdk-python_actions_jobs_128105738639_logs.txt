@@ -1,0 +1,49 @@
+2026-11-06T19:28:16.7211010Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-06T19:28:23.6956210Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-06T19:28:23.7305340Z ##[group]Run : parse toolchain version
+2026-11-06T19:28:23.8851220Z ##[group]Run : construct rustup command line
+2026-11-06T19:28:23.9751710Z ##[group]Run : set $CARGO_HOME
+2026-11-06T19:28:24.0577250Z ##[group]Run : install rustup if needed
+2026-11-06T19:28:24.1381050Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-06T19:28:25.0441960Z ##[group]Run rustup default stable
+2026-11-06T19:28:25.1426390Z ##[group]Run : create cachekey
+2026-11-06T19:28:25.2969160Z ##[group]Run : disable incremental compilation
+2026-11-06T19:28:25.3416590Z ##[group]Run : enable colors in Cargo output
+2026-11-06T19:28:25.3947650Z ##[group]Run : enable Cargo sparse registry
+2026-11-06T19:28:25.5424720Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-06T19:28:25.6459430Z ##[group]Run rustc +stable --version --verbose
+2026-11-06T19:28:25.7401370Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-06T19:29:24.5178920Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-06T19:29:25.7872030Z Cache hit for: v0-rust-/Users/runner/hostedtoolcache/Python/3.15.2/arm64-build-lint-test-Darwin-arm64-cb28eb46-b8260d03
+2026-11-06T19:29:38.2816430Z Restored from cache key "v0-rust-/Users/runner/hostedtoolcache/Python/3.15.2/arm64-build-lint-test-Darwin-arm64-cb28eb46-b8260d03" full match: true.
+2026-11-06T19:29:38.3550820Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-06T19:29:44.6879040Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-06T19:29:46.9992870Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-apple-darwin-macos-16-3.15.2-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-06T19:29:47.0744580Z Cache hit for: setup-uv-2-aarch64-apple-darwin-macos-16-3.15.2-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-06T19:29:47.6917930Z cache restored from GitHub Actions cache with key: setup-uv-2-aarch64-apple-darwin-macos-16-3.15.2-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-06T19:29:47.7683010Z ##[group]Run uv tool install poethepoet
+2026-11-06T19:29:48.2645430Z Installed 2 packages in 3ms
+2026-11-06T19:29:48.2718560Z ##[group]Run uv sync --all-extras
+2026-11-06T19:29:57.5707960Z Installed 219 packages in 1.03s
+2026-11-06T19:29:57.6105240Z ##[group]Run poe build-develop
+2026-11-06T19:30:07.6390250Z Installed 2 packages in 18ms
+2026-11-06T19:32:13.6107820Z ##[group]Run poe lint
+2026-11-06T19:32:14.1166440Z Installed 1 package in 4ms
+2026-11-06T19:34:11.6849540Z ##[group]Run mkdir junit-xml
+2026-11-06T19:34:11.9029510Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.15--macos-arm.xml
+2026-11-06T19:42:26.4833750Z ======================================================= FAILURES =======================================================
+2026-11-06T19:42:26.4963640Z ___________________________________________ test_warns_when_workers_too_low ____________________________________________
+2026-11-06T19:42:26.5375370Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-11-06T19:42:26.8361730Z                                                Summary of Failures                                               
+2026-11-06T19:42:26.8464220Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+2026-11-06T19:42:26.8605870Z ┃  File                         ┃  Function                         ┃  Function Line  ┃  Error Line  ┃  Error   ┃
+2026-11-06T19:42:26.8708780Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+2026-11-06T19:42:26.8810700Z │  tests/worker/test_worker.py  │  test_warns_when_workers_too_low  │  475            │  529         │  Failed  │
+2026-11-06T19:42:26.8914470Z └───────────────────────────────┴───────────────────────────────────┴─────────────────┴──────────────┴──────────┘
+2026-11-06T19:42:26.9017360Z Results (490.55s):
+2026-11-06T19:42:26.9119500Z          1 failed
+2026-11-06T19:42:26.9245610Z       1813 passed
+2026-11-06T19:42:26.9348130Z          8 skipped
+2026-11-06T19:42:26.9348860Z         37 warnings
+2026-11-06T19:42:27.3735820Z ##[error]Process completed with exit code 1.
+2026-11-06T19:42:27.4391120Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

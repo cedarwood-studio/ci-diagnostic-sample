@@ -1,0 +1,11 @@
+2026-11-07T00:45:58.8744759Z ##[group]Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+2026-11-07T00:46:01.4357899Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-07T00:46:01.5425621Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-07T00:46:03.9189743Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-07T00:46:04.0967840Z Cache hit for: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-07T00:46:04.5303718Z cache restored from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-24.04-3.14.10-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-07T00:46:04.5920757Z ##[group]Run uv sync --all-extras
+2026-11-07T00:46:10.5098650Z Installed 221 packages in 2.45s
+2026-11-07T00:46:10.8413621Z ##[group]Run uv run cibuildwheel --output-dir dist
+2026-11-07T00:55:43.5304185Z ##[group]Run ./.github/actions/alpine-package-smoke
+2026-11-07T00:55:43.5379914Z ##[group]Run set -euo pipefail

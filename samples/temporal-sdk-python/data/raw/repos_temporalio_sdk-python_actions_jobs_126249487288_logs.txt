@@ -1,0 +1,51 @@
+2026-11-03T22:30:51.1614756Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-03T22:30:55.6705285Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-03T22:30:55.6879345Z ##[group]Run : parse toolchain version
+2026-11-03T22:30:55.7068654Z ##[group]Run : construct rustup command line
+2026-11-03T22:30:55.7181389Z ##[group]Run : set $CARGO_HOME
+2026-11-03T22:30:55.7323355Z ##[group]Run : install rustup if needed
+2026-11-03T22:30:55.7442196Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-11-03T22:30:58.0078616Z ##[group]Run rustup default stable
+2026-11-03T22:30:58.0347062Z ##[group]Run : create cachekey
+2026-11-03T22:30:58.1116007Z ##[group]Run : disable incremental compilation
+2026-11-03T22:30:58.1212295Z ##[group]Run : enable colors in Cargo output
+2026-11-03T22:30:58.1305200Z ##[group]Run : enable Cargo sparse registry
+2026-11-03T22:30:58.1703790Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-03T22:30:58.1947109Z ##[group]Run rustc +stable --version --verbose
+2026-11-03T22:30:58.2272600Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-03T22:30:58.4590464Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-03T22:30:59.9638267Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.14.9/x64-cloud-test-Linux-x64-51ccc61f-14a79ee2
+2026-11-03T22:31:04.7635794Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.14.9/x64-cloud-test-Linux-x64-51ccc61f-14a79ee2" full match: true.
+2026-11-03T22:31:04.8539917Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-03T22:31:09.9211424Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-03T22:31:12.0937221Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-cf522891bf9ff4f503b2c22ddcc0b1b2591b0b88554ca73562fbbdf398983576
+2026-11-03T22:31:12.1564472Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-cf522891bf9ff4f503b2c22ddcc0b1b2591b0b88554ca73562fbbdf398983576
+2026-11-03T22:31:12.2616339Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-cf522891bf9ff4f503b2c22ddcc0b1b2591b0b88554ca73562fbbdf398983576
+2026-11-03T22:31:12.3329725Z ##[group]Run uv tool install poethepoet
+2026-11-03T22:31:12.6524011Z Installed 2 packages in 4ms
+2026-11-03T22:31:12.6591784Z ##[group]Run uv sync --all-extras
+2026-11-03T22:31:16.6511478Z Installed 221 packages in 1.45s
+2026-11-03T22:31:16.6974748Z ##[group]Run poe build-develop
+2026-11-03T22:31:22.6061582Z Installed 2 packages in 28ms
+2026-11-03T22:32:50.7018659Z ##[group]Run cert_dir="$RUNNER_TEMP/cloud-test-certs"
+2026-11-03T22:32:50.9908156Z ##[group]Run uv run python .github/scripts/cloud_namespace.py create
+2026-11-03T22:32:51.0273087Z Installed 1 package in 1ms
+2026-11-03T22:34:04.2676727Z ##[group]Run mkdir junit-xml
+2026-11-03T22:34:04.2810414Z ##[group]Run poe test -s --workflow-environment envconfig --junit-xml=junit-xml/cloud.xml
+2026-11-03T22:41:44.2699209Z ======================================================= FAILURES =======================================================
+2026-11-03T22:41:44.2700910Z ______________________________ test_wait_condition_timer_options_not_used_by_later_timers ______________________________
+2026-11-03T22:41:44.2732286Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-11-03T22:41:44.2797932Z                                                   Summary of Failures                                                   
+2026-11-03T22:41:44.2798888Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+2026-11-03T22:41:44.2799726Z ┃  File                           ┃  Function                              ┃  Function Line  ┃  Error Line  ┃  Error   ┃
+2026-11-03T22:41:44.2800444Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+2026-11-03T22:41:44.2801241Z │  tests/worker/test_workflow.py  │  test_wait_condition_timer_options_n…  │  8376           │  529         │  Failed  │
+2026-11-03T22:41:44.2802052Z └─────────────────────────────────┴────────────────────────────────────────┴─────────────────┴──────────────┴──────────┘
+2026-11-03T22:41:44.2802473Z Results (455.61s):
+2026-11-03T22:41:44.2802701Z          1 failed
+2026-11-03T22:41:44.2802906Z       1436 passed
+2026-11-03T22:41:44.2803115Z        344 skipped
+2026-11-03T22:41:44.2803319Z         32 warnings
+2026-11-03T22:41:44.7375177Z ##[error]Process completed with exit code 1.
+2026-11-03T22:41:44.7433530Z ##[group]Run uv run python .github/scripts/cloud_namespace.py delete "sdk-python-ci-41731429920-1.tb3he"
+2026-11-03T22:41:55.8784447Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

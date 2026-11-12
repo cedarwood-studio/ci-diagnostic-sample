@@ -1,0 +1,49 @@
+2026-11-06T18:29:38.6148625Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-06T18:29:42.7083829Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-06T18:29:42.7216480Z ##[group]Run : parse toolchain version
+2026-11-06T18:29:42.7425406Z ##[group]Run : construct rustup command line
+2026-11-06T18:29:42.7529550Z ##[group]Run : set $CARGO_HOME
+2026-11-06T18:29:42.7624671Z ##[group]Run : install rustup if needed
+2026-11-06T18:29:42.7723153Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-06T18:29:43.2738109Z ##[group]Run rustup default stable
+2026-11-06T18:29:43.2982589Z ##[group]Run : create cachekey
+2026-11-06T18:29:43.3390455Z ##[group]Run : disable incremental compilation
+2026-11-06T18:29:43.3477098Z ##[group]Run : enable colors in Cargo output
+2026-11-06T18:29:43.3564063Z ##[group]Run : enable Cargo sparse registry
+2026-11-06T18:29:43.3962598Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-06T18:29:43.4233631Z ##[group]Run rustc +stable --version --verbose
+2026-11-06T18:29:43.4549659Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-06T18:29:43.6263507Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-06T18:29:44.4236202Z Cache hit for restore-key: v0-rust-/opt/hostedtoolcache/Python/3.13.18/x64-test-latest-deps-Linux-x64-51ccc61f-c847e5a6
+2026-11-06T18:29:51.0288738Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.13.18/x64-test-latest-deps-Linux-x64-51ccc61f-c847e5a6" full match: false.
+2026-11-06T18:29:51.1064768Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-06T18:29:56.2705078Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-06T18:29:57.9146057Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.13.18-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-06T18:29:58.0710486Z No GitHub Actions cache found for key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.13.18-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-06T18:29:58.1354227Z ##[group]Run uv tool install poethepoet
+2026-11-06T18:29:58.4718925Z Installed 2 packages in 3ms
+2026-11-06T18:29:58.4780806Z ##[group]Run uv lock --upgrade
+2026-11-06T18:29:59.6885706Z ##[group]Run uv sync --all-extras
+2026-11-06T18:30:03.0418213Z Installed 221 packages in 494ms
+2026-11-06T18:30:03.0678159Z ##[group]Run poe build-develop
+2026-11-06T18:30:06.4259884Z Installed 2 packages in 28ms
+2026-11-06T18:31:27.3226885Z ##[group]Run poe lint
+2026-11-06T18:31:27.4466021Z Installed 1 package in 1ms
+2026-11-06T18:33:07.1981966Z ##[group]Run mkdir junit-xml
+2026-11-06T18:33:07.2092657Z ##[group]Run poe test -s --junit-xml=junit-xml/latest-deps.xml
+2026-11-06T18:40:52.4758868Z ======================================================= FAILURES =======================================================
+2026-11-06T18:40:52.4759697Z ___________________________________________ test_warns_when_workers_too_low ____________________________________________
+2026-11-06T18:40:52.4780981Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-11-06T18:40:52.4857811Z                                                Summary of Failures                                               
+2026-11-06T18:40:52.4858652Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+2026-11-06T18:40:52.4859282Z ┃  File                         ┃  Function                         ┃  Function Line  ┃  Error Line  ┃  Error   ┃
+2026-11-06T18:40:52.4859920Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+2026-11-06T18:40:52.4860646Z │  tests/worker/test_worker.py  │  test_warns_when_workers_too_low  │  475            │  529         │  Failed  │
+2026-11-06T18:40:52.4862042Z └───────────────────────────────┴───────────────────────────────────┴─────────────────┴──────────────┴──────────┘
+2026-11-06T18:40:52.4862714Z Results (461.22s):
+2026-11-06T18:40:52.4862942Z          1 failed
+2026-11-06T18:40:52.4864997Z       1806 passed
+2026-11-06T18:40:52.4867696Z          6 skipped
+2026-11-06T18:40:52.4870294Z         34 warnings
+2026-11-06T18:40:52.9148023Z ##[error]Process completed with exit code 1.
+2026-11-06T18:40:52.9216021Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

@@ -1,0 +1,76 @@
+2026-10-27T16:59:11.2494857Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-27T16:59:14.6448797Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-27T16:59:14.6545066Z ##[group]Run : parse toolchain version
+2026-10-27T16:59:14.6937304Z ##[group]Run : construct rustup command line
+2026-10-27T16:59:14.7096036Z ##[group]Run : set $CARGO_HOME
+2026-10-27T16:59:14.7249801Z ##[group]Run : install rustup if needed
+2026-10-27T16:59:14.7403808Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-10-27T16:59:22.3225109Z ##[group]Run rustup default stable
+2026-10-27T16:59:22.3462510Z ##[group]Run : create cachekey
+2026-10-27T16:59:22.3797611Z ##[group]Run : disable incremental compilation
+2026-10-27T16:59:22.3925898Z ##[group]Run : enable colors in Cargo output
+2026-10-27T16:59:22.4063930Z ##[group]Run : enable Cargo sparse registry
+2026-10-27T16:59:22.4370041Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-27T16:59:22.4586689Z ##[group]Run rustc +stable --version --verbose
+2026-10-27T16:59:22.4855711Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-27T16:59:22.5993598Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-27T16:59:23.1042415Z Cache hit for: v0-rust-/opt/hostedtoolcache/Python/3.14.8/x64-cloud-test-Linux-x64-51ccc61f-d9a07ed7
+2026-10-27T16:59:28.2354679Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.14.8/x64-cloud-test-Linux-x64-51ccc61f-d9a07ed7" full match: true.
+2026-10-27T16:59:28.2643720Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-27T16:59:34.1222657Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-27T16:59:35.4846560Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.8-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-27T16:59:35.6297849Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.8-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-27T16:59:36.4153851Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.8-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-27T16:59:36.5206187Z ##[group]Run uv tool install poethepoet
+2026-10-27T16:59:37.1300190Z Installed 2 packages in 69ms
+2026-10-27T16:59:37.1889160Z ##[group]Run uv sync --all-extras
+2026-10-27T16:59:40.4634650Z Installed 222 packages in 1.35s
+2026-10-27T16:59:40.4996980Z ##[group]Run poe build-develop
+2026-10-27T16:59:45.6952566Z Installed 1 package in 119ms
+2026-10-27T17:00:35.5852879Z ##[group]Run cert_dir="$RUNNER_TEMP/cloud-test-certs"
+2026-10-27T17:00:36.0623483Z ##[group]Run uv run python .github/scripts/cloud_namespace.py create
+2026-10-27T17:01:53.8047692Z ##[group]Run mkdir junit-xml
+2026-10-27T17:01:53.8207562Z ##[group]Run poe test -s --workflow-environment envconfig --junit-xml=junit-xml/cloud.xml
+2026-10-27T17:08:30.9569193Z ======================================================== ERRORS ========================================================
+2026-10-27T17:08:30.9569655Z _________________________________________ ERROR at setup of test_skip_full_run _________________________________________
+2026-10-27T17:08:30.9595992Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9597353Z __________________________________ ERROR at setup of test_with_time_skipping_disabled __________________________________
+2026-10-27T17:08:30.9612639Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9613448Z ___________________________________ ERROR at setup of test_fast_forward_with_resume ____________________________________
+2026-10-27T17:08:30.9627611Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9628419Z ______________________________ ERROR at setup of test_partial_fast_forward_then_unbounded ______________________________
+2026-10-27T17:08:30.9658154Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9658996Z ____________________________ ERROR at setup of test_child_workflow_propagates_time_skipping ____________________________
+2026-10-27T17:08:30.9673563Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9674491Z ___________________ ERROR at setup of test_fast_forward_returns_false_when_workflow_terminates_first ___________________
+2026-10-27T17:08:30.9688510Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9689325Z ______________________________ ERROR at setup of test_fast_forward_accepts_float_duration ______________________________
+2026-10-27T17:08:30.9703646Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9704541Z __________________________________ ERROR at setup of test_fast_forward_spans_retries ___________________________________
+2026-10-27T17:08:30.9718715Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9719532Z ______________________________ ERROR at setup of test_fast_forward_spans_continue_as_new _______________________________
+2026-10-27T17:08:30.9733593Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9734510Z _______________________________ ERROR at setup of test_fast_forward_spans_cron_restarts ________________________________
+2026-10-27T17:08:30.9748553Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9749374Z _________________________ ERROR at setup of test_signal_with_start_stamps_time_skipping_config _________________________
+2026-10-27T17:08:30.9763443Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9764256Z ____________________________ ERROR at setup of test_get_time_skipping_info_during_workflow _____________________________
+2026-10-27T17:08:30.9778483Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9784748Z ___________________ ERROR at setup of test_get_time_skipping_info_returns_none_when_ts_never_enabled ___________________
+2026-10-27T17:08:30.9798987Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9799796Z ___________________________________ ERROR at setup of test_transition_event_payload ____________________________________
+2026-10-27T17:08:30.9813804Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9814623Z ______________________ ERROR at setup of test_child_workflow_started_event_has_state_propagation _______________________
+2026-10-27T17:08:30.9828775Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9829587Z ____________________________ ERROR at setup of test_fast_forward_exceeds_execution_timeout _____________________________
+2026-10-27T17:08:30.9839063Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9839313Z __________________________ ERROR at setup of test_overriding_fast_forward_raises_on_original ___________________________
+2026-10-27T17:08:30.9845432Z E       RuntimeError: Failed starting Temporal dev server: failed to download ephemeral server executable: error sending request for url (https://temporal.download/cli/v1.8.3-server-1.32.0-162.0?arch=amd64&platform=linux&format=tar.gz)
+2026-10-27T17:08:30.9861946Z Results (393.59s):
+2026-10-27T17:08:30.9862035Z       1217 passed
+2026-10-27T17:08:30.9862112Z        323 skipped
+2026-10-27T17:08:30.9862188Z         33 warnings
+2026-10-27T17:08:30.9862266Z         17 errors
+2026-10-27T17:08:31.2605078Z ##[error]Process completed with exit code 1.
+2026-10-27T17:08:31.2641679Z ##[group]Run uv run python .github/scripts/cloud_namespace.py delete "sdk-python-ci-40546214405-1.tb3he"
+2026-10-27T17:08:42.3188671Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

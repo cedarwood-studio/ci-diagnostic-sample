@@ -1,0 +1,49 @@
+{
+  "repo": "wagtail/wagtail",
+  "workflow": "test.yml",
+  "workflow_name": "Wagtail CI",
+  "branch": "main",
+  "main_run_count": 100,
+  "log_run_count": 20,
+  "window_since": "2026-10-12",
+  "window_until": "2026-11-10",
+  "workflow_ref": "030168a7dc42d5450c4cfbac3c68881b63b2d466",
+  "as_of": "2026-11-12",
+  "circleci": {
+    "slug": "gh/wagtail/wagtail",
+    "workflow": "test"
+  },
+  "fix": {
+    "repo": "cedarwood-studio/wagtail",
+    "workflow": "ci-diagnostic.yml",
+    "arms": [
+      {
+        "label": "before",
+        "branch": "ci-diagnostic/baseline",
+        "run_ids": [
+          43140086233,
+          43144886309,
+          43149624894
+        ]
+      },
+      {
+        "label": "after",
+        "branch": "ci-diagnostic/mysql-parallel",
+        "run_ids": [
+          43136329875,
+          43138170661,
+          43143129291,
+          43147850222
+        ]
+      }
+    ],
+    "probe": {
+      "label": "probe",
+      "branch": "ci-diagnostic/coverage-off-probe",
+      "job_prefix": "test-mysql",
+      "run_ids": [
+        43152857357
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+2026-11-12T04:45:46.4432470Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-12T04:45:50.9976870Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-12T04:45:51.0095820Z ##[group]Run : parse toolchain version
+2026-11-12T04:45:51.0778370Z ##[group]Run : construct rustup command line
+2026-11-12T04:45:51.1289480Z ##[group]Run : set $CARGO_HOME
+2026-11-12T04:45:51.1725930Z ##[group]Run : install rustup if needed
+2026-11-12T04:45:51.2157610Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-11-12T04:45:51.7216840Z ##[group]Run rustup default stable
+2026-11-12T04:45:51.8203630Z ##[group]Run : create cachekey
+2026-11-12T04:45:51.9743890Z ##[group]Run : disable incremental compilation
+2026-11-12T04:45:52.0097120Z ##[group]Run : enable colors in Cargo output
+2026-11-12T04:45:52.0457820Z ##[group]Run : enable Cargo sparse registry
+2026-11-12T04:45:52.1398470Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-12T04:45:52.2611870Z ##[group]Run rustc +stable --version --verbose
+2026-11-12T04:45:52.3345360Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-12T04:45:52.5355090Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-12T04:45:53.4226500Z No cache found.
+2026-11-12T04:45:53.4356570Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-12T04:45:58.8721180Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-12T04:46:00.4440560Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-apple-darwin-macos-16-3.11.9-pruned-c45dbc510731ef0d7519cfe4a1d6fa4ca447aa7aa16efac06d0723dfbd9f6260
+2026-11-12T04:46:00.6710600Z No GitHub Actions cache found for key: setup-uv-2-aarch64-apple-darwin-macos-16-3.11.9-pruned-c45dbc510731ef0d7519cfe4a1d6fa4ca447aa7aa16efac06d0723dfbd9f6260
+2026-11-12T04:46:00.7324620Z ##[group]Run uv tool install poethepoet
+2026-11-12T04:46:01.0767180Z Installed 2 packages in 3ms
+2026-11-12T04:46:01.0824750Z ##[group]Run uv sync --all-extras
+2026-11-12T04:46:06.6200950Z Installed 220 packages in 677ms
+2026-11-12T04:46:06.6426610Z ##[group]Run poe build-develop
+2026-11-12T04:46:17.0387420Z Installed 2 packages in 13ms
+2026-11-12T04:48:55.2463650Z ##[group]Run uv run pytest "$TEST_ID" --flake-finder --flake-runs=200 -p no:randomly
+2026-11-12T04:48:55.6859320Z Installed 1 package in 5ms
+2026-11-12T04:49:00.3166840Z timeout method: signal
+2026-11-12T04:49:00.3168960Z collected 200 items
+2026-11-12T04:50:03.4557860Z tests/worker/test_worker.py +++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+2026-11-12T04:50:03.4605450Z +++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+2026-11-12T04:50:03.4607620Z F                                                                        [  0%]
+2026-11-12T04:55:09.8450080Z tests/worker/test_worker.py ........................+++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+2026-11-12T04:55:09.8489450Z +++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+2026-11-12T04:55:09.8498810Z F                                                                        [ 13%]
+2026-11-12T05:01:07.2570410Z tests/worker/test_worker.py ............................................ [ 35%]
+2026-11-12T05:05:32.4178100Z .............................................+++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+2026-11-12T05:05:32.4295980Z +++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+2026-11-12T05:05:32.4296460Z F                                                                        [ 58%]
+2026-11-12T05:09:07.9342770Z ##[error]The action 'The test alone, 200 times, one process' has timed out after 20 minutes.
+2026-11-12T05:09:07.9563060Z ##[group]Run uv run pytest "$TEST_ID" --flake-finder --flake-runs=200 -n auto --dist=worksteal
+2026-11-12T05:09:15.3457280Z timeout method: signal
+2026-11-12T05:09:15.3459080Z 3 workers [200 items]
+2026-11-12T05:10:20.4182960Z ........................................................................ [ 36%]
+2026-11-12T05:15:40.8961390Z ........................................................................ [ 96%]
+2026-11-12T05:15:42.9022900Z ...                                                                      [100%]
+2026-11-12T05:15:42.9023610Z =================================== FAILURES ===================================
+2026-11-12T05:15:42.9024120Z _____________________ test_warns_when_workers_too_low[152] _____________________
+2026-11-12T05:15:42.9064010Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-11-12T05:15:42.9194600Z _____________________ test_warns_when_workers_too_low[97] ______________________
+2026-11-12T05:15:42.9226370Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-11-12T05:15:42.9252420Z _____________________ test_warns_when_workers_too_low[199] _____________________
+2026-11-12T05:15:42.9274540Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-11-12T05:15:42.9335420Z                               Summary of Failures                               
+2026-11-12T05:15:42.9340010Z ┏━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+2026-11-12T05:15:42.9341060Z ┃                 ┃                 ┃  Function      ┃              ┃          ┃
+2026-11-12T05:15:42.9341580Z ┃  File           ┃  Function       ┃  Line          ┃  Error Line  ┃  Error   ┃
+2026-11-12T05:15:42.9342160Z ┡━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+2026-11-12T05:15:42.9348330Z │  tests/worker…  │  test_warns_w…  │  475           │  529         │  Failed  │
+2026-11-12T05:15:42.9349100Z │  tests/worker…  │  test_warns_w…  │  475           │  529         │  Failed  │
+2026-11-12T05:15:42.9349660Z │  tests/worker…  │  test_warns_w…  │  475           │  529         │  Failed  │
+2026-11-12T05:15:42.9350170Z └─────────────────┴─────────────────┴────────────────┴──────────────┴──────────┘
+2026-11-12T05:15:42.9350590Z Results (391.89s):
+2026-11-12T05:15:42.9350820Z          3 failed
+2026-11-12T05:15:42.9351030Z        197 passed
+2026-11-12T05:15:43.2662500Z ##[error]Process completed with exit code 1.
+2026-11-12T05:15:43.2767700Z ##[group]Run uv run pytest tests/worker/test_worker.py -n auto --dist=worksteal
+2026-11-12T05:15:46.5272560Z timeout method: signal
+2026-11-12T05:15:46.5576420Z 3 workers [49 items]
+2026-11-12T05:16:10.5906770Z .ss..............................................                        [100%]
+2026-11-12T05:16:10.5907730Z Results (25.67s):
+2026-11-12T05:16:10.5915830Z         47 passed
+2026-11-12T05:16:10.5917320Z          2 skipped
