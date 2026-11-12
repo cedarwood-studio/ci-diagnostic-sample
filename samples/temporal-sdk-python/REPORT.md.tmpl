@@ -8,6 +8,17 @@ Every number below was computed from the repository's own CI history, and the co
 
 A diagnostic measures how a pipeline behaves. It isn't an audit or a security assessment, and none of this judges the project or the people who maintain it. This SDK tests concurrent workers against a live server on three operating systems, and that kind of suite is hard to keep free of timing-dependent failures.
 
+## The short version
+
+- **Re-runs, 30 days.** {{ flaky.rerun_runs }} of {{ flaky.ci_runs }} runs were re-run after a failure, and {{ flaky.rerun_final.success }} of those then passed with no change to the code.
+- **What failed and then passed.** {{ flaky.instance_count }} job executions. The log names a test in {{ flaky.by_kind.test }} of them, and in {{ flaky.by_kind.timeout }} a test step ran past its time limit, {{ flaky.timeouts_windows }} of those on Windows.
+- **The top test.** `{{ flaky.tests.0.test }}` accounts for {{ flaky.tests.0.failures }} of the {{ flaky.by_kind.test }} failures that name a test. Run alone on our fork, it timed out the same way in {{ probe.finished_failed }} of {{ probe.finished_total }} repetitions, counting the steps that ran to the end.
+- **What a re-run costs.** A re-run that ended green delayed the verdict by {{ flaky.cost.delay_median_s | mmss }} at the median. A pull-request run that passes the first time takes {{ flaky.pr_first_pass.wall_median_s | mmss }}. The re-run jobs used {{ flaky.cost.billed_min | int }} runner minutes.
+- **The main branch.** {{ main.summary.conclusions.failure }} of the last {{ main.summary.runs_total }} pushes to `{{ config.branch }}` ended red, and none was re-run.
+- **Superseded runs.** {{ flaky.superseded.runs }} pull-request runs kept going after a newer commit started its own run, and used {{ flaky.superseded.billed_min_after | int }} runner minutes after that point.
+
+The summary below gives each finding in full, and the sections after it show the data.
+
 ## Summary
 
 **What was measured.** The `{{ config.workflow_name }}` workflow (`.github/workflows/{{ config.workflow }}`) on GitHub Actions: all {{ flaky.ci_runs }} of its runs over the 30 days from {{ window.since }} to {{ window.until }}, on pull requests and pushes, with every attempt of every run that was re-run; its last {{ main.summary.runs_total }} completed runs on `{{ config.branch }}` ({{ main.summary.first_run | date }} to {{ main.summary.last_run | date }}); and the log of every job that failed and later passed. Workflow files were read at commit `{{ static.ref | sha }}`.
@@ -368,7 +379,7 @@ Most of this pipeline's cost is red verdicts on commits that later passed unchan
 - **Why the `protoc` lookup failed on two days.** The log gives the action's error and no HTTP status.
 - **The `cloud-test` job.** It runs against a hosted service with secrets, so it can't run on a fork, and its failures in the window weren't examined beyond the counts in section 3.
 - **Flakiness older than the window.** Logs are kept 90 days by default. We read 30 days of re-runs and about five weeks of `{{ config.branch }}`.
-- **Cost in dollars.** The repository is public. Runner minutes are reported raw. GitHub bills a private repository more per minute for Windows and macOS runners than for Linux, and one job here runs on a runner with a custom label whose rate we can't see. For a client, the report prices the minutes at the rate on the client's bill and the waiting at a loaded hourly rate the client gives us.
+- **Cost in dollars.** The repository is public. Runner minutes are reported raw. GitHub bills a private repository more per minute for Windows and macOS runners than for Linux, and one job here runs on a runner with a custom label whose rate we can't see. A client's report gives runner minutes and waiting time the same way. For a client who shares their per-minute runner rates, the report shows the multiplication.
 - **Cache hits before the log sample.** The hit rates come from {{ caches.sample_runs }} runs. The cache list is a snapshot.
 
 ## 9. How this report was made

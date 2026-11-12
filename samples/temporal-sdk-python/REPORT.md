@@ -8,6 +8,17 @@ Every number below was computed from the repository's own CI history, and the co
 
 A diagnostic measures how a pipeline behaves. It isn't an audit or a security assessment, and none of this judges the project or the people who maintain it. This SDK tests concurrent workers against a live server on three operating systems, and that kind of suite is hard to keep free of timing-dependent failures.
 
+## The short version
+
+- **Re-runs, 30 days.** 62 of 414 runs were re-run after a failure, and 45 of those then passed with no change to the code.
+- **What failed and then passed.** 127 job executions. The log names a test in 61 of them, and in 39 a test step ran past its time limit, 37 of those on Windows.
+- **The top test.** `tests/worker/test_worker.py::test_warns_when_workers_too_low` accounts for 22 of the 61 failures that name a test. Run alone on our fork, it timed out the same way in 11 of 780 repetitions, counting the steps that ran to the end.
+- **What a re-run costs.** A re-run that ended green delayed the verdict by 39:12 at the median. A pull-request run that passes the first time takes 23:49. The re-run jobs used 1,989 runner minutes.
+- **The main branch.** 50 of the last 100 pushes to `main` ended red, and none was re-run.
+- **Superseded runs.** 53 pull-request runs kept going after a newer commit started its own run, and used 5,512 runner minutes after that point.
+
+The summary below gives each finding in full, and the sections after it show the data.
+
 ## Summary
 
 **What was measured.** The `Continuous Integration` workflow (`.github/workflows/ci.yml`) on GitHub Actions: all 414 of its runs over the 30 days from 2026-10-12 to 2026-11-10, on pull requests and pushes, with every attempt of every run that was re-run; its last 100 completed runs on `main` (2026-10-06 to 2026-11-11); and the log of every job that failed and later passed. Workflow files were read at commit `57f3dd6`.
@@ -501,7 +512,7 @@ Most of this pipeline's cost is red verdicts on commits that later passed unchan
 - **Why the `protoc` lookup failed on two days.** The log gives the action's error and no HTTP status.
 - **The `cloud-test` job.** It runs against a hosted service with secrets, so it can't run on a fork, and its failures in the window weren't examined beyond the counts in section 3.
 - **Flakiness older than the window.** Logs are kept 90 days by default. We read 30 days of re-runs and about five weeks of `main`.
-- **Cost in dollars.** The repository is public. Runner minutes are reported raw. GitHub bills a private repository more per minute for Windows and macOS runners than for Linux, and one job here runs on a runner with a custom label whose rate we can't see. For a client, the report prices the minutes at the rate on the client's bill and the waiting at a loaded hourly rate the client gives us.
+- **Cost in dollars.** The repository is public. Runner minutes are reported raw. GitHub bills a private repository more per minute for Windows and macOS runners than for Linux, and one job here runs on a runner with a custom label whose rate we can't see. A client's report gives runner minutes and waiting time the same way. For a client who shares their per-minute runner rates, the report shows the multiplication.
 - **Cache hits before the log sample.** The hit rates come from 10 runs. The cache list is a snapshot.
 
 ## 9. How this report was made

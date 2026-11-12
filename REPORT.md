@@ -6,6 +6,17 @@ This is the report a CI Diagnostic client receives, run here on a public reposit
 
 A diagnostic measures how a pipeline behaves. It isn't an audit or a security assessment, and none of this judges the project or the people who maintain it. Wagtail's pipeline is carefully maintained, and most of what follows confirms that.
 
+## The short version
+
+- **Time to a verdict on `main`.** 23:27 at the median and 27:31 at the 90th percentile, using 144 runner minutes a run, over the 73 of the last 100 runs that reached a verdict.
+- **Failures and re-runs, 30 days.** 1 of 36 pushes to `main` with a verdict failed (2.8%), and 29.1% of pull-request runs did. No run was re-run after a failure.
+- **Tested fix.** A three-line change took the median run from 25:07 to 15:38 (37.7% less) and from 146 to 105.5 runner minutes, over 3 runs before and 4 after on our fork.
+- **The fix over 30 days.** At the last 30 days' count of 174 runs, it would save about 27.5 hours of waiting for a verdict and 7,047 runner minutes.
+- **Waiting for a runner.** In 17 of 71 successful runs a job waited more than a minute to start. Those runs took 26:05 at the median, against 23:12 for the rest.
+- **Actions and caches.** All 40 action references are pinned to commit SHAs, and the dependency cache was hit in 90.4% of job starts.
+
+The summary below gives each finding in full, and the sections after it show the data.
+
 ## Summary
 
 **What was measured.** The `Wagtail CI` workflow (`.github/workflows/test.yml`) on GitHub Actions: its last 100 completed runs on `main` (2026-09-07 to 2026-11-10), and all 496 runs of the repository's four workflow files over the 30 days from 2026-10-12 to 2026-11-10. Workflow files were read at commit `030168a`.
@@ -348,13 +359,13 @@ We haven't shown that parallel MySQL runs stay reliable over hundreds of runs. A
 - **Individual flaky tests.** Run history names failing jobs and steps. Test names come from logs, which GitHub keeps for a limited time (90 days by default), and only for jobs that ran. A test that fails one time in a few hundred would need a longer window than 30 days, or the project's own test reports.
 - **Cache hits before the log window.** The cache hit rate comes from logs of the 20 most recent runs. The cache list is a snapshot of what exists today and holds no history.
 - **Deprecated actions, in general.** There's no registry of deprecated actions. We check for archived repositories and deprecated runtimes, and report what those two checks cover.
-- **Cost in dollars.** The repository is public, so GitHub bills nothing. We report runner minutes as a private repository would be billed for them. For a client, the report multiplies them by the rate on the client's own bill and prices the waiting at a loaded hourly rate the client gives us.
+- **Cost in dollars.** The repository is public, so GitHub bills nothing. We report runner minutes as a private repository would be billed for them. A client's report gives runner minutes and waiting time the same way. For a client who shares their per-minute runner rate, the report shows the multiplication.
 - **How much coverage costs outside `test-mysql`.** The probe switched coverage off in four jobs for one run. The other jobs weren't probed.
 - **Whether the tested fix holds over time.** 4 passing runs show the change works and what it saves. They don't show how it behaves over months.
 
 ## 9. The CircleCI side
 
-Wagtail also runs a `test` workflow on CircleCI (lint, a second backend test run, the frontend build and browser tests). CircleCI publishes summary figures for public projects, and the diagnostic covers CircleCI, so they're included. These are CircleCI's own aggregates for `main` from 2026-08-13 to 2026-11-10, and they weren't recomputed from individual runs.
+Wagtail also runs a `test` workflow on CircleCI (lint, a second backend test run, the frontend build and browser tests). CircleCI publishes summary figures for public projects, and the diagnostic covers CircleCI, so they're included. These are CircleCI's own workflow and job summaries for `main` from 2026-08-13 to 2026-11-10. We didn't recompute them from individual runs, and they have no runner minutes and no re-run rate.
 
 | Measure | Value |
 | --- | --- |

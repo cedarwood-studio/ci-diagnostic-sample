@@ -6,6 +6,17 @@ This is the report a CI Diagnostic client receives, run here on a public reposit
 
 A diagnostic measures how a pipeline behaves. It isn't an audit or a security assessment, and none of this judges the project or the people who maintain it. Wagtail's pipeline is carefully maintained, and most of what follows confirms that.
 
+## The short version
+
+- **Time to a verdict on `{{ config.branch }}`.** {{ main.summary.wall_median_s | mmss }} at the median and {{ main.summary.wall_p90_s | mmss }} at the 90th percentile, using {{ main.summary.billed_median_min }} runner minutes a run, over the {{ main.summary.runs_with_verdict }} of the last {{ main.summary.runs_total }} runs that reached a verdict.
+- **Failures and re-runs, 30 days.** {{ window.ci_main_push.failure }} of {{ window.ci_main_push.verdicts }} pushes to `{{ config.branch }}` with a verdict failed ({{ window.ci_main_push.failure_rate | pct }}), and {{ window.ci_by_event.pull_request.failure_rate | pct }} of pull-request runs did. No run was re-run after a failure.
+- **Tested fix.** A three-line change took the median run from {{ fix.arms.before.summary.wall_median_s | mmss }} to {{ fix.arms.after.summary.wall_median_s | mmss }} ({{ fix.wall_saved_share | pct }} less) and from {{ fix.arms.before.summary.billed_median_min | num }} to {{ fix.arms.after.summary.billed_median_min | num }} runner minutes, over {{ fix.arms.before.n }} runs before and {{ fix.arms.after.n }} after on our fork.
+- **The fix over 30 days.** At the last 30 days' count of {{ ranking.ci_verdict_runs }} runs, it would save about {{ ranking.fix_wait_min_per_30d | hours }} hours of waiting for a verdict and {{ ranking.fix_billed_min_per_30d | num }} runner minutes.
+- **Waiting for a runner.** In {{ main.queue.runs_over_threshold }} of {{ main.queue.runs }} successful runs a job waited more than a minute to start. Those runs took {{ main.queue.wall_median_waited_s | mmss }} at the median, against {{ main.queue.wall_median_prompt_s | mmss }} for the rest.
+- **Actions and caches.** All {{ static.uses_total }} action references are pinned to commit SHAs, and the dependency cache was hit in {{ caches.hit_rate | pct }} of job starts.
+
+The summary below gives each finding in full, and the sections after it show the data.
+
 ## Summary
 
 **What was measured.** The `{{ config.workflow_name }}` workflow (`.github/workflows/{{ config.workflow }}`) on GitHub Actions: its last {{ main.summary.runs_total }} completed runs on `{{ config.branch }}` ({{ main.summary.first_run | date }} to {{ main.summary.last_run | date }}), and all {{ window.runs_own }} runs of the repository's four workflow files over the 30 days from {{ window.since }} to {{ window.until }}. Workflow files were read at commit `{{ static.ref | sha }}`.
@@ -256,13 +267,13 @@ We haven't shown that parallel MySQL runs stay reliable over hundreds of runs. A
 - **Individual flaky tests.** Run history names failing jobs and steps. Test names come from logs, which GitHub keeps for a limited time (90 days by default), and only for jobs that ran. A test that fails one time in a few hundred would need a longer window than 30 days, or the project's own test reports.
 - **Cache hits before the log window.** The cache hit rate comes from logs of the {{ caches.sample_runs }} most recent runs. The cache list is a snapshot of what exists today and holds no history.
 - **Deprecated actions, in general.** There's no registry of deprecated actions. We check for archived repositories and deprecated runtimes, and report what those two checks cover.
-- **Cost in dollars.** The repository is public, so GitHub bills nothing. We report runner minutes as a private repository would be billed for them. For a client, the report multiplies them by the rate on the client's own bill and prices the waiting at a loaded hourly rate the client gives us.
+- **Cost in dollars.** The repository is public, so GitHub bills nothing. We report runner minutes as a private repository would be billed for them. A client's report gives runner minutes and waiting time the same way. For a client who shares their per-minute runner rate, the report shows the multiplication.
 - **How much coverage costs outside `test-mysql`.** The probe switched coverage off in four jobs for one run. The other jobs weren't probed.
 - **Whether the tested fix holds over time.** {{ fix.arms.after.n }} passing runs show the change works and what it saves. They don't show how it behaves over months.
 
 ## 9. The CircleCI side
 
-Wagtail also runs a `test` workflow on CircleCI (lint, a second backend test run, the frontend build and browser tests). CircleCI publishes summary figures for public projects, and the diagnostic covers CircleCI, so they're included. These are CircleCI's own aggregates for `{{ config.branch }}` from {{ circleci.window_start | date }} to {{ circleci.window_end | date }}, and they weren't recomputed from individual runs.
+Wagtail also runs a `test` workflow on CircleCI (lint, a second backend test run, the frontend build and browser tests). CircleCI publishes summary figures for public projects, and the diagnostic covers CircleCI, so they're included. These are CircleCI's own workflow and job summaries for `{{ config.branch }}` from {{ circleci.window_start | date }} to {{ circleci.window_end | date }}. We didn't recompute them from individual runs, and they have no runner minutes and no re-run rate.
 
 | Measure | Value |
 | --- | --- |

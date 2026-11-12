@@ -44,6 +44,16 @@ li { margin: .25rem 0; }
 </blockquote>
 <p>This is the report a CI Diagnostic client receives, run here on a public repository so anyone can check it. Every number below was computed from the repository's own CI history, and the command that produces each one is printed next to it. The API responses behind them are stored with the report, with personal fields removed and logs trimmed, so the numbers can be recomputed without network access.</p>
 <p>A diagnostic measures how a pipeline behaves. It isn't an audit or a security assessment, and none of this judges the project or the people who maintain it. Wagtail's pipeline is carefully maintained, and most of what follows confirms that.</p>
+<h2>The short version</h2>
+<ul>
+<li><strong>Time to a verdict on <code>main</code>.</strong> 23:27 at the median and 27:31 at the 90th percentile, using 144 runner minutes a run, over the 73 of the last 100 runs that reached a verdict.</li>
+<li><strong>Failures and re-runs, 30 days.</strong> 1 of 36 pushes to <code>main</code> with a verdict failed (2.8%), and 29.1% of pull-request runs did. No run was re-run after a failure.</li>
+<li><strong>Tested fix.</strong> A three-line change took the median run from 25:07 to 15:38 (37.7% less) and from 146 to 105.5 runner minutes, over 3 runs before and 4 after on our fork.</li>
+<li><strong>The fix over 30 days.</strong> At the last 30 days' count of 174 runs, it would save about 27.5 hours of waiting for a verdict and 7,047 runner minutes.</li>
+<li><strong>Waiting for a runner.</strong> In 17 of 71 successful runs a job waited more than a minute to start. Those runs took 26:05 at the median, against 23:12 for the rest.</li>
+<li><strong>Actions and caches.</strong> All 40 action references are pinned to commit SHAs, and the dependency cache was hit in 90.4% of job starts.</li>
+</ul>
+<p>The summary below gives each finding in full, and the sections after it show the data.</p>
 <h2>Summary</h2>
 <p><strong>What was measured.</strong> The <code>Wagtail CI</code> workflow (<code>.github/workflows/test.yml</code>) on GitHub Actions: its last 100 completed runs on <code>main</code> (2026-09-07 to 2026-11-10), and all 496 runs of the repository's four workflow files over the 30 days from 2026-10-12 to 2026-11-10. Workflow files were read at commit <code>030168a</code>.</p>
 <p><strong>What we found.</strong></p>
@@ -1131,12 +1141,12 @@ li { margin: .25rem 0; }
 <li><strong>Individual flaky tests.</strong> Run history names failing jobs and steps. Test names come from logs, which GitHub keeps for a limited time (90 days by default), and only for jobs that ran. A test that fails one time in a few hundred would need a longer window than 30 days, or the project's own test reports.</li>
 <li><strong>Cache hits before the log window.</strong> The cache hit rate comes from logs of the 20 most recent runs. The cache list is a snapshot of what exists today and holds no history.</li>
 <li><strong>Deprecated actions, in general.</strong> There's no registry of deprecated actions. We check for archived repositories and deprecated runtimes, and report what those two checks cover.</li>
-<li><strong>Cost in dollars.</strong> The repository is public, so GitHub bills nothing. We report runner minutes as a private repository would be billed for them. For a client, the report multiplies them by the rate on the client's own bill and prices the waiting at a loaded hourly rate the client gives us.</li>
+<li><strong>Cost in dollars.</strong> The repository is public, so GitHub bills nothing. We report runner minutes as a private repository would be billed for them. A client's report gives runner minutes and waiting time the same way. For a client who shares their per-minute runner rate, the report shows the multiplication.</li>
 <li><strong>How much coverage costs outside <code>test-mysql</code>.</strong> The probe switched coverage off in four jobs for one run. The other jobs weren't probed.</li>
 <li><strong>Whether the tested fix holds over time.</strong> 4 passing runs show the change works and what it saves. They don't show how it behaves over months.</li>
 </ul>
 <h2>9. The CircleCI side</h2>
-<p>Wagtail also runs a <code>test</code> workflow on CircleCI (lint, a second backend test run, the frontend build and browser tests). CircleCI publishes summary figures for public projects, and the diagnostic covers CircleCI, so they're included. These are CircleCI's own aggregates for <code>main</code> from 2026-08-13 to 2026-11-10, and they weren't recomputed from individual runs.</p>
+<p>Wagtail also runs a <code>test</code> workflow on CircleCI (lint, a second backend test run, the frontend build and browser tests). CircleCI publishes summary figures for public projects, and the diagnostic covers CircleCI, so they're included. These are CircleCI's own workflow and job summaries for <code>main</code> from 2026-08-13 to 2026-11-10. We didn't recompute them from individual runs, and they have no runner minutes and no re-run rate.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>

@@ -11,6 +11,8 @@ The reports describe how two CI pipelines behaved over a few weeks, from what Gi
 | wagtail/wagtail | A slow pipeline with no re-runs in its history. Where the time goes, and a three-line fix tested on a fork with runs before and after. | [`REPORT.md`](REPORT.md), [`report.html`](report.html) |
 | temporalio/sdk-python | A pipeline where people press re-run. The tests and steps that failed and then passed on the same commit, named and ranked, with the job log behind each one. | [`samples/temporal-sdk-python/REPORT.md`](samples/temporal-sdk-python/REPORT.md), [`report.html`](samples/temporal-sdk-python/report.html) |
 
+Each report opens with a section called "The short version," which holds the handful of numbers to read first.
+
 ## Layout
 
 - `cidiag/`: the measurement tool. Python, with unit tests in `tests/`. Both reports come from the same tool.
@@ -75,7 +77,7 @@ Tests and lint:
 
 ## What the diagnostic covers
 
-- Run time on the main branch over the last 100 runs, and where the time goes by job and by step.
+- Median run time and runner minutes over the last 30 days of runs on the main branch and pull requests, or the last 100 runs if those reach back further, and where the time goes by job and by step.
 - Failure rate and re-run rate, and which jobs and steps fail.
 - Where the history has re-runs after a failure: each job that failed and then passed on the same commit, the tests its log names, and a ranking of those tests.
 - Third-party actions and orbs that aren't pinned, archived, or on a deprecated runtime.
@@ -83,9 +85,23 @@ Tests and lint:
 - Changes ranked by what they save, each with its size.
 - Where the top change can be tested on a fork, the change made there, with runs of the pipeline before and after.
 
+On CircleCI the numbers are CircleCI's own summaries for each workflow and job, which give run counts, failed runs and how long runs took. We don't recompute them from individual runs, and a CircleCI report has no runner minutes and no re-run rate. Section 9 of the Wagtail report shows what that looks like.
+
 ## What it doesn't cover
 
 It isn't a security audit, a code review or an assessment of test quality. It reads CI history and workflow files. It doesn't read application code, and it says nothing about whether the software is correct or safe. A test that failed and then passed on the same commit is evidence that the test is flaky, and the reports say where that evidence is thin. Each report has a section on what couldn't be measured from the data and why.
+
+## How this works on a private repository
+
+Both samples were run on public repositories. On a private one the measurements are the same, and these are the terms.
+
+- **Access.** Read access to the repository and its workflow runs, which includes the job logs, or to your CircleCI project. We don't need write access to your repository, and we ask for nothing in production. You can revoke access at any time.
+- **A fix tested on a branch.** Optional. For a private repository it runs on a fork you give us access to.
+- **Where the data goes.** The tools we work with send the code and materials you give us access to, in whole or in part, to the AI providers named in the signed scope. Our main AI tool is Anthropic's Claude, with model training turned off on our account, and no other AI provider touches your code unless the scope names it. The evidence that comes with the report holds test names and error lines from your job logs.
+- **How long it's kept.** We delete your materials from our systems within 30 days after the engagement and any fix window end, and we confirm it in writing. The exceptions are the records we keep for tax and legal purposes, copies in routine backups, and what an AI provider keeps under its own terms. The scope says what the provider keeps.
+- **Turnaround.** Five business days from the day we have access.
+
+The studio's site is [cedarwood.studio](https://cedarwood.studio). To ask about a diagnostic on your own repository, write to hello@cedarwood.studio.
 
 ## The forks
 
