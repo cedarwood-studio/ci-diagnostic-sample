@@ -41,7 +41,7 @@ Names, logins and email addresses of the people behind each run are removed befo
 - **Where the time goes.** How long a run takes and what it costs in runner minutes, and which jobs and steps the time sits in.
 - **How often it fails.** The failure rate and the re-run rate, and which jobs and steps fail.
 - **What's flaky.** The jobs that failed and then passed on the same commit, and for pytest and unittest the failing tests the logs name, ranked.
-- **What to change first.** The changes ranked by what they save, each with its size. Where the top one is a speed fix that can be tested on a fork, the runs before and after. For a private repository that takes a fork you give us access to.
+- **What to change first.** The changes ranked by what they save, each with its size. Where the top one is a speed fix that can be tested on a fork, the runs before and after.
 
 Finding the cause of a flaky test or fixing it is separate work.
 
@@ -53,8 +53,6 @@ Finding the cause of a flaky test or fixing it is separate work.
 Nothing was pushed to wagtail/wagtail or temporalio/sdk-python, and no issue, pull request or comment was opened on either.
 
 ## License and attribution
-
-This section records what was checked before the repository was made public. It's no substitute for legal advice.
 
 - **This repository.** The reports are by Cedarwood Studio. No license is granted; the repository is published as a work sample.
 - **The two projects.** Wagtail is the work of its contributors and is licensed under the BSD 3-Clause License. The Temporal Python SDK is the work of Temporal Technologies and its contributors and is licensed under the MIT License.
