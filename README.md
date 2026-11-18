@@ -2,7 +2,7 @@
 
 **Sample reports.** Produced by Cedarwood Studio from public data on wagtail/wagtail and temporalio/sdk-python as of 2026-11-12. Nobody at either project asked for them. Cedarwood Studio isn't affiliated with either project and neither has endorsed these reports. Nothing was sent to either project: no issue, pull request or comment.
 
-This repository holds two complete CI Diagnostics, the fixed-price report Cedarwood Studio sells, each run against a public repository so the result can be checked by anyone. It holds the reports, the computed results and the data behind every number.
+This repository holds two complete CI Diagnostics, the report Cedarwood Studio delivers, each run against a public repository so the result can be checked by anyone. It holds the reports, the computed results and the data behind every number.
 
 The reports describe how two CI pipelines behaved over a few weeks, from what GitHub publishes about them. They don't judge either project or the people who maintain it, and they name no one. If you maintain one of these projects and want something here corrected or taken down, write to hello@cedarwood.studio.
 
@@ -45,19 +45,6 @@ Names, logins and email addresses of the people behind each run are removed befo
 
 Finding the cause of a flaky test or fixing it is separate work.
 
-A report you pay for gets a person's review before delivery.
-
-## On your own repository
-
-Both samples were run on public repositories. The paid diagnostic is for GitHub Actions, at a fixed $500, and [the offer page](https://cedarwood.studio/github-actions-ci-diagnostic/) has the terms.
-
-- **Access.** Read access to your repository and its workflow runs, and nothing in production. We never need write access to your repository.
-- **How your code and logs are handled.** AI tooling processes your workflow files and job logs, in whole or in part, through a provider that's named in your written scope before you pay or give access, with model training on our data turned off. The evidence that comes with the report holds test names and error lines from your job logs.
-- **How long it's kept.** We delete our copies when you ask. What passes through the provider is held under its retention policy, which we don't control.
-- **Delivery.** We agree on the delivery date with you in writing before you pay.
-
-To ask about a diagnostic on your own repository, write to hello@cedarwood.studio.
-
 ## The forks
 
 - [cedarwood-studio/wagtail](https://github.com/cedarwood-studio/wagtail) holds the before and after runs of the first report, on branches `ci-diagnostic/baseline` and `ci-diagnostic/mysql-parallel`. A third branch, `ci-diagnostic/coverage-off-probe`, holds the one-run probe described in section 2 of that report.
@@ -78,3 +65,5 @@ This section records what was checked before the repository was made public. It'
 - **The forks** carry their upstream licenses unchanged. On the `ci-diagnostic/` branches each adds one workflow file, and in the Wagtail fork that file is a modified copy of Wagtail's own `test.yml`.
 
 Cedarwood Studio, Jack Senechal, principal. hello@cedarwood.studio
+
+If you would like to work with us on a CI diagnostic, visit https://cedarwood.studio/github-actions-ci-diagnostic/

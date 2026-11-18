@@ -378,7 +378,7 @@ The one orb, `codecov/codecov@6.1.0`, is pinned to an exact version. All three j
 ## 10. How this report was made
 
 - **Data.** The numbers were computed from GitHub's REST API responses, which are stored under `data/raw/` with the names, logins and email addresses of the people behind each run removed, release notes dropped, action manifests cut to the line that names the runtime, and logs trimmed to the lines the numbers use.
-- **Every number is generated.** The numbers in this file are filled in from `results/metrics.json`, which was computed from the stored data. None is typed by hand.
+- **Every number has its source.** The numbers in this file come from `results/metrics.json`, which was computed from the stored data.
 - **Percentiles** are nearest-rank, so each one is a value that occurred. A median over an even number of runs is the average of the two middle values.
 - **Scope.** This report covers how the pipeline performs: time, failures, pins, caches. It isn't a review of the project's code, tests or security, and it shouldn't be read as one.
 
