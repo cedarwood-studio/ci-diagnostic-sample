@@ -1,0 +1,7 @@
+2026-10-23T13:41:06.5009482Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-26.04-3.13.16-6380853c208b982c77dd8072eb3ad42de77383abca0a74877e1267511a76c10f
+2026-10-23T13:41:06.6600251Z No GitHub Actions cache found for key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-26.04-3.13.16-6380853c208b982c77dd8072eb3ad42de77383abca0a74877e1267511a76c10f
+2026-10-23T13:41:11.3513684Z Installed 138 packages in 360ms
+2026-10-23T13:41:12.3714352Z Installed 1 package in 298ms
+2026-10-23T13:41:12.6998182Z Installed 2 packages in 2ms
+2026-10-23T13:43:52.2586701Z Ran 1082 tests in 90.766s
+2026-10-23T13:43:52.2586907Z OK (skipped=6)

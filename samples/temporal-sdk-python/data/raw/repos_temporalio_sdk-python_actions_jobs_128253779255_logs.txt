@@ -1,0 +1,38 @@
+2026-11-07T01:21:45.7697789Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-07T01:21:58.5435087Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-07T01:21:58.5627706Z ##[group]Run : parse toolchain version
+2026-11-07T01:21:58.8472664Z ##[group]Run : construct rustup command line
+2026-11-07T01:21:59.2578058Z ##[group]Run : set $CARGO_HOME
+2026-11-07T01:21:59.3617315Z ##[group]Run : install rustup if needed on windows
+2026-11-07T01:21:59.4382713Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-07T01:22:06.1658723Z ##[group]Run rustup default stable
+2026-11-07T01:22:06.2596357Z ##[group]Run : create cachekey
+2026-11-07T01:22:07.2554192Z ##[group]Run : disable incremental compilation
+2026-11-07T01:22:07.2979547Z ##[group]Run : enable colors in Cargo output
+2026-11-07T01:22:07.3414382Z ##[group]Run : enable Cargo sparse registry
+2026-11-07T01:22:07.5127776Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-07T01:22:07.6128851Z ##[group]Run rustc +stable --version --verbose
+2026-11-07T01:22:07.7075061Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-07T01:22:07.8799371Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-07T01:22:10.8893042Z No cache found.
+2026-11-07T01:22:10.9152572Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-07T01:22:16.4117021Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-07T01:22:19.0874597Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.11.9-pruned-118e05ad762b33c7b7a485e236b18ec27b1e152672339383425f173c6921e407
+2026-11-07T01:22:19.2698835Z No GitHub Actions cache found for key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.11.9-pruned-118e05ad762b33c7b7a485e236b18ec27b1e152672339383425f173c6921e407
+2026-11-07T01:22:19.3471499Z ##[group]Run uv tool install poethepoet
+2026-11-07T01:22:19.9677867Z Installed 2 packages in 9ms
+2026-11-07T01:22:20.0610819Z ##[group]Run uv sync --all-extras
+2026-11-07T01:22:28.8138125Z Installed 223 packages in 3.54s
+2026-11-07T01:22:28.9322128Z ##[group]Run poe build-develop
+2026-11-07T01:22:58.1756682Z Installed 2 packages in 71ms
+2026-11-07T01:26:02.6815435Z ##[group]Run poe lint
+2026-11-07T01:26:04.1663849Z Installed 1 package in 1.10s
+2026-11-07T01:27:19.9409977Z ##[group]Run mkdir junit-xml
+2026-11-07T01:27:20.3431372Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.11--windows-latest.xml
+2026-11-07T01:34:43.6701785Z Results (439.86s):
+2026-11-07T01:34:43.6702021Z       1800 passed
+2026-11-07T01:34:43.6702256Z         18 skipped
+2026-11-07T01:34:43.6702523Z         36 warnings
+2026-11-07T01:34:44.1166652Z ##[group]Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.11--windows-latest--time-skipping-v2.xml
+2026-11-07T01:44:44.3300308Z ##[error]The action 'Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.11--windows-latest--time-skipping-v2.xml' has timed out after 10 minutes.
+2026-11-07T01:44:44.4919016Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

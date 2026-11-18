@@ -1,0 +1,53 @@
+2026-10-14T16:42:54.1840269Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-14T16:43:08.4328121Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-14T16:43:08.4503443Z ##[group]Run : parse toolchain version
+2026-10-14T16:43:09.2148361Z ##[group]Run : construct rustup command line
+2026-10-14T16:43:09.2890231Z ##[group]Run : set $CARGO_HOME
+2026-10-14T16:43:09.3676005Z ##[group]Run : install rustup if needed on windows
+2026-10-14T16:43:09.4362350Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-10-14T16:43:40.2257383Z ##[group]Run rustup default stable
+2026-10-14T16:43:40.3263375Z ##[group]Run : create cachekey
+2026-10-14T16:43:53.0759104Z ##[group]Run : disable incremental compilation
+2026-10-14T16:43:53.1632165Z ##[group]Run : enable colors in Cargo output
+2026-10-14T16:43:53.3762562Z ##[group]Run : enable Cargo sparse registry
+2026-10-14T16:43:57.2818604Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-14T16:43:57.3759496Z ##[group]Run rustc +stable --version --verbose
+2026-10-14T16:43:57.4987126Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-14T16:43:57.9806032Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-14T16:44:03.4564749Z Cache hit for: v0-rust-C:\hostedtoolcache\windows\Python\3.10.11\x64-build-lint-test-Windows_NT-x64-c339ea99-19fd105e
+2026-10-14T16:44:31.0687340Z Restored from cache key "v0-rust-C:\hostedtoolcache\windows\Python\3.10.11\x64-build-lint-test-Windows_NT-x64-c339ea99-19fd105e" full match: true.
+2026-10-14T16:44:31.0945936Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-14T16:44:37.8122855Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-14T16:44:41.6461057Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.10.11-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-14T16:44:41.8925706Z Cache hit for: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.10.11-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-14T16:44:43.0382182Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.10.11-pruned-7d2c3df9db7c98ea65d234395a255c248184d566d2b96d47ca652890c9443a1f
+2026-10-14T16:44:43.1294562Z ##[group]Run uv tool install poethepoet
+2026-10-14T16:44:43.7484271Z Installed 4 packages in 12ms
+2026-10-14T16:44:43.8534573Z ##[group]Run uv sync --all-extras
+2026-10-14T16:44:52.8497094Z Installed 220 packages in 3.40s
+2026-10-14T16:44:53.0061004Z ##[group]Run poe build-develop
+2026-10-14T16:45:40.3206208Z Installed 1 package in 101ms
+2026-10-14T16:47:53.8338262Z ##[group]Run poe lint
+2026-10-14T16:50:00.0523179Z ##[group]Run mkdir junit-xml
+2026-10-14T16:50:00.4620625Z ##[group]Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s --junit-xml=junit-xml/3.10--windows-latest.xml
+2026-10-14T16:56:39.6677419Z Results (395.63s):
+2026-10-14T16:56:39.6677655Z       1464 passed
+2026-10-14T16:56:39.6677922Z         21 skipped
+2026-10-14T16:56:39.6678174Z         34 warnings
+2026-10-14T16:56:40.2350513Z ##[group]Run poe test --reruns 3 --only-rerun "RuntimeError: Failed validating workflow" -s --workflow-environment time-skipping --junit-xml=junit-xml/3.10--windows-latest--time-skipping.xml
+2026-10-14T17:00:52.3089382Z ====================================================== FAILURES =======================================================
+2026-10-14T17:00:52.3128332Z E       temporal_sdk_bridge.RPCError: (5, 'update update-id not found', b'')
+2026-10-14T17:00:52.3167130Z E           temporalio.service.RPCError: update update-id not found
+2026-10-14T17:00:52.3242120Z                                                   Summary of Failures                                                   
+2026-10-14T17:00:52.3242647Z +----------------------------------------------------------------------------------------------------------------------+
+2026-10-14T17:00:52.3243155Z |  File                           |  Function                            |  Function Line  |  Error Line  |  Error     |
+2026-10-14T17:00:52.3243888Z |---------------------------------+--------------------------------------+-----------------+--------------+------------|
+2026-10-14T17:00:52.3279993Z |  tests\worker\test_workflow.py  |  test_unfinished_handler_on_workfl�  |  7124           |  7149        |  RPCError  |
+2026-10-14T17:00:52.3281030Z +----------------------------------------------------------------------------------------------------------------------+
+2026-10-14T17:00:52.3281682Z Results (250.37s):
+2026-10-14T17:00:52.3281993Z          1 failed
+2026-10-14T17:00:52.3282400Z       1111 passed
+2026-10-14T17:00:52.3282696Z        373 skipped
+2026-10-14T17:00:52.3283015Z         32 warnings
+2026-10-14T17:00:52.7120806Z ##[error]Process completed with exit code 1.
+2026-10-14T17:00:52.7314942Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

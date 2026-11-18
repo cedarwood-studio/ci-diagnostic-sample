@@ -1,0 +1,12 @@
+2026-10-22T16:27:10.0009944Z ##[group]Run echo head_ref: "$GITHUB_HEAD_REF", ref: "$GITHUB_REF", python sdk version: "$INPUT_VERSION"
+2026-10-22T16:27:10.0732748Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-22T16:27:11.0428993Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-22T16:27:13.9338585Z ##[group]Run actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c
+2026-10-22T16:27:14.3343383Z ##[group]Run actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+2026-10-22T16:27:20.5347649Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-22T16:27:21.8249275Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-06acbe17632aaa1c76cfbed96400dc6207e4683fa8bb261bb7406c8dfb7eee43
+2026-10-22T16:27:21.8748483Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-06acbe17632aaa1c76cfbed96400dc6207e4683fa8bb261bb7406c8dfb7eee43
+2026-10-22T16:27:21.9868453Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-06acbe17632aaa1c76cfbed96400dc6207e4683fa8bb261bb7406c8dfb7eee43
+2026-10-22T16:27:22.0572455Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-22T16:27:23.7322137Z ##[error]Error: unable to get latest version
+2026-10-22T16:27:23.7468843Z ##[group]Run echo "=== All container logs ==="

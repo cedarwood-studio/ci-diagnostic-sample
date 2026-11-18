@@ -1,0 +1,54 @@
+2026-11-07T00:34:02.0606311Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-07T00:34:16.5949553Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-07T00:34:16.6200763Z ##[group]Run : parse toolchain version
+2026-11-07T00:34:16.8179447Z ##[group]Run : construct rustup command line
+2026-11-07T00:34:16.9091711Z ##[group]Run : set $CARGO_HOME
+2026-11-07T00:34:16.9690136Z ##[group]Run : install rustup if needed on windows
+2026-11-07T00:34:17.0485390Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-07T00:34:21.9685793Z ##[group]Run rustup default stable
+2026-11-07T00:34:22.0996119Z ##[group]Run : create cachekey
+2026-11-07T00:34:22.9783542Z ##[group]Run : disable incremental compilation
+2026-11-07T00:34:23.0356956Z ##[group]Run : enable colors in Cargo output
+2026-11-07T00:34:23.1545655Z ##[group]Run : enable Cargo sparse registry
+2026-11-07T00:34:23.3730174Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-07T00:34:23.4985085Z ##[group]Run rustc +stable --version --verbose
+2026-11-07T00:34:23.6232377Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-07T00:34:23.8403679Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-07T00:34:30.5866309Z Cache hit for: v0-rust-C:\hostedtoolcache\windows\Python\3.15.2\x64-build-lint-test-Windows_NT-x64-40b1bf26-92165640
+2026-11-07T00:34:56.3917049Z Restored from cache key "v0-rust-C:\hostedtoolcache\windows\Python\3.15.2\x64-build-lint-test-Windows_NT-x64-40b1bf26-92165640" full match: true.
+2026-11-07T00:34:56.4280168Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-07T00:35:02.7386451Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-07T00:35:06.6279892Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.15.2-pruned-118e05ad762b33c7b7a485e236b18ec27b1e152672339383425f173c6921e407
+2026-11-07T00:35:06.9103787Z No GitHub Actions cache found for key: setup-uv-2-x86_64-pc-windows-msvc-windows-2025-3.15.2-pruned-118e05ad762b33c7b7a485e236b18ec27b1e152672339383425f173c6921e407
+2026-11-07T00:35:07.0010833Z ##[group]Run uv tool install poethepoet
+2026-11-07T00:35:20.7163155Z Installed 2 packages in 19ms
+2026-11-07T00:35:20.8810003Z ##[group]Run uv sync --all-extras
+2026-11-07T00:36:23.7711767Z Installed 222 packages in 3.48s
+2026-11-07T00:36:24.1879953Z ##[group]Run poe build-develop
+2026-11-07T00:36:46.3057016Z Installed 2 packages in 130ms
+2026-11-07T00:38:56.5764928Z ##[group]Run poe lint
+2026-11-07T00:38:58.3211176Z Installed 1 package in 694ms
+2026-11-07T00:40:33.5015712Z ##[group]Run mkdir junit-xml
+2026-11-07T00:40:34.0024030Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.15--windows-latest.xml
+2026-11-07T00:49:12.8561369Z Results (511.55s):
+2026-11-07T00:49:12.8561637Z       1799 passed
+2026-11-07T00:49:12.8561943Z         14 skipped
+2026-11-07T00:49:12.8562219Z         37 warnings
+2026-11-07T00:49:13.5638744Z ##[group]Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.15--windows-latest--time-skipping-v2.xml
+2026-11-07T00:57:07.3737232Z ====================================================== FAILURES =======================================================
+2026-11-07T00:57:07.3738102Z _______________________________________________ test_worker_interceptor _______________________________________________
+2026-11-07T00:57:07.3775365Z E       temporal_sdk_bridge.RPCError: (1, 'operation was canceled', b'')
+2026-11-07T00:57:07.3803295Z E           temporalio.service.RPCError: operation was canceled
+2026-11-07T00:57:07.3884951Z                                               Summary of Failures                                               
+2026-11-07T00:57:07.3886499Z ┌────────────────────────────────────┬───────────────────────────┬─────────────────┬──────────────┬────────────┐
+2026-11-07T00:57:07.3887536Z │  File                              │  Function                 │  Function Line  │  Error Line  │  Error     │
+2026-11-07T00:57:07.3888605Z ├────────────────────────────────────┼───────────────────────────┼─────────────────┼──────────────┼────────────┤
+2026-11-07T00:57:07.3889705Z │  tests\worker\test_interceptor.py  │  test_worker_interceptor  │  272            │  280         │  RPCError  │
+2026-11-07T00:57:07.3890921Z └────────────────────────────────────┴───────────────────────────┴─────────────────┴──────────────┴────────────┘
+2026-11-07T00:57:07.3891598Z Results (471.99s):
+2026-11-07T00:57:07.3891976Z          1 failed
+2026-11-07T00:57:07.3892443Z       1768 passed
+2026-11-07T00:57:07.3892811Z         44 skipped
+2026-11-07T00:57:07.3893276Z         37 warnings
+2026-11-07T00:57:07.9656127Z ##[error]Process completed with exit code 1.
+2026-11-07T00:57:08.0007929Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

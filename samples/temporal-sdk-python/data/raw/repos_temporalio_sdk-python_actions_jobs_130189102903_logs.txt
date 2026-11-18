@@ -1,0 +1,58 @@
+2026-11-10T22:56:52.0594275Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-10T22:56:54.3859445Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-10T22:56:54.4013446Z ##[group]Run : parse toolchain version
+2026-11-10T22:56:54.4237759Z ##[group]Run : construct rustup command line
+2026-11-10T22:56:54.4380949Z ##[group]Run : set $CARGO_HOME
+2026-11-10T22:56:54.4516120Z ##[group]Run : install rustup if needed
+2026-11-10T22:56:54.4660351Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-11-10T22:56:58.9889536Z ##[group]Run rustup default stable
+2026-11-10T22:56:59.0145388Z ##[group]Run : create cachekey
+2026-11-10T22:56:59.2008102Z ##[group]Run : disable incremental compilation
+2026-11-10T22:56:59.2122719Z ##[group]Run : enable colors in Cargo output
+2026-11-10T22:56:59.2234056Z ##[group]Run : enable Cargo sparse registry
+2026-11-10T22:56:59.2577638Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-10T22:56:59.2799888Z ##[group]Run rustc +stable --version --verbose
+2026-11-10T22:56:59.3115790Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-10T22:56:59.4786309Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-10T22:57:03.8411249Z Cache hit for restore-key: v0-rust-/opt/hostedtoolcache/Python/3.11.18/x64-check-protos-Linux-x64-51ccc61f-b8260d03
+2026-11-10T22:57:08.0083032Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.11.18/x64-check-protos-Linux-x64-51ccc61f-b8260d03" full match: false.
+2026-11-10T22:57:08.0571830Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-10T22:57:13.2856025Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-10T22:57:15.2450144Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.11.18-pruned-8d91f8e9c03a188a1055ea8c6ce818ec140b25e2849730b3804f72159d860244
+2026-11-10T22:57:15.3068910Z No GitHub Actions cache found for key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.11.18-pruned-8d91f8e9c03a188a1055ea8c6ce818ec140b25e2849730b3804f72159d860244
+2026-11-10T22:57:15.3689472Z ##[group]Run uv tool install poethepoet
+2026-11-10T22:57:16.3198056Z Installed 2 packages in 57ms
+2026-11-10T22:57:16.3603708Z ##[group]Run uv sync --all-extras
+2026-11-10T22:57:22.7442246Z Installed 222 packages in 841ms
+2026-11-10T22:57:22.7595019Z ##[group]Run cargo install --locked nexgen --version 0.2.8 --features advanced --force
+2026-11-10T22:59:11.1407071Z ##[group]Run poe build-develop
+2026-11-10T22:59:14.9457843Z Installed 2 packages in 14ms
+2026-11-10T23:01:08.7093053Z ##[group]Run poe gen-protos
+2026-11-10T23:01:08.8119239Z Installed 1 package in 1ms
+2026-11-10T23:01:09.3362027Z Installed 7 packages in 6ms
+2026-11-10T23:01:13.2545223Z ##[group]Run [[ -z $(git status --porcelain temporalio tests) ]] || (git diff temporalio tests; echo "Protos changed"; exit 1)
+2026-11-10T23:01:13.3391253Z ##[group]Run uv add --dev --python 3.11 "googleapis-common-protos==1.70.0"
+2026-11-10T23:01:14.4227886Z Installed 1 package in 2ms
+2026-11-10T23:01:14.4359438Z ##[group]Run uv add --python 3.11 "protobuf==4.21.12"
+2026-11-10T23:01:16.2642851Z Installed 1 package in 1ms
+2026-11-10T23:01:16.2757555Z ##[group]Run uv sync --all-extras
+2026-11-10T23:01:16.6295674Z Installed 3 packages in 17ms
+2026-11-10T23:01:16.7294319Z ##[group]Run poe build-develop
+2026-11-10T23:01:17.3155046Z Installed 2 packages in 14ms
+2026-11-10T23:01:44.4436634Z ##[group]Run poe test -s
+2026-11-10T23:01:44.5511098Z Installed 1 package in 1ms
+2026-11-10T23:08:57.3487925Z ======================================================= FAILURES =======================================================
+2026-11-10T23:08:57.3488975Z __________________________________ test_worker_storage_drivers_populated_from_client ___________________________________
+2026-11-10T23:08:57.3514735Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-11-10T23:08:57.3626024Z                                                   Summary of Failures                                                   
+2026-11-10T23:08:57.3626887Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+2026-11-10T23:08:57.3627500Z ┃  File                           ┃  Function                              ┃  Function Line  ┃  Error Line  ┃  Error   ┃
+2026-11-10T23:08:57.3628177Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+2026-11-10T23:08:57.3629461Z │  tests/worker/test_extstore.py  │  test_worker_storage_drivers_populat…  │  791            │  529         │  Failed  │
+2026-11-10T23:08:57.3630618Z └─────────────────────────────────┴────────────────────────────────────────┴─────────────────┴──────────────┴──────────┘
+2026-11-10T23:08:57.3631252Z Results (429.54s):
+2026-11-10T23:08:57.3631580Z          1 failed
+2026-11-10T23:08:57.3631903Z       1830 passed
+2026-11-10T23:08:57.3632240Z          8 skipped
+2026-11-10T23:08:57.3632579Z         35 warnings
+2026-11-10T23:08:57.6239170Z ##[error]Process completed with exit code 1.

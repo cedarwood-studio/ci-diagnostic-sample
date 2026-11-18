@@ -1,0 +1,10 @@
+2026-11-09T17:41:29.5049340Z ##[group]Run actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+2026-11-09T17:41:32.8501397Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-09T17:41:32.9567681Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-09T17:41:33.8856600Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.14.10-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-09T17:41:34.0250888Z No GitHub Actions cache found for key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-26.04-3.14.10-pruned-021015889df4caf2562a4ff676219d84665b4ce8ee03ec9c438c094c8e98e9d9
+2026-11-09T17:41:34.0890333Z ##[group]Run uv sync --all-extras
+2026-11-09T17:41:36.5017142Z Installed 221 packages in 927ms
+2026-11-09T17:41:36.5173346Z ##[group]Run uv run cibuildwheel --output-dir dist
+2026-11-09T17:50:35.2396975Z ##[group]Run ./.github/actions/alpine-package-smoke
+2026-11-09T17:50:35.2455502Z ##[group]Run set -euo pipefail

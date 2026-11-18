@@ -1,0 +1,50 @@
+2026-10-14T17:03:07.3073008Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-14T17:03:10.7771196Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-14T17:03:10.7909117Z ##[group]Run : parse toolchain version
+2026-10-14T17:03:10.8465494Z ##[group]Run : construct rustup command line
+2026-10-14T17:03:10.8660702Z ##[group]Run : set $CARGO_HOME
+2026-10-14T17:03:10.8851125Z ##[group]Run : install rustup if needed
+2026-10-14T17:03:10.9048604Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-10-14T17:03:11.2403983Z ##[group]Run rustup default stable
+2026-10-14T17:03:11.2763058Z ##[group]Run : create cachekey
+2026-10-14T17:03:11.3265174Z ##[group]Run : disable incremental compilation
+2026-10-14T17:03:11.3460136Z ##[group]Run : enable colors in Cargo output
+2026-10-14T17:03:11.3709211Z ##[group]Run : enable Cargo sparse registry
+2026-10-14T17:03:11.4170125Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-14T17:03:11.4491097Z ##[group]Run rustc +stable --version --verbose
+2026-10-14T17:03:11.4889089Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-14T17:03:11.6553690Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-14T17:03:12.5387212Z No cache found.
+2026-10-14T17:03:12.5596636Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-14T17:03:18.2775427Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-14T17:03:20.0143392Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.8-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-14T17:03:20.2498660Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.8-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-14T17:03:21.6942441Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.8-pruned-4f1a5ff540a29caf20dafd7eb486dd831d99e4a4da19f0148f260453f6f72997
+2026-10-14T17:03:21.7584230Z ##[group]Run uv tool install poethepoet
+2026-10-14T17:03:21.8873725Z Installed 3 packages in 3ms
+2026-10-14T17:03:21.8922466Z ##[group]Run uv sync --all-extras
+2026-10-14T17:03:24.5274386Z Installed 222 packages in 521ms
+2026-10-14T17:03:24.5511287Z ##[group]Run poe build-develop
+2026-10-14T17:03:30.0048904Z Installed 1 package in 44ms
+2026-10-14T17:05:40.1821186Z ##[group]Run cert_dir="$RUNNER_TEMP/cloud-test-certs"
+2026-10-14T17:05:40.5760081Z ##[group]Run uv run python .github/scripts/cloud_namespace.py create
+2026-10-14T17:06:32.8932624Z ##[group]Run mkdir junit-xml
+2026-10-14T17:06:32.9149787Z ##[group]Run poe test -s --workflow-environment envconfig --junit-xml=junit-xml/cloud.xml
+2026-10-14T17:14:54.5990907Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-10-14T17:14:56.4014092Z ======================================================= FAILURES =======================================================
+2026-10-14T17:14:56.4015207Z ____________________________________ test_connect_timeout_allows_healthy_connection ____________________________________
+2026-10-14T17:14:56.4040849Z E       RuntimeError: Failed client connect: `get_system_info` call error after connection: Status { code: Unknown, message: "transport error", source: Some(tonic::transport::Error(Transport, hyper::Error(Io, Kind(ConnectionReset)))) }
+2026-10-14T17:14:56.4153579Z                                                   Summary of Failures                                                   
+2026-10-14T17:14:56.4154790Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
+2026-10-14T17:14:56.4155824Z ┃  File                   ┃  Function                                ┃  Function Line  ┃  Error Line  ┃  Error         ┃
+2026-10-14T17:14:56.4156983Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━┩
+2026-10-14T17:14:56.4158375Z │  tests/test_service.py  │  test_connect_timeout_allows_healthy_c…  │  383            │  384         │  RuntimeError  │
+2026-10-14T17:14:56.4159236Z └─────────────────────────┴──────────────────────────────────────────┴─────────────────┴──────────────┴────────────────┘
+2026-10-14T17:14:56.4159662Z Results (498.74s):
+2026-10-14T17:14:56.4159887Z          1 failed
+2026-10-14T17:14:56.4160088Z       1173 passed
+2026-10-14T17:14:56.4160295Z        317 skipped
+2026-10-14T17:14:56.4160493Z         33 warnings
+2026-10-14T17:14:56.9061496Z ##[error]Process completed with exit code 1.
+2026-10-14T17:14:56.9112817Z ##[group]Run uv run python .github/scripts/cloud_namespace.py delete "sdk-python-ci-38603306043-1.tb3he"
+2026-10-14T17:15:07.8557198Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

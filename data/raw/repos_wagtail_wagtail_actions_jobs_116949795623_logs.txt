@@ -1,0 +1,14 @@
+2026-10-16T11:28:26.8515312Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-26.04-3.13.16-f6d71688f6e9332d63321d0f91051c7ad87055c617cb0cce404e1b573f190a0b
+2026-10-16T11:28:27.0127378Z Cache hit for: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-26.04-3.13.16-f6d71688f6e9332d63321d0f91051c7ad87055c617cb0cce404e1b573f190a0b
+2026-10-16T11:28:29.9814784Z cache restored from GitHub Actions cache with key: setup-uv-2-aarch64-unknown-linux-gnu-ubuntu-26.04-3.13.16-f6d71688f6e9332d63321d0f91051c7ad87055c617cb0cce404e1b573f190a0b
+2026-10-16T11:28:34.0250349Z Installed 138 packages in 759ms
+2026-10-16T11:28:35.7789113Z Installed 1 package in 0.57ms
+2026-10-16T11:28:36.5475189Z Installed 1 package in 262ms
+2026-10-16T11:50:01.7951418Z FAIL: test_status_in_progress_payload_shape_per_caller (wagtail.api.v3.tests.test_page_workflow.TestPageWorkflowReads.test_status_in_progress_payload_shape_per_caller)
+2026-10-16T11:50:01.7965413Z FAIL: test_reject_records_comment_and_requests_changes (wagtail.api.v3.tests.test_page_workflow.TestPageWorkflowTransitions.test_reject_records_comment_and_requests_changes)
+2026-10-16T11:50:01.7971499Z FAIL: test_submit_returns_workflow_status (wagtail.api.v3.tests.test_page_workflow.TestPageWorkflowTransitions.test_submit_returns_workflow_status)
+2026-10-16T11:50:01.7978053Z FAIL: test_status_in_progress_payload_shape_per_caller (wagtail.snippets.tests.test_api_v3.test_workflow.TestSnippetWorkflowReads.test_status_in_progress_payload_shape_per_caller)
+2026-10-16T11:50:01.7985091Z FAIL: test_reject_records_comment_and_requests_changes (wagtail.snippets.tests.test_api_v3.test_workflow.TestSnippetWorkflowTransitions.test_reject_records_comment_and_requests_changes)
+2026-10-16T11:50:01.7991008Z FAIL: test_submit_returns_workflow_status (wagtail.snippets.tests.test_api_v3.test_workflow.TestSnippetWorkflowTransitions.test_submit_returns_workflow_status)
+2026-10-16T11:50:01.7997282Z Ran 7710 tests in 1192.938s
+2026-10-16T11:50:01.7997603Z FAILED (failures=6, skipped=50, expected failures=10)

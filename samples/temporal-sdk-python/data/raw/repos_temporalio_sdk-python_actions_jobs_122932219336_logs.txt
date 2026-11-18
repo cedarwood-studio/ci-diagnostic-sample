@@ -1,0 +1,39 @@
+2026-10-28T15:57:44.2860817Z ##[group]Run echo head_ref: "$GITHUB_HEAD_REF", ref: "$GITHUB_REF", python sdk version: "$INPUT_VERSION"
+2026-10-28T15:57:44.3202253Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-28T15:57:46.3897527Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-28T15:57:53.3479952Z ##[group]Run actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c
+2026-10-28T15:57:54.3104518Z ##[group]Run actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+2026-10-28T15:58:00.9177632Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-28T15:58:02.1822741Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-bbffe26250e8e1bc223363af21d13ebfd2750aa866eedf021955bb06ea1a3a46
+2026-10-28T15:58:02.3898782Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-bbffe26250e8e1bc223363af21d13ebfd2750aa866eedf021955bb06ea1a3a46
+2026-10-28T15:58:03.2652808Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-bbffe26250e8e1bc223363af21d13ebfd2750aa866eedf021955bb06ea1a3a46
+2026-10-28T15:58:03.3357690Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-28T15:58:09.6965197Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-28T15:58:09.7082872Z ##[group]Run : parse toolchain version
+2026-10-28T15:58:09.7216417Z ##[group]Run : construct rustup command line
+2026-10-28T15:58:09.7320280Z ##[group]Run : set $CARGO_HOME
+2026-10-28T15:58:09.7417330Z ##[group]Run : install rustup if needed
+2026-10-28T15:58:09.7539829Z ##[group]Run rustup toolchain install stable --profile minimal --no-self-update
+2026-10-28T15:58:10.1842972Z ##[group]Run rustup default stable
+2026-10-28T15:58:10.2083787Z ##[group]Run : create cachekey
+2026-10-28T15:58:10.2734265Z ##[group]Run : disable incremental compilation
+2026-10-28T15:58:10.2827852Z ##[group]Run : enable colors in Cargo output
+2026-10-28T15:58:10.2922605Z ##[group]Run : enable Cargo sparse registry
+2026-10-28T15:58:10.3309072Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-28T15:58:10.3538020Z ##[group]Run rustc +stable --version --verbose
+2026-10-28T15:58:10.3828941Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-28T15:58:14.7022688Z Cache hit for: v0-rust-test-Linux-x64-51ccc61f-cc8c287a
+2026-10-28T15:58:16.9128279Z Restored from cache key "v0-rust-test-Linux-x64-51ccc61f-cc8c287a" full match: true.
+2026-10-28T15:58:16.9429806Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-28T15:58:17.5773821Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-bbffe26250e8e1bc223363af21d13ebfd2750aa866eedf021955bb06ea1a3a46
+2026-10-28T15:58:17.8009690Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-bbffe26250e8e1bc223363af21d13ebfd2750aa866eedf021955bb06ea1a3a46
+2026-10-28T15:58:18.6860392Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.10.22-pruned-bbffe26250e8e1bc223363af21d13ebfd2750aa866eedf021955bb06ea1a3a46
+2026-10-28T15:58:18.7513461Z ##[group]Run uv sync
+2026-10-28T15:58:21.0102643Z Installed 164 packages in 378ms
+2026-10-28T15:58:21.0315856Z ##[group]Run uv build
+2026-10-28T16:05:02.8052773Z ##[group]Run echo "=== All container logs ==="
+2026-10-28T16:05:03.1604886Z ##[group]Run if [ "$INPUT_VERSION_IS_REPO_REF" = "true" ]; then
+2026-10-28T16:05:54.0505776Z Installed 7 packages in 29ms
+2026-10-28T16:05:54.6660890Z Installed 1 package in 0.59ms
+2026-10-28T16:05:54.9728704Z Installed 6 packages in 26ms
+2026-10-28T16:06:27.0252663Z ##[error]Process completed with exit code 1.

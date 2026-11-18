@@ -1,0 +1,42 @@
+2026-11-07T00:46:01.2685090Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-11-07T00:46:08.4432880Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-11-07T00:46:08.4535260Z ##[group]Run : parse toolchain version
+2026-11-07T00:46:08.5151730Z ##[group]Run : construct rustup command line
+2026-11-07T00:46:08.5700070Z ##[group]Run : set $CARGO_HOME
+2026-11-07T00:46:08.6157760Z ##[group]Run : install rustup if needed
+2026-11-07T00:46:08.6722750Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-11-07T00:46:09.5965270Z ##[group]Run rustup default stable
+2026-11-07T00:46:09.7077500Z ##[group]Run : create cachekey
+2026-11-07T00:46:09.8682280Z ##[group]Run : disable incremental compilation
+2026-11-07T00:46:09.9306710Z ##[group]Run : enable colors in Cargo output
+2026-11-07T00:46:09.9807780Z ##[group]Run : enable Cargo sparse registry
+2026-11-07T00:46:10.1493410Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-11-07T00:46:10.2418320Z ##[group]Run rustc +stable --version --verbose
+2026-11-07T00:46:10.3319260Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-07T00:46:10.5846810Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-11-07T00:46:11.6226990Z No cache found.
+2026-11-07T00:46:11.6314940Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-11-07T00:46:17.3602380Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-11-07T00:46:18.9791950Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-aarch64-apple-darwin-macos-16-3.11.9-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-07T00:46:19.1877250Z No GitHub Actions cache found for key: setup-uv-2-aarch64-apple-darwin-macos-16-3.11.9-pruned-09235939a7125bed594d0f9c42d4f2041d6a22b91d90ca0a48fb62aa1cd6b78e
+2026-11-07T00:46:19.2651530Z ##[group]Run uv tool install poethepoet
+2026-11-07T00:46:19.7089190Z Installed 2 packages in 22ms
+2026-11-07T00:46:19.7443610Z ##[group]Run uv sync --all-extras
+2026-11-07T00:46:28.6526970Z Installed 220 packages in 865ms
+2026-11-07T00:46:28.6988450Z ##[group]Run poe build-develop
+2026-11-07T00:46:42.7592600Z Installed 2 packages in 17ms
+2026-11-07T00:50:10.2897680Z ##[group]Run poe lint
+2026-11-07T00:50:10.9464860Z Installed 1 package in 3ms
+2026-11-07T00:51:42.3490210Z ##[group]Run mkdir junit-xml
+2026-11-07T00:51:42.5238460Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.11--macos-arm.xml
+2026-11-07T00:57:48.7858910Z Results (362.15s):
+2026-11-07T00:57:48.7859140Z       1806 passed
+2026-11-07T00:57:48.7859390Z         12 skipped
+2026-11-07T00:57:48.7859630Z         37 warnings
+2026-11-07T00:57:49.2089630Z ##[group]Run poe test  -s --workflow-environment time-skipping-v2 --junit-xml=junit-xml/3.11--macos-arm--time-skipping-v2.xml
+2026-11-07T01:02:45.6747440Z Results (294.58s):
+2026-11-07T01:02:45.6747690Z       1776 passed
+2026-11-07T01:02:45.6748320Z         42 skipped
+2026-11-07T01:02:45.6748550Z         37 warnings
+2026-11-07T01:02:46.4112390Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-07T01:02:48.3390150Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020

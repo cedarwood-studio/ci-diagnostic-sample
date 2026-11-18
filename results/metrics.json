@@ -1,0 +1,2109 @@
+{
+  "caches": {
+    "entries": 31,
+    "entries_bytes": 5926943651,
+    "entries_never_read": 13,
+    "entries_never_read_on_pr": 11,
+    "entries_on_default_branch": 8,
+    "hit_rate": 0.9038461538461539,
+    "install_median_s": 6.0,
+    "install_p90_s": 21.0,
+    "logs_read": 260,
+    "outcome": {
+      "hit": 235,
+      "miss": 25
+    },
+    "sample_first": "2026-10-21T07:10:33Z",
+    "sample_last": "2026-11-10T10:33:03Z",
+    "sample_runs": 20
+  },
+  "circleci": {
+    "failed_runs": 8,
+    "jobs": [
+      {
+        "failed": 7,
+        "job": "backend",
+        "median_s": 498,
+        "p95_s": 567,
+        "runs": 163
+      },
+      {
+        "failed": 0,
+        "job": "frontend",
+        "median_s": 222,
+        "p95_s": 262,
+        "runs": 163
+      },
+      {
+        "failed": 2,
+        "job": "ui_tests",
+        "median_s": 169,
+        "p95_s": 204,
+        "runs": 164
+      }
+    ],
+    "median_s": 499,
+    "orbs": [
+      {
+        "orb": "codecov/codecov@6.1.0",
+        "pin": "exact"
+      }
+    ],
+    "orbs_floating": [],
+    "p95_s": 568,
+    "success_rate": 0.9512195122,
+    "total_runs": 164,
+    "window_end": "2026-11-10T11:13:47.695Z",
+    "window_start": "2026-08-13T01:33:22.247Z",
+    "workflow": "test"
+  },
+  "config": {
+    "as_of": "2026-11-12",
+    "branch": "main",
+    "circleci": {
+      "slug": "gh/wagtail/wagtail",
+      "workflow": "test"
+    },
+    "fix": {
+      "arms": [
+        {
+          "branch": "ci-diagnostic/baseline",
+          "label": "before",
+          "run_ids": [
+            43140086233,
+            43144886309,
+            43149624894
+          ]
+        },
+        {
+          "branch": "ci-diagnostic/mysql-parallel",
+          "label": "after",
+          "run_ids": [
+            43136329875,
+            43138170661,
+            43143129291,
+            43147850222
+          ]
+        }
+      ],
+      "probe": {
+        "branch": "ci-diagnostic/coverage-off-probe",
+        "job_prefix": "test-mysql",
+        "label": "probe",
+        "run_ids": [
+          43152857357
+        ]
+      },
+      "repo": "cedarwood-studio/wagtail",
+      "workflow": "ci-diagnostic.yml"
+    },
+    "log_run_count": 20,
+    "main_run_count": 100,
+    "repo": "wagtail/wagtail",
+    "window_since": "2026-10-12",
+    "window_until": "2026-11-10",
+    "workflow": "test.yml",
+    "workflow_name": "Wagtail CI",
+    "workflow_ref": "030168a7dc42d5450c4cfbac3c68881b63b2d466"
+  },
+  "fix": {
+    "after_longest": {
+      "job": "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...",
+      "median_s": 888.5
+    },
+    "arms": {
+      "after": {
+        "all_success": true,
+        "branch": "ci-diagnostic/mysql-parallel",
+        "jobs": {
+          "coverage": {
+            "finished_last": 0,
+            "job": "coverage",
+            "median_s": 34.0,
+            "p90_s": 34.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-mysql (3.12, Django>=5.2,<5.3, false, --parallel)": {
+            "finished_last": 0,
+            "job": "test-mysql (3.12, Django>=5.2,<5.3, false, --parallel)",
+            "median_s": 573.0,
+            "p90_s": 607.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6, --parallel)": {
+            "finished_last": 0,
+            "job": "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6, --parallel)",
+            "median_s": 522.5,
+            "p90_s": 587.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser, --parallel)": {
+            "finished_last": 0,
+            "job": "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser, --parallel)",
+            "median_s": 548.5,
+            "p90_s": 557.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)": {
+            "finished_last": 1,
+            "job": "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)",
+            "median_s": 874.5,
+            "p90_s": 909.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)": {
+            "finished_last": 0,
+            "job": "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)",
+            "median_s": 493.0,
+            "p90_s": 524.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...": {
+            "finished_last": 3,
+            "job": "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...",
+            "median_s": 888.5,
+            "p90_s": 901.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)": {
+            "finished_last": 0,
+            "job": "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)",
+            "median_s": 406.0,
+            "p90_s": 521.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...": {
+            "finished_last": 0,
+            "job": "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...",
+            "median_s": 438.5,
+            "p90_s": 531.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)": {
+            "finished_last": 0,
+            "job": "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)",
+            "median_s": 261.0,
+            "p90_s": 281.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)": {
+            "finished_last": 0,
+            "job": "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)",
+            "median_s": 311.0,
+            "p90_s": 324.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)": {
+            "finished_last": 0,
+            "job": "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)",
+            "median_s": 188.0,
+            "p90_s": 196.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          },
+          "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)": {
+            "finished_last": 0,
+            "job": "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)",
+            "median_s": 181.0,
+            "p90_s": 253.0,
+            "queue_median_s": 4.5,
+            "runs": 4
+          },
+          "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)": {
+            "finished_last": 0,
+            "job": "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)",
+            "median_s": 219.5,
+            "p90_s": 230.0,
+            "queue_median_s": 4.0,
+            "runs": 4
+          }
+        },
+        "n": 4,
+        "runs": [
+          {
+            "billed_min": 112,
+            "conclusion": "success",
+            "created_at": "2026-11-12T01:42:17Z",
+            "queue_max_s": 4.0,
+            "run_id": 43136329875,
+            "runner_s": 6332.0,
+            "sha": "2cc4436f3640e766da6aea946981ff828e230d7f",
+            "url": "https://github.com/cedarwood-studio/wagtail/actions/runs/43136329875",
+            "wall_s": 941.0
+          },
+          {
+            "billed_min": 106,
+            "conclusion": "success",
+            "created_at": "2026-11-12T01:58:48Z",
+            "queue_max_s": 5.0,
+            "run_id": 43138170661,
+            "runner_s": 5832.0,
+            "sha": "2cc4436f3640e766da6aea946981ff828e230d7f",
+            "url": "https://github.com/cedarwood-studio/wagtail/actions/runs/43138170661",
+            "wall_s": 952.0
+          },
+          {
+            "billed_min": 104,
+            "conclusion": "success",
+            "created_at": "2026-11-12T02:41:22Z",
+            "queue_max_s": 7.0,
+            "run_id": 43143129291,
+            "runner_s": 5755.0,
+            "sha": "2cc4436f3640e766da6aea946981ff828e230d7f",
+            "url": "https://github.com/cedarwood-studio/wagtail/actions/runs/43143129291",
+            "wall_s": 926.0
+          },
+          {
+            "billed_min": 105,
+            "conclusion": "success",
+            "created_at": "2026-11-12T03:23:12Z",
+            "queue_max_s": 5.0,
+            "run_id": 43147850222,
+            "runner_s": 5899.0,
+            "sha": "2cc4436f3640e766da6aea946981ff828e230d7f",
+            "url": "https://github.com/cedarwood-studio/wagtail/actions/runs/43147850222",
+            "wall_s": 936.0
+          }
+        ],
+        "summary": {
+          "billed_median_min": 105.5,
+          "billed_total_min": 427,
+          "conclusions": {
+            "success": 4
+          },
+          "first_run": "2026-11-12T01:42:17Z",
+          "last_run": "2026-11-12T03:23:12Z",
+          "runner_median_s": 5865.5,
+          "runs_total": 4,
+          "runs_with_verdict": 4,
+          "wall_max_s": 952.0,
+          "wall_median_s": 938.5,
+          "wall_median_success_s": 938.5,
+          "wall_min_s": 926.0,
+          "wall_p90_s": 952.0
+        },
+        "tests_ran": {
+          "test-mysql (3.12, Django>=5.2,<5.3, false, --parallel)": [
+            7981
+          ],
+          "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6, --parallel)": [
+            7981
+          ],
+          "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser, --parallel)": [
+            7981
+          ],
+          "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)": [
+            7981
+          ],
+          "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)": [
+            7981
+          ],
+          "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...": [
+            7981
+          ],
+          "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)": [
+            7981
+          ],
+          "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...": [
+            7981
+          ],
+          "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)": [
+            1082
+          ],
+          "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)": [
+            7981
+          ],
+          "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)": [
+            7981
+          ],
+          "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)": [
+            1082
+          ],
+          "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)": [
+            1082
+          ]
+        }
+      },
+      "before": {
+        "all_success": true,
+        "branch": "ci-diagnostic/baseline",
+        "jobs": {
+          "coverage": {
+            "finished_last": 0,
+            "job": "coverage",
+            "median_s": 30.0,
+            "p90_s": 31.0,
+            "queue_median_s": 4.0,
+            "runs": 3
+          },
+          "test-mysql (3.12, Django>=5.2,<5.3, false)": {
+            "finished_last": 3,
+            "job": "test-mysql (3.12, Django>=5.2,<5.3, false)",
+            "median_s": 1467.0,
+            "p90_s": 1495.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6)": {
+            "finished_last": 0,
+            "job": "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6)",
+            "median_s": 1171.0,
+            "p90_s": 1190.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)": {
+            "finished_last": 0,
+            "job": "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)",
+            "median_s": 1278.0,
+            "p90_s": 1345.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)": {
+            "finished_last": 0,
+            "job": "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)",
+            "median_s": 881.0,
+            "p90_s": 886.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)": {
+            "finished_last": 0,
+            "job": "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)",
+            "median_s": 513.0,
+            "p90_s": 579.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...": {
+            "finished_last": 0,
+            "job": "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...",
+            "median_s": 924.0,
+            "p90_s": 1039.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)": {
+            "finished_last": 0,
+            "job": "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)",
+            "median_s": 417.0,
+            "p90_s": 486.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...": {
+            "finished_last": 0,
+            "job": "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...",
+            "median_s": 403.0,
+            "p90_s": 491.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)": {
+            "finished_last": 0,
+            "job": "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)",
+            "median_s": 251.0,
+            "p90_s": 259.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)": {
+            "finished_last": 0,
+            "job": "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)",
+            "median_s": 316.0,
+            "p90_s": 329.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)": {
+            "finished_last": 0,
+            "job": "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)",
+            "median_s": 188.0,
+            "p90_s": 189.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          },
+          "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)": {
+            "finished_last": 0,
+            "job": "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)",
+            "median_s": 182.0,
+            "p90_s": 231.0,
+            "queue_median_s": 4.0,
+            "runs": 3
+          },
+          "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)": {
+            "finished_last": 0,
+            "job": "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)",
+            "median_s": 214.0,
+            "p90_s": 217.0,
+            "queue_median_s": 5.0,
+            "runs": 3
+          }
+        },
+        "n": 3,
+        "runs": [
+          {
+            "billed_min": 151,
+            "conclusion": "success",
+            "created_at": "2026-11-12T02:15:10Z",
+            "queue_max_s": 6.0,
+            "run_id": 43140086233,
+            "runner_s": 8606.0,
+            "sha": "106923cde49d39ec3ec2e1074124269a77ded370",
+            "url": "https://github.com/cedarwood-studio/wagtail/actions/runs/43140086233",
+            "wall_s": 1534.0
+          },
+          {
+            "billed_min": 146,
+            "conclusion": "success",
+            "created_at": "2026-11-12T02:57:15Z",
+            "queue_max_s": 4.0,
+            "run_id": 43144886309,
+            "runner_s": 8312.0,
+            "sha": "106923cde49d39ec3ec2e1074124269a77ded370",
+            "url": "https://github.com/cedarwood-studio/wagtail/actions/runs/43144886309",
+            "wall_s": 1507.0
+          },
+          {
+            "billed_min": 144,
+            "conclusion": "success",
+            "created_at": "2026-11-12T03:39:05Z",
+            "queue_max_s": 5.0,
+            "run_id": 43149624894,
+            "runner_s": 8149.0,
+            "sha": "106923cde49d39ec3ec2e1074124269a77ded370",
+            "url": "https://github.com/cedarwood-studio/wagtail/actions/runs/43149624894",
+            "wall_s": 1435.0
+          }
+        ],
+        "summary": {
+          "billed_median_min": 146,
+          "billed_total_min": 441,
+          "conclusions": {
+            "success": 3
+          },
+          "first_run": "2026-11-12T02:15:10Z",
+          "last_run": "2026-11-12T03:39:05Z",
+          "runner_median_s": 8312.0,
+          "runs_total": 3,
+          "runs_with_verdict": 3,
+          "wall_max_s": 1534.0,
+          "wall_median_s": 1507.0,
+          "wall_median_success_s": 1507.0,
+          "wall_min_s": 1435.0,
+          "wall_p90_s": 1534.0
+        },
+        "tests_ran": {
+          "test-mysql (3.12, Django>=5.2,<5.3, false)": [
+            7981
+          ],
+          "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6)": [
+            7981
+          ],
+          "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)": [
+            7981
+          ],
+          "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)": [
+            7981
+          ],
+          "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)": [
+            7981
+          ],
+          "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...": [
+            7981
+          ],
+          "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)": [
+            7981
+          ],
+          "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...": [
+            7981
+          ],
+          "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)": [
+            1082
+          ],
+          "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)": [
+            7981
+          ],
+          "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)": [
+            7981
+          ],
+          "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)": [
+            1082
+          ],
+          "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)": [
+            1082
+          ]
+        }
+      }
+    },
+    "billed_saved_min": 40.5,
+    "billed_saved_share": 0.2773972602739726,
+    "job_rows": [
+      {
+        "after_s": 573.0,
+        "before_s": 1467.0,
+        "changed": true,
+        "job": "test-mysql (3.12, Django>=5.2,<5.3, false)",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 548.5,
+        "before_s": 1278.0,
+        "changed": true,
+        "job": "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 522.5,
+        "before_s": 1171.0,
+        "changed": true,
+        "job": "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6)",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 888.5,
+        "before_s": 924.0,
+        "changed": false,
+        "job": "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 874.5,
+        "before_s": 881.0,
+        "changed": false,
+        "job": "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 493.0,
+        "before_s": 513.0,
+        "changed": false,
+        "job": "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 406.0,
+        "before_s": 417.0,
+        "changed": false,
+        "job": "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 438.5,
+        "before_s": 403.0,
+        "changed": false,
+        "job": "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 311.0,
+        "before_s": 316.0,
+        "changed": false,
+        "job": "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 261.0,
+        "before_s": 251.0,
+        "changed": false,
+        "job": "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)",
+        "tests_after": [
+          1082
+        ],
+        "tests_before": [
+          1082
+        ]
+      },
+      {
+        "after_s": 219.5,
+        "before_s": 214.0,
+        "changed": false,
+        "job": "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)",
+        "tests_after": [
+          1082
+        ],
+        "tests_before": [
+          1082
+        ]
+      },
+      {
+        "after_s": 188.0,
+        "before_s": 188.0,
+        "changed": false,
+        "job": "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)",
+        "tests_after": [
+          7981
+        ],
+        "tests_before": [
+          7981
+        ]
+      },
+      {
+        "after_s": 181.0,
+        "before_s": 182.0,
+        "changed": false,
+        "job": "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)",
+        "tests_after": [
+          1082
+        ],
+        "tests_before": [
+          1082
+        ]
+      },
+      {
+        "after_s": 34.0,
+        "before_s": 30.0,
+        "changed": false,
+        "job": "coverage",
+        "tests_after": null,
+        "tests_before": null
+      }
+    ],
+    "probe": {
+      "branch": "ci-diagnostic/coverage-off-probe",
+      "conclusion": "success",
+      "rows": [
+        {
+          "change": -0.36122971818958155,
+          "conclusion": "success",
+          "job": "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6)",
+          "tests_ran": 7981,
+          "with_coverage_s": 1171.0,
+          "without_coverage_s": 748.0
+        },
+        {
+          "change": -0.3258350374914792,
+          "conclusion": "success",
+          "job": "test-mysql (3.12, Django>=5.2,<5.3, false)",
+          "tests_ran": 7981,
+          "with_coverage_s": 1467.0,
+          "without_coverage_s": 989.0
+        },
+        {
+          "change": -0.25508607198748046,
+          "conclusion": "success",
+          "job": "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)",
+          "tests_ran": 7981,
+          "with_coverage_s": 1278.0,
+          "without_coverage_s": 952.0
+        },
+        {
+          "change": -0.014755959137343927,
+          "conclusion": "success",
+          "job": "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)",
+          "tests_ran": 7981,
+          "with_coverage_s": 881.0,
+          "without_coverage_s": 868.0
+        }
+      ],
+      "run_id": 43152857357,
+      "url": "https://github.com/cedarwood-studio/wagtail/actions/runs/43152857357"
+    },
+    "ranges_overlap": "don't overlap",
+    "repo": "cedarwood-studio/wagtail",
+    "runner_saved_s": 2446.5,
+    "tests_match": "Every job reported the same number of tests before and after.",
+    "wall_saved_s": 568.5,
+    "wall_saved_share": 0.37723954877239546
+  },
+  "main": {
+    "cancelled": {
+      "billed_min": 2014,
+      "runner_seconds": 109791.0,
+      "runs": 27
+    },
+    "current_matrix": {
+      "first_run": "2026-10-08T12:52:00Z",
+      "job_count": 14,
+      "jobs": [
+        {
+          "finished_last": 24,
+          "job": "test-mysql (3.12, Django>=5.2,<5.3, false)",
+          "median_s": 1324.5,
+          "p90_s": 1408.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 13,
+          "job": "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)",
+          "median_s": 1306.0,
+          "p90_s": 1379.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 1,
+          "job": "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6)",
+          "median_s": 1134.0,
+          "p90_s": 1186.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...",
+          "median_s": 873.5,
+          "p90_s": 923.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)",
+          "median_s": 837.0,
+          "p90_s": 870.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)",
+          "median_s": 490.0,
+          "p90_s": 529.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)",
+          "median_s": 404.0,
+          "p90_s": 438.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...",
+          "median_s": 397.0,
+          "p90_s": 486.0,
+          "queue_median_s": 6.0,
+          "runs": 37
+        },
+        {
+          "finished_last": 0,
+          "job": "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)",
+          "median_s": 306.5,
+          "p90_s": 325.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)",
+          "median_s": 253.5,
+          "p90_s": 278.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)",
+          "median_s": 222.0,
+          "p90_s": 238.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)",
+          "median_s": 190.0,
+          "p90_s": 202.0,
+          "queue_median_s": 6.0,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)",
+          "median_s": 180.0,
+          "p90_s": 262.0,
+          "queue_median_s": 5.5,
+          "runs": 38
+        },
+        {
+          "finished_last": 0,
+          "job": "coverage",
+          "median_s": 40.0,
+          "p90_s": 44.0,
+          "queue_median_s": 5.0,
+          "runs": 38
+        }
+      ],
+      "summary": {
+        "billed_median_min": 141.0,
+        "billed_total_min": 5334,
+        "conclusions": {
+          "success": 38
+        },
+        "first_run": "2026-10-08T12:52:00Z",
+        "last_run": "2026-11-10T10:33:03Z",
+        "runner_median_s": 8033.5,
+        "runs_total": 38,
+        "runs_with_verdict": 38,
+        "wall_max_s": 3701.0,
+        "wall_median_s": 1429.0,
+        "wall_median_success_s": 1429.0,
+        "wall_min_s": 1315.0,
+        "wall_p90_s": 1976.0
+      },
+      "test_job_count": 13,
+      "test_mysql_last": 38
+    },
+    "failed_runs": [
+      {
+        "created_at": "2026-10-15T09:41:21Z",
+        "run_id": 38714781082,
+        "url": "https://github.com/wagtail/wagtail/actions/runs/38714781082"
+      },
+      {
+        "created_at": "2026-09-28T16:01:22Z",
+        "run_id": 36447982968,
+        "url": "https://github.com/wagtail/wagtail/actions/runs/36447982968"
+      }
+    ],
+    "failing_jobs": [
+      {
+        "allowed": 0,
+        "failures": 4,
+        "job": "test-postgres",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 3,
+        "job": "test-sqlite",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 2,
+        "job": "test-mysql",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 1,
+        "failures": 1,
+        "job": "test-postgres",
+        "step": "Test project template",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 1,
+        "job": "test-postgres-elasticsearch7",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 1,
+        "job": "test-sqlite-opensearch2",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 1,
+        "job": "test-sqlite-elasticsearch8",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      }
+    ],
+    "jobs": [
+      {
+        "finished_last": 27,
+        "job": "test-mysql (3.11, Django>=5.2,<5.3, false)",
+        "median_s": 1342.0,
+        "p90_s": 1440.0,
+        "queue_median_s": 5.0,
+        "runs": 33
+      },
+      {
+        "finished_last": 24,
+        "job": "test-mysql (3.12, Django>=5.2,<5.3, false)",
+        "median_s": 1324.5,
+        "p90_s": 1408.0,
+        "queue_median_s": 6.0,
+        "runs": 38
+      },
+      {
+        "finished_last": 13,
+        "job": "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)",
+        "median_s": 1306.0,
+        "p90_s": 1379.0,
+        "queue_median_s": 6.0,
+        "runs": 38
+      },
+      {
+        "finished_last": 6,
+        "job": "test-mysql (3.12, Django>=6.0,<6.1, false, mysql:8.4, emailuser)",
+        "median_s": 1265.0,
+        "p90_s": 1319.0,
+        "queue_median_s": 6.0,
+        "runs": 33
+      },
+      {
+        "finished_last": 0,
+        "job": "test-mysql (3.12, Django>=6.1,<6.2, false, mariadb:11.4, yes)",
+        "median_s": 1228.0,
+        "p90_s": 1286.0,
+        "queue_median_s": 6.0,
+        "runs": 33
+      },
+      {
+        "finished_last": 1,
+        "job": "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6)",
+        "median_s": 1142.0,
+        "p90_s": 1191.0,
+        "queue_median_s": 6.0,
+        "runs": 71
+      },
+      {
+        "finished_last": 0,
+        "job": "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...",
+        "median_s": 870.0,
+        "p90_s": 912.0,
+        "queue_median_s": 6.0,
+        "runs": 71
+      },
+      {
+        "finished_last": 0,
+        "job": "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)",
+        "median_s": 837.0,
+        "p90_s": 870.0,
+        "queue_median_s": 6.0,
+        "runs": 38
+      },
+      {
+        "finished_last": 0,
+        "job": "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)",
+        "median_s": 499.0,
+        "p90_s": 535.0,
+        "queue_median_s": 6.0,
+        "runs": 71
+      },
+      {
+        "finished_last": 0,
+        "job": "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)",
+        "median_s": 404.0,
+        "p90_s": 438.0,
+        "queue_median_s": 6.0,
+        "runs": 38
+      },
+      {
+        "finished_last": 0,
+        "job": "test-postgres (3.14, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)",
+        "median_s": 402.0,
+        "p90_s": 429.0,
+        "queue_median_s": 6.0,
+        "runs": 33
+      },
+      {
+        "finished_last": 0,
+        "job": "test-postgres (3.14, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...",
+        "median_s": 401.0,
+        "p90_s": 430.0,
+        "queue_median_s": 6.0,
+        "runs": 33
+      },
+      {
+        "finished_last": 0,
+        "job": "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...",
+        "median_s": 397.0,
+        "p90_s": 486.0,
+        "queue_median_s": 6.0,
+        "runs": 37
+      },
+      {
+        "finished_last": 0,
+        "job": "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)",
+        "median_s": 306.0,
+        "p90_s": 319.0,
+        "queue_median_s": 6.0,
+        "runs": 71
+      },
+      {
+        "finished_last": 0,
+        "job": "test-sqlite (3.13, Django>=6.0,<6.1, yes, --parallel)",
+        "median_s": 306.0,
+        "p90_s": 320.0,
+        "queue_median_s": 6.0,
+        "runs": 33
+      },
+      {
+        "finished_last": 0,
+        "job": "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)",
+        "median_s": 259.0,
+        "p90_s": 278.0,
+        "queue_median_s": 6.0,
+        "runs": 71
+      },
+      {
+        "finished_last": 0,
+        "job": "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)",
+        "median_s": 222.0,
+        "p90_s": 238.0,
+        "queue_median_s": 6.0,
+        "runs": 38
+      },
+      {
+        "finished_last": 0,
+        "job": "test-sqlite-opensearch2 (3.11, Django>=5.2,<5.3, false)",
+        "median_s": 217.0,
+        "p90_s": 228.0,
+        "queue_median_s": 5.0,
+        "runs": 33
+      },
+      {
+        "finished_last": 0,
+        "job": "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)",
+        "median_s": 190.0,
+        "p90_s": 202.0,
+        "queue_median_s": 6.0,
+        "runs": 38
+      },
+      {
+        "finished_last": 0,
+        "job": "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)",
+        "median_s": 180.0,
+        "p90_s": 262.0,
+        "queue_median_s": 5.5,
+        "runs": 38
+      },
+      {
+        "finished_last": 0,
+        "job": "test-sqlite-elasticsearch8 (3.14, Django>=6.1,<6.2, emailuser)",
+        "median_s": 176.0,
+        "p90_s": 188.0,
+        "queue_median_s": 5.0,
+        "runs": 33
+      },
+      {
+        "finished_last": 0,
+        "job": "coverage",
+        "median_s": 39.0,
+        "p90_s": 43.0,
+        "queue_median_s": 5.0,
+        "runs": 71
+      }
+    ],
+    "python_pairs": [
+      {
+        "change": -0.3790849673202614,
+        "job": "test-sqlite (Django>=6.0,<6.1, yes, --parallel)",
+        "new_median_s": 190.0,
+        "new_python": "3.14",
+        "new_runs": 38,
+        "old_median_s": 306.0,
+        "old_python": "3.13",
+        "old_runs": 33
+      },
+      {
+        "change": -0.31840390879478825,
+        "job": "test-mysql (Django>=6.1,<6.2, false, mariadb:11.4, yes)",
+        "new_median_s": 837.0,
+        "new_python": "3.14",
+        "new_runs": 38,
+        "old_median_s": 1228.0,
+        "old_python": "3.12",
+        "old_runs": 33
+      },
+      {
+        "change": -0.013040238450074515,
+        "job": "test-mysql (Django>=5.2,<5.3, false)",
+        "new_median_s": 1324.5,
+        "new_python": "3.12",
+        "new_runs": 38,
+        "old_median_s": 1342.0,
+        "old_python": "3.11",
+        "old_runs": 33
+      },
+      {
+        "change": -0.00997506234413965,
+        "job": "test-postgres (git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...",
+        "new_median_s": 397.0,
+        "new_python": "3.15",
+        "new_runs": 37,
+        "old_median_s": 401.0,
+        "old_python": "3.14",
+        "old_runs": 33
+      },
+      {
+        "change": 0.004975124378109453,
+        "job": "test-postgres (Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)",
+        "new_median_s": 404.0,
+        "new_python": "3.15",
+        "new_runs": 38,
+        "old_median_s": 402.0,
+        "old_python": "3.14",
+        "old_runs": 33
+      },
+      {
+        "change": 0.022727272727272728,
+        "job": "test-sqlite-elasticsearch8 (Django>=6.1,<6.2, emailuser)",
+        "new_median_s": 180.0,
+        "new_python": "3.15",
+        "new_runs": 38,
+        "old_median_s": 176.0,
+        "old_python": "3.14",
+        "old_runs": 33
+      },
+      {
+        "change": 0.02304147465437788,
+        "job": "test-sqlite-opensearch2 (Django>=5.2,<5.3, false)",
+        "new_median_s": 222.0,
+        "new_python": "3.13",
+        "new_runs": 38,
+        "old_median_s": 217.0,
+        "old_python": "3.11",
+        "old_runs": 33
+      },
+      {
+        "change": 0.03241106719367589,
+        "job": "test-mysql (Django>=6.0,<6.1, false, mysql:8.4, emailuser)",
+        "new_median_s": 1306.0,
+        "new_python": "3.13",
+        "new_runs": 38,
+        "old_median_s": 1265.0,
+        "old_python": "3.12",
+        "old_runs": 33
+      }
+    ],
+    "queue": {
+      "max_s": 2522.0,
+      "median_s": 8.0,
+      "p90_s": 432.0,
+      "runs": 71,
+      "runs_over_threshold": 17,
+      "slowest_run": {
+        "queue_s": 2522.0,
+        "run_id": 37917837634,
+        "url": "https://github.com/wagtail/wagtail/actions/runs/37917837634",
+        "wall_s": 3701.0
+      },
+      "threshold_s": 60,
+      "wall_median_prompt_s": 1392.5,
+      "wall_median_waited_s": 1565.0
+    },
+    "step_test": {
+      "test-mysql (3.11, Django>=5.2,<5.3, false)": {
+        "max_s": 1483.0,
+        "median_s": 1296.0,
+        "n": 33,
+        "p90_s": 1389.0
+      },
+      "test-mysql (3.12, Django>=5.2,<5.3, false)": {
+        "max_s": 1486.0,
+        "median_s": 1278.5,
+        "n": 38,
+        "p90_s": 1364.0
+      },
+      "test-mysql (3.12, Django>=6.0,<6.1, false, mariadb:10.6)": {
+        "max_s": 1187.0,
+        "median_s": 1100.0,
+        "n": 74,
+        "p90_s": 1148.0
+      },
+      "test-mysql (3.12, Django>=6.0,<6.1, false, mysql:8.4, emailuser)": {
+        "max_s": 1309.0,
+        "median_s": 1225.0,
+        "n": 33,
+        "p90_s": 1268.0
+      },
+      "test-mysql (3.12, Django>=6.1,<6.2, false, mariadb:11.4, yes)": {
+        "max_s": 1247.0,
+        "median_s": 1188.0,
+        "n": 33,
+        "p90_s": 1244.0
+      },
+      "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)": {
+        "max_s": 1345.0,
+        "median_s": 1256.0,
+        "n": 38,
+        "p90_s": 1329.0
+      },
+      "test-mysql (3.14, Django>=6.1,<6.2, false, mariadb:11.4, yes)": {
+        "max_s": 857.0,
+        "median_s": 793.5,
+        "n": 44,
+        "p90_s": 827.0
+      },
+      "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)": {
+        "max_s": 507.0,
+        "median_s": 444.0,
+        "n": 81,
+        "p90_s": 475.0
+      },
+      "test-postgres (3.14, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)": {
+        "max_s": 387.0,
+        "median_s": 352.0,
+        "n": 33,
+        "p90_s": 379.0
+      },
+      "test-postgres (3.14, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...": {
+        "max_s": 367.0,
+        "median_s": 327.0,
+        "n": 33,
+        "p90_s": 356.0
+      },
+      "test-postgres (3.14, git+https://github.com/django/django.git@stable/6.1.x#egg=Django, psycopg>=3...": {
+        "max_s": 932.0,
+        "median_s": 795.0,
+        "n": 77,
+        "p90_s": 834.0
+      },
+      "test-postgres (3.15, Django>=6.1,<6.2, psycopg>=3.1.8, postgres:15, notz, false, --parallel)": {
+        "max_s": 383.0,
+        "median_s": 352.0,
+        "n": 47,
+        "p90_s": 377.0
+      },
+      "test-postgres (3.15, git+https://github.com/django/django.git@main#egg=Django, psycopg>=3.1.8, tr...": {
+        "max_s": 356.0,
+        "median_s": 322.0,
+        "n": 46,
+        "p90_s": 342.0
+      },
+      "test-postgres-elasticsearch7 (3.11, Django>=5.2,<5.3, false)": {
+        "max_s": 208.0,
+        "median_s": 194.0,
+        "n": 85,
+        "p90_s": 201.0
+      },
+      "test-sqlite (3.13, Django>=5.2,<5.3, 1, --parallel)": {
+        "max_s": 316.0,
+        "median_s": 287.0,
+        "n": 80,
+        "p90_s": 298.0
+      },
+      "test-sqlite (3.13, Django>=6.0,<6.1, yes, --parallel)": {
+        "max_s": 306.0,
+        "median_s": 286.0,
+        "n": 33,
+        "p90_s": 301.0
+      },
+      "test-sqlite (3.14, Django>=6.0,<6.1, yes, --parallel)": {
+        "max_s": 190.0,
+        "median_s": 167.0,
+        "n": 50,
+        "p90_s": 175.0
+      },
+      "test-sqlite-elasticsearch8 (3.14, Django>=6.1,<6.2, emailuser)": {
+        "max_s": 127.0,
+        "median_s": 111.5,
+        "n": 36,
+        "p90_s": 119.0
+      },
+      "test-sqlite-elasticsearch8 (3.15, Django>=6.1,<6.2, emailuser)": {
+        "max_s": 123.0,
+        "median_s": 108.0,
+        "n": 50,
+        "p90_s": 116.0
+      },
+      "test-sqlite-opensearch2 (3.11, Django>=5.2,<5.3, false)": {
+        "max_s": 182.0,
+        "median_s": 164.0,
+        "n": 36,
+        "p90_s": 176.0
+      },
+      "test-sqlite-opensearch2 (3.13, Django>=5.2,<5.3, false)": {
+        "max_s": 189.0,
+        "median_s": 168.5,
+        "n": 52,
+        "p90_s": 175.0
+      }
+    },
+    "steps": {
+      "job_seconds": 583720.0,
+      "rows": [
+        {
+          "seconds": 532933.0,
+          "share": 0.9191098862436965,
+          "step": "Test"
+        },
+        {
+          "seconds": 18357.0,
+          "share": 0.0316589518415552,
+          "step": "Initialize containers"
+        },
+        {
+          "seconds": 9603.0,
+          "share": 0.016561579481094654,
+          "step": "Install dependencies"
+        },
+        {
+          "seconds": 5092.0,
+          "share": 0.00878179347263709,
+          "step": "Install uv"
+        },
+        {
+          "seconds": 2367.0,
+          "share": 0.004082188756820894,
+          "step": "Run ankane/setup-opensearch"
+        },
+        {
+          "seconds": 2167.0,
+          "share": 0.0037372636400637422,
+          "step": "Run actions/checkout"
+        },
+        {
+          "seconds": 1906.0,
+          "share": 0.0032871363626956586,
+          "step": "Install libpq-dev"
+        },
+        {
+          "seconds": 1417.0,
+          "share": 0.002443794452224422,
+          "step": "Set up job"
+        },
+        {
+          "seconds": 1337.0,
+          "share": 0.0023058244055215614,
+          "step": "Upload coverage data"
+        },
+        {
+          "seconds": 1332.0,
+          "share": 0.0022972012776026323,
+          "step": "Test project template"
+        },
+        {
+          "seconds": 752.0,
+          "share": 0.0012969184390068916,
+          "step": "Generate coverage report"
+        },
+        {
+          "seconds": 493.0,
+          "share": 0.0008502404128063797,
+          "step": "Set up Python"
+        },
+        {
+          "seconds": 483.0,
+          "share": 0.0008329941569685222,
+          "step": "Upload coverage to Codecov"
+        },
+        {
+          "seconds": 426.0,
+          "share": 0.0007346904986927338,
+          "step": "Post Install uv"
+        },
+        {
+          "seconds": 236.0,
+          "share": 0.0004070116377734394,
+          "step": "Stop containers"
+        },
+        {
+          "seconds": 203.0,
+          "share": 0.0003500989935085093,
+          "step": "Check out the repo"
+        },
+        {
+          "seconds": 179.0,
+          "share": 0.00030870797949765104,
+          "step": "Post Run actions/checkout"
+        },
+        {
+          "seconds": 143.0,
+          "share": 0.0002466214584813637,
+          "step": "Combine coverage data"
+        },
+        {
+          "seconds": 133.0,
+          "share": 0.0002293752026435061,
+          "step": "Upload HTML report as artifact"
+        },
+        {
+          "seconds": 106.0,
+          "share": 0.00018281031188129056,
+          "step": "Download coverage data"
+        },
+        {
+          "seconds": 101.0,
+          "share": 0.00017418718396236177,
+          "step": "Post Set up Python"
+        },
+        {
+          "seconds": 46.0,
+          "share": 7.933277685414497e-05,
+          "step": "Complete job"
+        },
+        {
+          "seconds": 17.0,
+          "share": 2.931863492435792e-05,
+          "step": "Post Check out the repo"
+        },
+        {
+          "seconds": 7.0,
+          "share": 1.2072379086500322e-05,
+          "step": "Configure sysctl limits"
+        }
+      ],
+      "runs": 71,
+      "step_seconds": 579836.0
+    },
+    "success_runs": 71,
+    "summary": {
+      "billed_median_min": 144,
+      "billed_total_min": 10362,
+      "conclusions": {
+        "cancelled": 27,
+        "failure": 2,
+        "success": 71
+      },
+      "first_run": "2026-09-07T08:45:26Z",
+      "last_run": "2026-11-10T10:33:03Z",
+      "runner_median_s": 8229.0,
+      "runs_total": 100,
+      "runs_with_verdict": 73,
+      "wall_max_s": 3701.0,
+      "wall_median_s": 1407.0,
+      "wall_median_success_s": 1413.0,
+      "wall_min_s": 78.0,
+      "wall_p90_s": 1651.0
+    },
+    "test_mysql_last": 71
+  },
+  "ranking": {
+    "ci_verdict_runs": 174,
+    "coverage_314_drop": 0.014755959137343927,
+    "coverage_estimate_s": 1284.7410015649452,
+    "coverage_jobs_probed": 3,
+    "coverage_max_drop": 0.36122971818958155,
+    "coverage_min_drop": 0.25508607198748046,
+    "fix_billed_min_per_30d": 7047.0,
+    "fix_wait_min_per_30d": 1648.65,
+    "main_cancelled_finish_extra_min": 1793.0,
+    "main_cancelled_share": 0.27,
+    "main_cancelled_used_each_min": 74.5925925925926,
+    "py314_largest_drop": 0.3790849673202614,
+    "py314_smallest_drop": 0.31840390879478825,
+    "py_older_estimate_s": 1603.641286644951,
+    "py_older_jobs": 7,
+    "py_older_runner_s": 5036.5,
+    "queue_share": 0.23943661971830985,
+    "window_cancelled_billed_min": 2936,
+    "window_cancelled_runs": 43,
+    "window_days": 30
+  },
+  "static": {
+    "action_repos": 10,
+    "actions": [
+      {
+        "action": "actions/checkout",
+        "archived": false,
+        "latest_release": "v7.0.1",
+        "majors_behind": 0,
+        "pin": "sha",
+        "ref": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+        "references": 10,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v7.0.1"
+      },
+      {
+        "action": "actions/download-artifact",
+        "archived": false,
+        "latest_release": "v8.0.2",
+        "majors_behind": 0,
+        "pin": "sha",
+        "ref": "9000827ccba6bdab643e8b6fd33ac0654aef8333",
+        "references": 1,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v8.0.2"
+      },
+      {
+        "action": "actions/setup-python",
+        "archived": false,
+        "latest_release": "v7.1.0",
+        "majors_behind": 0,
+        "pin": "sha",
+        "ref": "6d4fd22b20465ccc0f7354476588e8df7c9ca0e0",
+        "references": 8,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v7.1.0"
+      },
+      {
+        "action": "actions/upload-artifact",
+        "archived": false,
+        "latest_release": "v7.0.2",
+        "majors_behind": 0,
+        "pin": "sha",
+        "ref": "cf430e030ddbb5b0abf93d22962f4752f3646cd9",
+        "references": 7,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v7.0.2"
+      },
+      {
+        "action": "ankane/setup-opensearch",
+        "archived": false,
+        "latest_release": null,
+        "majors_behind": null,
+        "pin": "sha",
+        "ref": "b73d8d2d65eaa5da2add094872f12f3ae6ef1eea",
+        "references": 1,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v1"
+      },
+      {
+        "action": "astral-sh/setup-uv",
+        "archived": false,
+        "latest_release": "v10.3.3",
+        "majors_behind": 0,
+        "pin": "sha",
+        "ref": "07a047e608db84b3d8c06cd9a7c7dcc9c355c18e",
+        "references": 8,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v10.3.2"
+      },
+      {
+        "action": "codecov/codecov-action",
+        "archived": false,
+        "latest_release": "v7.1.1",
+        "majors_behind": 0,
+        "pin": "sha",
+        "ref": "303a32d7a59b442fa8d48b6a1cc6825c09c847a5",
+        "references": 1,
+        "runtime": "composite",
+        "runtime_deprecated": false,
+        "version_comment": "v7.1.1"
+      },
+      {
+        "action": "github/codeql-action/analyze",
+        "archived": false,
+        "latest_release": "codeql-bundle-v2.27.4",
+        "majors_behind": -2,
+        "pin": "sha",
+        "ref": "9b3254085494b55a0f7c4c2b3d2d52cc712ce370",
+        "references": 1,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v4.39.1"
+      },
+      {
+        "action": "github/codeql-action/init",
+        "archived": false,
+        "latest_release": "codeql-bundle-v2.27.4",
+        "majors_behind": -2,
+        "pin": "sha",
+        "ref": "9b3254085494b55a0f7c4c2b3d2d52cc712ce370",
+        "references": 1,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v4.39.1"
+      },
+      {
+        "action": "slackapi/slack-github-action",
+        "archived": false,
+        "latest_release": "v4.0.0",
+        "majors_behind": 0,
+        "pin": "sha",
+        "ref": "dcb1066f776dd043e64d0e8ba94ca15cc7e1875d",
+        "references": 1,
+        "runtime": "node24",
+        "runtime_deprecated": false,
+        "version_comment": "v4.0.0"
+      },
+      {
+        "action": "zizmorcore/zizmor-action",
+        "archived": false,
+        "latest_release": "v0.8.1",
+        "majors_behind": 0,
+        "pin": "sha",
+        "ref": "53290badfa369cb0bf7ad16342cb62c2fa47ac7b",
+        "references": 1,
+        "runtime": "composite",
+        "runtime_deprecated": false,
+        "version_comment": "v0.8.0"
+      }
+    ],
+    "actions_archived": [],
+    "actions_behind": [],
+    "actions_deprecated_runtime": [],
+    "actions_distinct": 11,
+    "files": [
+      ".github/workflows/codeql-analysis.yml",
+      ".github/workflows/latest-deps.yml",
+      ".github/workflows/test.yml",
+      ".github/workflows/zizmor.yml"
+    ],
+    "images": [
+      {
+        "file": ".github/workflows/test.yml",
+        "image": "docker.elastic.co/elasticsearch/elasticsearch:8.11.2",
+        "line": 281,
+        "pin": "tag"
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "image": "postgres:latest",
+        "line": 339,
+        "pin": "floating"
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "image": "docker.elastic.co/elasticsearch/elasticsearch:7.17.13",
+        "line": 346,
+        "pin": "tag"
+      }
+    ],
+    "images_floating": [
+      {
+        "file": ".github/workflows/test.yml",
+        "image": "postgres:latest",
+        "line": 339,
+        "pin": "floating"
+      }
+    ],
+    "jobs": [
+      {
+        "file": ".github/workflows/codeql-analysis.yml",
+        "has_cache": false,
+        "installs": [],
+        "job": "analyze",
+        "services": []
+      },
+      {
+        "file": ".github/workflows/latest-deps.yml",
+        "has_cache": true,
+        "installs": [
+          "uv"
+        ],
+        "job": "test",
+        "services": []
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "has_cache": true,
+        "installs": [
+          "uv"
+        ],
+        "job": "test-sqlite",
+        "services": []
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "has_cache": true,
+        "installs": [
+          "apt",
+          "uv"
+        ],
+        "job": "test-postgres",
+        "services": [
+          "postgres"
+        ]
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "has_cache": true,
+        "installs": [
+          "uv"
+        ],
+        "job": "test-mysql",
+        "services": [
+          "mysql"
+        ]
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "has_cache": true,
+        "installs": [
+          "uv"
+        ],
+        "job": "test-sqlite-elasticsearch8",
+        "services": [
+          "elasticsearch8"
+        ]
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "has_cache": true,
+        "installs": [
+          "apt",
+          "uv"
+        ],
+        "job": "test-postgres-elasticsearch7",
+        "services": [
+          "elasticsearch7",
+          "postgres"
+        ]
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "has_cache": true,
+        "installs": [
+          "uv"
+        ],
+        "job": "test-sqlite-opensearch2",
+        "services": []
+      },
+      {
+        "file": ".github/workflows/test.yml",
+        "has_cache": true,
+        "installs": [
+          "uv"
+        ],
+        "job": "coverage",
+        "services": []
+      },
+      {
+        "file": ".github/workflows/zizmor.yml",
+        "has_cache": false,
+        "installs": [],
+        "job": "zizmor",
+        "services": []
+      }
+    ],
+    "jobs_installing": 8,
+    "jobs_installing_without_cache": [],
+    "ref": "030168a7dc42d5450c4cfbac3c68881b63b2d466",
+    "uses_by_pin": {
+      "sha": 40
+    },
+    "uses_total": 40,
+    "uses_unpinned": []
+  },
+  "window": {
+    "ci_by_event": {
+      "pull_request": {
+        "cancelled": 22,
+        "event": "pull_request",
+        "failure": 34,
+        "failure_rate": 0.2905982905982906,
+        "held_for_approval": 30,
+        "other": 0,
+        "rerun_after_approval": 8,
+        "rerun_after_failure": 0,
+        "rerun_other": 0,
+        "rerun_rate": 0.0,
+        "runs": 169,
+        "success": 83,
+        "workflow": "Wagtail CI"
+      },
+      "push": {
+        "cancelled": 21,
+        "event": "push",
+        "failure": 5,
+        "failure_rate": 0.08771929824561403,
+        "held_for_approval": 0,
+        "other": 0,
+        "rerun_after_approval": 0,
+        "rerun_after_failure": 0,
+        "rerun_other": 0,
+        "rerun_rate": 0.0,
+        "runs": 78,
+        "success": 52,
+        "workflow": "Wagtail CI"
+      }
+    },
+    "ci_cancelled_cost": {
+      "billed_min": 2936,
+      "runner_seconds": 157837.0,
+      "runs": 43
+    },
+    "ci_main_push": {
+      "cancelled": 18,
+      "failure": 1,
+      "failure_rate": 0.027777777777777776,
+      "runs": 54,
+      "success": 35,
+      "verdicts": 36
+    },
+    "ci_pr_duration": {
+      "billed_median_min": 142,
+      "billed_total_min": 11732,
+      "conclusions": {
+        "success": 83
+      },
+      "first_run": "2026-10-12T09:38:35Z",
+      "last_run": "2026-11-10T23:52:34Z",
+      "runner_median_s": 8068.0,
+      "runs_total": 83,
+      "runs_with_verdict": 83,
+      "wall_max_s": 3580.0,
+      "wall_median_s": 1434.0,
+      "wall_median_success_s": 1434.0,
+      "wall_min_s": 1288.0,
+      "wall_p90_s": 2034.0
+    },
+    "ci_pr_inspectable_failures": 16,
+    "ci_push_branches": 14,
+    "ci_totals": {
+      "cancelled": 43,
+      "failure": 39,
+      "failure_rate": 0.22413793103448276,
+      "held_for_approval": 30,
+      "rerun_after_approval": 8,
+      "rerun_after_failure": 0,
+      "rerun_other": 0,
+      "rerun_rate": 0.0,
+      "runs": 247,
+      "success": 135
+    },
+    "ci_verdict_runs": 174,
+    "failed_shapes": {
+      "pull_request": {
+        "shapes": {
+          "no_failed_job": 18,
+          "one_job": 2,
+          "several_jobs": 14
+        },
+        "single_job_failures": [
+          {
+            "event": "pull_request",
+            "failed_tests": [
+              "wagtail.api.v3.tests.test_streamfield_schemas.TestBlockSchema.test_annotated_api_representation"
+            ],
+            "job": "test-postgres (3.11, Django>=5.2,<5.3, psycopg2>=2.8.4, false, --parallel, yes)",
+            "run_id": 39617570818,
+            "url": "https://github.com/wagtail/wagtail/actions/runs/39617570818/job/119282447190"
+          },
+          {
+            "event": "pull_request",
+            "failed_tests": [
+              "wagtail.api.v3.tests.test_page_workflow.TestPageWorkflowReads.test_status_in_progress_payload_shape_per_caller",
+              "wagtail.api.v3.tests.test_page_workflow.TestPageWorkflowTransitions.test_reject_records_comment_and_requests_changes",
+              "wagtail.api.v3.tests.test_page_workflow.TestPageWorkflowTransitions.test_submit_returns_workflow_status",
+              "wagtail.snippets.tests.test_api_v3.test_workflow.TestSnippetWorkflowReads.test_status_in_progress_payload_shape_per_caller",
+              "wagtail.snippets.tests.test_api_v3.test_workflow.TestSnippetWorkflowTransitions.test_reject_records_comment_and_requests_changes",
+              "wagtail.snippets.tests.test_api_v3.test_workflow.TestSnippetWorkflowTransitions.test_submit_returns_workflow_status"
+            ],
+            "job": "test-mysql (3.13, Django>=6.0,<6.1, false, mysql:8.4, emailuser)",
+            "run_id": 38893935232,
+            "url": "https://github.com/wagtail/wagtail/actions/runs/38893935232/job/116949795623"
+          }
+        ]
+      },
+      "push": {
+        "shapes": {
+          "several_jobs": 5
+        },
+        "single_job_failures": []
+      }
+    },
+    "failing_jobs": [
+      {
+        "allowed": 6,
+        "failures": 33,
+        "job": "test-postgres",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 22,
+        "job": "test-mysql",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 21,
+        "job": "test-sqlite",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 17,
+        "failures": 20,
+        "job": "test-postgres",
+        "step": "Test project template",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 1,
+        "job": "test-postgres-elasticsearch7",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 1,
+        "job": "test-sqlite-opensearch2",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      },
+      {
+        "allowed": 0,
+        "failures": 1,
+        "job": "test-sqlite-elasticsearch8",
+        "step": "Test",
+        "workflow": "Wagtail CI"
+      }
+    ],
+    "flaky_candidates": [],
+    "rows": [
+      {
+        "cancelled": 2,
+        "event": "pull_request",
+        "failure": 20,
+        "failure_rate": 0.1360544217687075,
+        "held_for_approval": 31,
+        "other": 0,
+        "rerun_after_approval": 8,
+        "rerun_after_failure": 0,
+        "rerun_other": 0,
+        "rerun_rate": 0.0,
+        "runs": 180,
+        "success": 127,
+        "workflow": "zizmor"
+      },
+      {
+        "cancelled": 22,
+        "event": "pull_request",
+        "failure": 34,
+        "failure_rate": 0.2905982905982906,
+        "held_for_approval": 30,
+        "other": 0,
+        "rerun_after_approval": 8,
+        "rerun_after_failure": 0,
+        "rerun_other": 0,
+        "rerun_rate": 0.0,
+        "runs": 169,
+        "success": 83,
+        "workflow": "Wagtail CI"
+      },
+      {
+        "cancelled": 21,
+        "event": "push",
+        "failure": 5,
+        "failure_rate": 0.08771929824561403,
+        "held_for_approval": 0,
+        "other": 0,
+        "rerun_after_approval": 0,
+        "rerun_after_failure": 0,
+        "rerun_other": 0,
+        "rerun_rate": 0.0,
+        "runs": 78,
+        "success": 52,
+        "workflow": "Wagtail CI"
+      },
+      {
+        "cancelled": 0,
+        "event": "push",
+        "failure": 0,
+        "failure_rate": 0.0,
+        "held_for_approval": 0,
+        "other": 0,
+        "rerun_after_approval": 0,
+        "rerun_after_failure": 0,
+        "rerun_other": 0,
+        "rerun_rate": 0.0,
+        "runs": 56,
+        "success": 56,
+        "workflow": "zizmor"
+      },
+      {
+        "cancelled": 0,
+        "event": "schedule",
+        "failure": 2,
+        "failure_rate": 0.2222222222222222,
+        "held_for_approval": 0,
+        "other": 0,
+        "rerun_after_approval": 0,
+        "rerun_after_failure": 0,
+        "rerun_other": 0,
+        "rerun_rate": 0.0,
+        "runs": 9,
+        "success": 7,
+        "workflow": "Test against latest dependencies"
+      },
+      {
+        "cancelled": 0,
+        "event": "schedule",
+        "failure": 0,
+        "failure_rate": 0.0,
+        "held_for_approval": 0,
+        "other": 0,
+        "rerun_after_approval": 0,
+        "rerun_after_failure": 0,
+        "rerun_other": 0,
+        "rerun_rate": 0.0,
+        "runs": 4,
+        "success": 4,
+        "workflow": "CodeQL"
+      }
+    ],
+    "runs_all": 607,
+    "runs_generated": 111,
+    "runs_own": 496,
+    "since": "2026-10-12",
+    "totals": {
+      "cancelled": 45,
+      "failure": 61,
+      "failure_rate": 0.1564102564102564,
+      "held_for_approval": 61,
+      "rerun_after_approval": 16,
+      "rerun_after_failure": 0,
+      "rerun_other": 0,
+      "rerun_rate": 0.0,
+      "runs": 496,
+      "success": 329
+    },
+    "until": "2026-11-10"
+  }
+}

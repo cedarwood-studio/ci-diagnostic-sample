@@ -1,0 +1,51 @@
+2026-10-29T19:28:47.7019532Z ##[group]Run actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+2026-10-29T19:28:50.9125085Z ##[group]Run dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8
+2026-10-29T19:28:50.9212837Z ##[group]Run : parse toolchain version
+2026-10-29T19:28:50.9352868Z ##[group]Run : construct rustup command line
+2026-10-29T19:28:50.9436271Z ##[group]Run : set $CARGO_HOME
+2026-10-29T19:28:50.9514651Z ##[group]Run : install rustup if needed
+2026-10-29T19:28:50.9596683Z ##[group]Run rustup toolchain install stable --component clippy --profile minimal --no-self-update
+2026-10-29T19:28:51.2636029Z ##[group]Run rustup default stable
+2026-10-29T19:28:51.2864207Z ##[group]Run : create cachekey
+2026-10-29T19:28:51.3258538Z ##[group]Run : disable incremental compilation
+2026-10-29T19:28:51.3349278Z ##[group]Run : enable colors in Cargo output
+2026-10-29T19:28:51.3423790Z ##[group]Run : enable Cargo sparse registry
+2026-10-29T19:28:51.3738160Z ##[group]Run : work around spurious network errors in curl 8.0
+2026-10-29T19:28:51.3922527Z ##[group]Run rustc +stable --version --verbose
+2026-10-29T19:28:51.4229168Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-10-29T19:28:51.6270178Z ##[group]Run Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32
+2026-10-29T19:28:52.1543744Z Cache hit for restore-key: v0-rust-/opt/hostedtoolcache/Python/3.14.9/x64-build-lint-test-Linux-x64-51ccc61f-cc8c287a
+2026-10-29T19:28:56.9911621Z Restored from cache key "v0-rust-/opt/hostedtoolcache/Python/3.14.9/x64-build-lint-test-Linux-x64-51ccc61f-cc8c287a" full match: false.
+2026-10-29T19:28:57.0482172Z ##[group]Run arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b
+2026-10-29T19:29:01.9296520Z ##[group]Run astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+2026-10-29T19:29:03.8296783Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-8a90cd5776079c6b79d2c1f46a457d3a21599743327011b93d1cbc7ab8ab3108
+2026-10-29T19:29:03.8981253Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-8a90cd5776079c6b79d2c1f46a457d3a21599743327011b93d1cbc7ab8ab3108
+2026-10-29T19:29:04.2259206Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-3.14.9-pruned-8a90cd5776079c6b79d2c1f46a457d3a21599743327011b93d1cbc7ab8ab3108
+2026-10-29T19:29:04.2885495Z ##[group]Run uv tool install poethepoet
+2026-10-29T19:29:04.4761147Z Installed 2 packages in 2ms
+2026-10-29T19:29:04.4808356Z ##[group]Run uv sync --all-extras
+2026-10-29T19:29:08.5457177Z Installed 221 packages in 2.12s
+2026-10-29T19:29:08.5690642Z ##[group]Run poe bridge-lint
+2026-10-29T19:29:44.4124852Z ##[group]Run poe build-develop
+2026-10-29T19:29:45.9941205Z Installed 2 packages in 21ms
+2026-10-29T19:30:48.1737500Z ##[group]Run poe lint
+2026-10-29T19:30:48.2810889Z Installed 1 package in 0.99ms
+2026-10-29T19:32:18.3777169Z ##[group]Run mkdir junit-xml
+2026-10-29T19:32:18.3900263Z ##[group]Run poe test  -s --junit-xml=junit-xml/3.14--ubuntu-latest.xml
+2026-10-29T19:39:08.4277076Z ##[error]    raise RuntimeError('Event loop is closed')
+2026-10-29T19:39:10.3556321Z ======================================================= FAILURES =======================================================
+2026-10-29T19:39:10.3557011Z ___________________________________________ test_warns_when_workers_too_low ____________________________________________
+2026-10-29T19:39:10.3572623Z E           Failed: Timeout (>60.0s) from pytest-timeout.
+2026-10-29T19:39:10.3624028Z                                                Summary of Failures                                               
+2026-10-29T19:39:10.3624861Z ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┓
+2026-10-29T19:39:10.3625379Z ┃  File                         ┃  Function                         ┃  Function Line  ┃  Error Line  ┃  Error   ┃
+2026-10-29T19:39:10.3625900Z ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━┩
+2026-10-29T19:39:10.3626463Z │  tests/worker/test_worker.py  │  test_warns_when_workers_too_low  │  395            │  529         │  Failed  │
+2026-10-29T19:39:10.3627042Z └───────────────────────────────┴───────────────────────────────────┴─────────────────┴──────────────┴──────────┘
+2026-10-29T19:39:10.3627355Z Results (408.11s):
+2026-10-29T19:39:10.3627548Z          1 failed
+2026-10-29T19:39:10.3627723Z       1753 passed
+2026-10-29T19:39:10.3627890Z          3 skipped
+2026-10-29T19:39:10.3628060Z         33 warnings
+2026-10-29T19:39:10.7448763Z ##[error]Process completed with exit code 1.
+2026-10-29T19:39:10.7505128Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
