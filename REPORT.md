@@ -2,7 +2,7 @@
 
 > **Sample report.** Produced by Cedarwood Studio from public data on wagtail/wagtail as of 2026-11-12. Nobody at the project asked for it. Cedarwood Studio isn't affiliated with the project and the project hasn't endorsed this report. Nothing was sent to the project: no issue, pull request or comment.
 
-This is the report a CI Diagnostic client receives, run here on a public repository so anyone can check it. Every number below was computed from the repository's own CI history, and each section says where its numbers are stored. The API responses behind them are stored with the report, with personal fields removed and logs trimmed.
+This is the report a CI Diagnostic produces, run here on a public repository so anyone can check it. Every number below was computed from the repository's own CI history, and each section says where its numbers are stored. The API responses behind them are stored with the report, with personal fields removed and logs trimmed.
 
 A diagnostic measures how a pipeline behaves. It isn't an audit or a security assessment, and none of this judges the project or the people who maintain it. Wagtail's pipeline is carefully maintained, and most of what follows confirms that.
 

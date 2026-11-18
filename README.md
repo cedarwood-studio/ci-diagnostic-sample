@@ -45,7 +45,7 @@ Names, logins and email addresses of the people behind each run are removed befo
 
 Finding the cause of a flaky test or fixing it is separate work.
 
-No person has reviewed these two samples yet. A report you pay for gets a person's review before delivery.
+A report you pay for gets a person's review before delivery.
 
 ## On your own repository
 
